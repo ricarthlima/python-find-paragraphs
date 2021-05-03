@@ -64,11 +64,11 @@ while i < len(listFiles):
             else:
                 startIndex = index + 1
                 
-                output += text[index-400:index-1]
+                output += text[index-espacoBusca:index-1]
                 output += " **"
                 output += text[index:index+len(word)]
                 output += "** "
-                output += text[index+len(word):index+400]
+                output += text[index+len(word):index+espacoBusca]
                 output += "\n\n\n\n\n\n\n\n\n\n\n\n"
         
     if output != "":
