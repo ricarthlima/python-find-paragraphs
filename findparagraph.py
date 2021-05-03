@@ -49,6 +49,16 @@ while i < len(arrayDirs):
 print("\n4- Arquivos anexados, vamos começar as buscas!")
 input("Continuar?")
 
+extensao = "txt"
+
+while True:
+    print("\n5- Mas antes, qual extensão de saída você prefere? TXT ou MD?")
+    escolha = input(">>> ").lower()
+    if escolha in ["txt","md"]:
+        extensao = escolha
+        break
+    
+
 i = 0
 while i < len(listFiles):
     output = ""
@@ -72,7 +82,7 @@ while i < len(listFiles):
                 output += "\n\n\n\n\n\n\n\n\n\n\n\n"
         
     if output != "":
-        file = io.open("results/" + path[:-3] + "md", mode = "w", encoding = "utf-8")
+        file = io.open("results/" + path[:-3] + extensao, mode = "w", encoding = "utf-8")
         file.write(output)
         file.close()
     i += 1
