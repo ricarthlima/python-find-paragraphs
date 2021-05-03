@@ -1,0 +1,2826 @@
+Arabian Journal for Science and Engineering
+https://doi.org/10.1007/s13369-021-05476-z
+
+RESEARCH ARTICLE-COMPUTER ENGINEERING AND COMPUTER SCIENCE
+
+P‑STORE: Extension of STORE Methodology to Elicit Privacy
+Requirements
+Md Tarique Jamal Ansari1 · Abdullah Baz2 · Hosam Alhakami3 · Wajdi Alhakami4 · Rajeev Kumar5,6
+Raees Ahmad Khan5
+
+·
+
+Received: 16 June 2020 / Accepted: 18 February 2021
+© King Fahd University of Petroleum & Minerals 2021
+
+Abstract
+Implementing security and privacy requirements at every level of the software development cycle is imperative for ensuring
+optimum usability as well as the users’ satisfaction. Software development must consider and comply effectively with the
+risks involved in the privacy and protection of confidential data. This research study endeavors to integrate the standards
+of data protection along with the Security Threat Oriented Requirements Engineering (STORE) methodology in order to
+recognize the potential threats to privacy requirements. The proposed extension of the STORE methodology, called the
+P-STORE, is validated by a case study of the Healthcare Management Software (HMS) system project. Furthermore, we
+have used the integrated fuzzy AHP with fuzzy TOPSIS technique for the usability assessment of different privacy requirements engineering approaches including the P-STORE methodology. The study demonstrates that the P-STORE approach
+has the capability to elicit more efficient privacy requirements and that it allows the software engineer to arrange privacy
+requirements efficaciously.
+Keywords Privacy requirements engineering · STORE · P-STORE · Healthcare management software · Fuzzy logic · Fuzzy
+AHP-TOPSIS
+
+1 Introduction
+We are witnessing the biggest change in the evolution of
+digital technology at present with the world undergoing a
+* Rajeev Kumar
+rs0414@gmail.com
+1
+
+Department of Computer Application, Integral University,
+Lucknow 226026, Uttar Pradesh, India
+
+2
+
+Department of Computer Engineering, College of Computer
+and Information Systems, Umm Al-Qura University,
+Makkah 21955, Saudi Arabia
+
+3
+
+Department of Computer Science, College of Computer
+and Information Systems, Umm Al-Qura University,
+Makkah 21955, Saudi Arabia
+
+4
+
+Department of Information Technology, College
+of Computers and Information Technology, Taif University,
+P.O. Box 11099, Taif 21944, Saudi Arabia
+
+5
+
+Department of Information Technology, Babasaheb Bhimrao
+Ambedkar University, Lucknow 226025, Uttar Pradesh, India
+
+6
+
+Department of Computer Application, Shri Ramswaroop
+Memorial University, Barabanki 225003, Uttar Pradesh,
+India
+
+transformation from the paper-based system to a fully digital
+system. To meet the rising demands of this evolution, several methodologies, techniques and frameworks have been
+invented by the practitioners so as to facilitate the development process of software applications. The web applications as well as different software are based upon several
+Information Technology (IT)-enabled services of computers
+and networks to store, manage, transfer, and upgrade data
+across multiple sectors. Many digital technologies are steadily increasing in the global internet world, which now connect not only the digital devices but also a variety of intelligent and fully automated devices from our everyday lives,
+including the embedded electronic chips, detectors, actuators
+as well as wearable devices, to ensure simultaneous access
+to knowledge [1]. Dependency on information technology
+for business and many other sectors has seen a phenomenal
+increase in the present era. Various organizations in the public as well as private sectors are now becoming extremely
+dependent on information technology and its implementations to quickly achieve more benefits [2]. However, in
+the same league, it is unfortunate to note that the volume
+of cyber-attack is also rising exponentially. Moreover, this
+has also created a demand for the production of defensive
+
+13
+
+Vol.:(0123456789)
+
+Arabian Journal for Science and Engineering
+
+software applications to protect the systems from the external
+threats. In this backdrop, preserving software privacy is one
+of the major concerns for the practitioners while developing reliable and quality software systems. Another important
+problem in this context is to ensure that features which assure
+security as well as privacy of the users are strengthened at
+the initial stages of application’s development process [3–6].
+Considering and maintaining privacy at every level of
+the software life-cycle is of utmost significance. However,
+though there are various strategies that tackle security
+requirements, very few mechanisms deal with the privacy
+aspect of the issue [7]. Privacy requirements are integral
+factors that must be reckoned in when building software
+or system engineering requirements, particularly in highly
+regulated domains of critical infrastructure sectors such as
+financial services, healthcare, energy and others. Privacy
+enforcement necessitates an organization to focus on engineering requirements authenticated by laws or regulations.
+Privacy is an individual person’s capacity to monitor his
+or her own knowledge. Privacy and security is important
+in several domains, including healthcare and finance. The
+identification and modeling of privacy requirements during
+the preliminary phases of software application development
+is essential for delivering a significant degree of privacy protection to stakeholders including the users. Maintaining software privacy along with preserving data security continues
+to be a challenge for software professionals as information
+systems become more complex and dispersed. Implementing
+these programs not only poses technical obstacles but also
+needs the compliance of privacy laws.
+Privacy for healthcare applications has significant implications because the provision of service influences human
+life, reputation and government’s policies [8]. Health Information technology plays a vital role in the present day
+e-healthcare for maintaining the EHRs and also facilitating
+the use of medical devices. The advancement and implementation of health information technology has increased
+tremendously. The Institute of Medicine (IOM) study published in this context is a corroboration of the same [9].
+In the present scenario, health information technology provides multiple ways to improve and transform healthcare
+that includes: reducing human errors, enhancing clinical outcomes, promoting quality of treatment, increasing efficiencies in practice and monitoring the relevant data. However,
+the processing and distribution of Electronic Healthcare
+Records (EHRs) has raised privacy concerns for both the
+patients and healthcare agencies [10].
+Furthermore, employing Information and Communication
+Technology (ICT) in healthcare is also a growing necessity as there are many positive benefits of it. These benefits can be seen in improving patient’s treatment, reducing
+medical errors, sharing knowledge among healthcare professionals, improving usability, accessibility, consistency of
+
+13
+
+information, as well as enhancing the overall quality of services [11–13]. However, lack of sufficient security to maintain confidentiality, honesty and accessibility leads to possible threats in the HMS domain. Weak safety procedures and
+weak awareness of risk management practices also need special attention. It is important to ensure that risks to privacy
+are established in HMS. In addition, good industry practices
+or standards in the healthcare setting, for example using ISO/
+IEC 27002 (ISO 27799:2008) [14], Health Insurance Portability and Accountability Act (HIPAA) [15], Patient Safety
+and Quality Improvement Act 2005 (PSQIA) [16], Health
+Information Technology for Economic and Clinical Health
+(HITECH) [17], Personal Information Protection and Electronic Documents Act (PIPEDA) [18], General Data Protection Regulation GDPR [19], Data Protection Act (DPA) [20],
+IT Act [21] and many other legislative acts, are imminently
+needed to protect computer-based information assets. The
+European Union’s GDPR enforced and replaced the Data
+Protection Directive from 25 May 2018 [22]. It will enhance
+data subjects’ privacy protection and enable organizations
+and companies to work in alignment with its specified rules
+[23]. At present, it is essential for the healthcare organizations to manage and secure patients’ information more than
+ever before. In addition, the organizations must also manage
+the risks as well as legal obligations involved in maintaining the patients’ personal records to satisfy the increasing
+complexity of relevant data. Various nations have different
+policies and legislation on data protection. Data protection
+guidelines and laws in some of the countries are shown in
+Fig. 1.
+Developing a regulatory system that is capable of
+addressing significant technical developments requires a
+clearer perspective. Specific privacy regulations and standards still depend heavily on the government’s policies. However, the laws have not been deemed as effective enough
+by the experts and the practitioners in the field. Many have
+apprehensions about the discrepancy between the degree
+of technological growth as well as the management of that
+transformation through legislative mechanisms [24]. Danezis et al. [25] observed that in general, when implementing
+the desired features, privacy and data protection characteristics are neglected by conventional engineering methods.
+This negligence is caused and encouraged by the limitations
+of the expertise and understanding of developers and data
+controllers, as well as the lack of resources to recognize
+privacy-by-design. Consequently, the difference between the
+legislative framework for privacy and the available technical
+implementation steps needs to be bridged [2, 25].
+Against this backdrop, this research paper has provided
+a preliminary extension of the STORE methodology [26]
+called the P-STORE to address privacy requirements
+for software system. P-STORE is designed to function
+independently from STORE. However, our study also
+
+Arabian Journal for Science and Engineering
+
+Fig. 1  Data privacy laws in some of the countries
+
+establishes that it may be appropriate to use P-STORE
+along with STORE methodology for enhanced efficacy.
+While implementing P-STORE to add a non-exhaustive
+collection of current engineering and law research, we
+examined each phase of the original STORE process and
+demonstrated the legal enforcement issues that could arise
+in the process.
+Furthermore, we have implemented the P-STORE methodology for a healthcare management software project. The
+P-STORE methodology is anticipated to have the capability
+to elicit the effective and well-organized privacy requirements, which is very important for any security-critical
+software product. In this paper, a systematic evaluation process of the P-STORE methodology has been conducted in
+an organized manner. A case study of HMS system that has
+been alluded to demonstrates the provision of the P-STORE
+methodology for privacy engineering. The implementation
+of P-STORE methodology on an HMS system development
+for the validation is a very challenging task. Full procedural
+processes of P-STORE methodology were performed to
+elicit complete as well as well-organized privacy requirements toward trustworthy HMS system development.
+This research study has been envisioned as: Sect. 2 discusses different existing methods for the engineering of privacy requirements for software application. The overview of
+the STORE procedure is discussed in Sect. 3. Section 4 deals
+with extending the STORE procedure for the development of
+privacy requirements engineering approach. The functional
+
+framework of P-STORE methodology is presented in
+Sect. 5. Thereafter, Sect. 6 establishes the application of the
+P-STORE approach on a case study of a web-based software
+project that is premised on the HMS. Section 7 presents
+the analysis of the usability of six different PRE approaches
+including the P-STORE methodology. Section 8 summarizes
+and concludes this research paper.
+
+2 Literature Review
+Several methods have been proposed for evaluating privacy
+requirements as well as strategies for privacy protection.
+This section offers a review of some of the current strategies
+to compare the appropriate data security criteria obtained
+through our suggested P-STORE methodology with the suitable privacy enhancement strategies.
+Baldassarre et al. [7] proposed a system called Privacy
+Oriented Software Development (POSD) that can technically support application development by integrating privacy
+protection and security requirements.
+Jensen et al. [27] identified general privacy requirements
+and evaluated how such requirements follow the existing
+mechanisms and instructions. To accomplish this objective, they have implemented a well-structured methodology known as Structured Analysis Framework for Privacy
+(STRAP). The framework was derived from the existing
+requirements engineering research for comprehensive
+
+13
+
+Arabian Journal for Science and Engineering
+
+examination of privacy potential threats in design as well as
+recursive preferences adjustments.
+Mai et al. [5] implemented an existing methodology to
+design security and privacy requirements. They proposed
+a new privacy framework which includes a mitigation template as well as case template for misuse, to visually define
+mitigation techniques and case criteria for misuse. They also
+incorporated their methodology effectively into an organized
+healthcare system project, and obtained industry standards.
+Mead et al. [28] developed a framework for identifying
+privacy specifications from a security specifications engineering perspective. They proposed a new extension to
+SQUARE’s approach and platform to incorporate privacy
+concerns, and recognize potential possibilities for a more
+unified security and privacy requirements’ development
+framework.
+Deng et al. [29] presented a detailed model of privacy oriented risk analysis in software-controlled systems. The model
+provided a structured approach for analyzing privacy-specific
+risks. The methodology followed the STRIDE approach. For
+a detailed interpretation, a system-oriented information management design was used in this study. This method emphasized on those features that the researchers should prioritize
+and resolve. This was accomplished by identifying different
+types of threats to privacy and by mapping them. This also
+includes the elements in the program’s structure.
+Spiekermann & Cranor [30] developed a framework
+for software systems to consider privacy. They combined
+perspectives from different territories of electronic privacy
+research to include a holistic view of privacy engineering
+and a hierarchical framework for issues of the discipline.
+They examined privacy standards based on both historical
+and contemporary privacy perceptions.
+Kalloniatis et al. [31] produced the PriS approach for
+engineering security requirements that incorporated data
+protection requirements earlier into the design and development process. The PriS approach recognizes the effects
+of organizational process privacy requirements as well as
+fosters the understanding of the system design that is best
+suited for privacy-relevant business processes. PriS offers a
+comprehensive approach to IT-based applications that are
+consistent with privacy in this phase by means of high-level
+objectives.
+He & Antón [32] presented a structured method in the
+role-engineering procedures by modeling the privacy requirements. Role engineering requires the description of duties as
+well as responsibilities and permission of tasks. This is the
+first step toward developing a system for Role-Based Access
+Control (RBAC) as well as ultimately a framework intended
+for Requirements Engineering (RE). The proposed system
+consists of a goal-driven data model as well as procedure for
+the creation of functions. The researchers intended to address
+
+13
+
+the difference among high-level data protection standards
+and low-level access control measures by designing privacy
+requirements as context and obligations of the RBAC entities and associations. They also demonstrated their proposed
+approach on a healthcare system example.
+Meis [33] presented the Problem-based Privacy Analysis (ProPAn) for engineering privacy requirements which
+is an aspect-oriented requirements engineering methodology. ProPAn allows the modeling as well as customizable
+incorporation of intersect oral features and functionality into
+requirement specification of a software system. The ProPAn
+approach attempts to address the existing issues including
+the functional requirement specification of a module as constructive feedback. The author also provided a categorization of privacy requirements which was extracted as well as
+mapped with numerous other conceptions of privacy.
+
+3 Overview of STORE Methodology
+The Security Threat Oriented Requirements Engineering
+(STORE) is a technique focused on security threats that can
+be used by a software development enterprise to develop
+effective and efficient security specifications. This approach
+identifies and gives priority to all stakeholders based on their
+importance. The process demands that all stakeholders are
+considered from the very beginning of software development process. The STORE process is a ten-step operation
+for software product security specifications engineering.
+Every stage of the process of the STORE methodology is of
+unprecedented significance. Since it is a detailed sequential
+procedure for managing and documenting security requirements [26], the security expert or requirements engineer
+cannot completely forgo as well as swoop toward another
+phase. The STORE method comprises a sequence of ten
+phases. Figure 2 shows the ten sequential steps of STORE
+methodology.
+With the support of potential stakeholders, the STORE
+methodology addresses security threats for determining
+security requirements. Many stakeholders often support
+in asset recognition of the software product to the requirement engineer. The STORE process begins by specifying
+the software system’s goals. The STORE methodology is
+entirely constructed on software security threats since the
+requirement engineer is able to produce security specifications with the aid of a threat dictionary after recognizing the
+possible threats.
+Frameworks and approaches that include a comprehensive solution to security and privacy are very important for
+the quality software development [34]. However, the STORE
+methodology is capable of eliciting only security requirements. The technique cannot elicit privacy requirements
+
+Arabian Journal for Science and Engineering
+
+However, when a software product is to be developed, only
+a few of the stakeholders seem to be highly concerned about
+the software product’s privacy requirements, whereas most of
+the stakeholders are apprehensive about the software’s security and are also aware of the specific assets in the system
+which act as safeguards against the attacks. Based on this
+premise, we have defined and prioritized all such stakeholders in P-STORE methodology as per their significance. From
+the very first stage of the software development, it is important to recognize every appropriate stakeholder. The proposed approach discusses the risks to privacy with the aid of
+potential stakeholders to identify privacy requirements. This
+category of stakeholders facilitates the requirement engineer
+in software product asset recognition. The P-STORE method
+starts with the software’s concept of data privacy goals. As in
+the case of the STORE process, each stage of the P-STORE
+methodology is equally significant. The privacy requirements
+engineer may not be able to skip or switch onto another stage
+because this is a systematic procedure for eliciting as well as
+recording privacy requirements.
+Figure 3 shows the conceptual model of STORE methodology extended for P-STORE privacy requirements engineering where (SH1, SH2, SH3…SHn) represent different
+stakeholders and (A1, A2, A3…An) represent the corresponding identified assets.
+
+5 P‑STORE Methodology
+Fig. 2  Different steps of STORE methodology
+
+for any software application. Hence, we have extended the
+STORE process as P-STORE methodology for incorporating the effective and efficient privacy requirements through
+a sequential procedure.
+
+This section describes each of the P-STORE’s ten steps
+while stating all the alterations required for adapting the
+STORE process for privacy requirements engineering. Figure 4 shows the ten steps of the P-STORE methodology.
+Table 1 discusses the different input, output, approaches as
+well as participants involve in each step of the P-STORE
+methodology.
+
+4 STORE for Privacy Requirements
+
+5.1 Identify Privacy Goals
+
+Ansari et al. [26] proposed a STORE process, which is a
+ten-step sequential methodology. STORE methodology
+offers an appropriate and a comprehensive way of obtaining
+and capturing security requirements from the beginning of
+the software as well as web-based applications development
+process. Security considerations in terms of the risks are
+also discussed under this strategy. Potential threat knowledge makes it easier for the security requirement engineer
+to assess the level of risk, as well as define the attacker’s
+ability.
+It is hard to determine the privacy risks to a software
+product [35], thus resulting in poor structured strategies for
+identifying actors with privacy requirements within a system.
+Stakeholders have a key contribution in the STORE process.
+
+The initial objective in the P-STORE approach is the definition of the software’s privacy goals. The main approach
+of this phase is similar to that of the STORE methodology.
+The only contradiction is that, throughout this case, the software engineering structure of the requirements as well as the
+stakeholders prepare and prioritize the objectives of privacy
+instead of the objectives of security. Privacy policy statements are consistent with the goals and conditions of privacy.
+Incomplete or inaccurate listing of requirements may lead
+to confusion between stakeholders, more so in the contexts
+where the stakeholders have different interpretations due to
+inadequate information [36]. Low privacy strategic goals
+demonstrate feasibly inaccurate information about specifications that must be fitted in by the software system. Erroneous
+
+13
+
+Arabian Journal for Science and Engineering
+
+Fig. 3  Conceptual model of STORE methodology extended for privacy requirements engineering
+
+specifications for the requirements are a major concern for
+the software engineers and also one of the key reasons for the
+failure in the development of the application [37]. This move
+is intended to help the stakeholders communicate about their
+privacy objectives for the software project. Since the privacy
+goals are directed by laws and regulations, a variety of privacy goals have been taken from laws for the HIPAA [15],
+HITECH [17], Personal Information Protection and Electronic Documents Act (PIPEDA) [18], General Data Protection Regulation GDPR [19], Data Protection Act (DPA) [20],
+IT Act [21] and many others privacy regulations.
+
+5.2 Identify and Prioritize Stakeholders
+The next stage in P-STORE procedure is to define as well as
+prioritize all the stakeholders involved in the development of
+the software project. Several research analyses in the Strategic Management field have referred to the importance of
+
+13
+
+the stakeholders. In this league, Sharp et al. [38] have cited
+that recognizing and prioritizing the stakeholders is a critical mechanism which could be used to assess the success of
+an organization and to monitor its future strategic direction.
+Any software development process involves several types of
+stakeholders. A stakeholder may present privacy concerns
+in various degrees of detail [39].
+To quote from the treatise of Glinz & Wieringa [40] "A
+stakeholder is a person or organization who influences a
+system’s requirements or who is impacted by that system." A
+stakeholder may be a client, consumer, programmer, design
+engineer, project manager, and others involved in software
+application development. In software development process, every stakeholder is not similarly significant. Thus,
+we must arrange the stakeholders according to their level
+of importance or priority that has been accepted. Identified
+stakeholders can be divided into important, medium, as well
+as minor groups, as per their priority order. Strengthening
+
+Arabian Journal for Science and Engineering
+
+Fig. 4  Different stages in P-STORE methodology
+
+Table 1  Detailed description of each stage in P-STORE
+Step No Step
+
+Taking in
+
+1
+
+Identify privacy goals
+
+2
+
+4
+
+Identify and prioritize
+stakeholders
+Agreed-upon privacy
+goals
+Asset identification
+
+Privacy goals of the pro- Interview, brainstorming Requirement engineer,
+client
+posed system, strategy
+and process
+System privacy goals
+Review, analysis
+Requirement engineer
+
+5
+
+Privacy attack analysis
+
+6
+
+Privacy threat identification and categorization
+Risk evaluation and
+prioritization
+Privacy requirements
+elicitation
+Privacy requirements
+validation
+Privacy requirements
+specification document
+
+3
+
+7
+8
+9
+10
+
+System goals
+
+Approach
+
+Participants
+
+PoA, PoB, PoC, PoD
+
+Requirement engineer,
+stakeholders
+Interview, questionnaire, Requirement engineer,
+brainstorming
+stakeholders
+Privacy attack analysis
+Requirement engineer,
+privacy expert
+LINDDUN analysis
+Requirement engineer
+
+Categorized & prioritized threats
+Potential privacy threats
+
+DREAD risk assessment Requirement engineer,
+methods
+risk manager
+Threat Dictionary
+Requirement engineer
+
+Privacy requirements
+
+Review, walk-through
+
+Valid privacy requirement
+
+Documentation
+
+Stakeholder’s valuable
+asset
+Valuable asset
+
+Meeting
+
+stakeholders has many security limits that influence the
+accompanying service [41]. As reported by Glinz & Wieringa [40], the stakeholders’ requirements are connected to
+their importance wherein:
+Critical indicates that the performance of the stakeholder is extremely important because the negligence
+
+Requirement engineer,
+privacy expert
+Requirement engineer
+
+Taking out
+List of system privacy
+goals
+List of prioritized stakeholders
+Agreed-upon goals
+Valuable assets
+PoA, PoB, PoC, PoD
+Categorized & prioritized
+privacy threats
+Risk assessment report
+Privacy requirements
+Valid privacy requirements
+Privacy requirements
+specification document
+
+of such a stakeholder may damage the software project
+or render the software design completely useless.
+Major indicates that the performance of the stakeholder
+is preferable and the negligence of such stakeholder
+produces a highly uncertain outcome.
+
+13
+
+Arabian Journal for Science and Engineering
+
+Minor indicates that the performance of the stakeholder is
+minimal, the negligence of such a stakeholder would have
+a smaller effect on the software development process.
+
+5.3 Agreed‑Upon Privacy Goals
+Spiekermann [42] discussed the different challenges of
+privacy-by-design (PbD). PbD’s key concern is that no
+agreed-upon approach assists in routine privacy engineering into applications, and both administrators and engineers
+remain committed to PbD. Software development life cycles
+sometimes allow room for privacy concerns. Hence, for the
+development, the engineers and stakeholders must adhere
+to the corresponding software’s privacy goals. This would
+create a much more desirable environment for the development of software application in which all the stakeholders
+can interact with one another.
+
+5.4 Asset Identification
+The recognition of important assets is one of the most important as well as demanding processes of P-STORE procedure.
+The result of this stage must be accurate as well as reliable,
+or else this procedure would not provide efficient and acceptable requirements for privacy. To maintain the capability
+of meeting the maximum privacy requirements, all related
+assets must be identified. Valuable assets may include virtual
+currency, records, security code, knowledge, goods, people, computer systems, etc. All the valuable assets must be
+described with the support of all possible stakeholders associated with the development process of software projects.
+In this stage, the requirement engineer may practice several
+asset identification strategies, such as structured questionnaire, survey, brainstorming, discussion, analysis and interview. Privacy requirement engineering process intends to
+preserve these valuable assets from the adversary. Therefore,
+the valuable properties must always be observed not only
+from stakeholder’s perception but also from an adversary’s
+perception. Every stakeholder recognizes assets from his/her
+perspective. The defined properties must be subsequently
+classified and prioritized. Furthermore, the checked valuable
+assets are listed under the more differentiated Confidentiality, Integrity, as well as Availability indicators and prioritized as low, medium, or high predilection rates.
+
+be derived from the identified software privacy attacks.
+Figure 5 illustrates the four significant points of analyzing
+privacy attacks that are critical for the elicitation of software
+privacy requirements.
+5.5.1 Point of Attack (PoA)
+The point of attack is the point through which the attacker
+may strike the software application. The adversary is always
+actively attempting to determine PoA to interrupt the automated program. The point of attack could be described as a
+backdoor from where the attacker is attempting to communicate with the device. A program has several attack points
+such as the registration form, sign in page, entering data
+page, etc. The attacker attempts to understand these points
+and tries to theoretically manipulate the software’s stability,
+efficiency and accessibility.
+5.5.2 Point of Belief (PoB)
+Point of belief (PoB) indicates the confidence in outside
+individual objects of the software application. The software
+organization enables the outside entities to have control.
+These points are therefore recognized as the points of belief.
+Different individuals, including the person who visits the
+web-based program, registered members who may have recognized privileges, software application manager, database
+server administrator, etc., may possibly be the significant
+points of belief for an application. When investigating a privacy invasion, the requirement engineer needs to clarify the
+entire point of belief.
+
+5.5 Privacy Attack Analysis
+After the identification and the prioritization of the assets,
+the subsequent stage in P-STORE methodology is to investigate every possible source of an infringement on privacy.
+Analyzing any possible privacy infringement for a software
+application project is an essential step in introducing safe
+security systems as anticipated privacy requirements would
+
+13
+
+Fig. 5  Four points of privacy attack analysis
+
+Arabian Journal for Science and Engineering
+
+5.5.3 Point of Conjecture (PoC)
+The point of conjecture specifies the interpretation on the
+challenges to software privacy that the software product can
+indicate in the future after the development of the software
+product. Even before the production process begins, the PoC
+should be checked. All these points are especially important
+when it comes to achieving the privacy requirements, therefore this should not be negated. All the significant points of
+conjecture must be properly analyzed after the process of
+software development is complete.
+5.5.4 Point of Dependency (PoD)
+Point of dependency (PoD) is defined as the dependence of
+software system on outside objects. Unexpected behavior
+of PoD may be the cause for the software system loses. The
+PoD must also be authentic as well as approved, since this
+discrepancy may indicate the direction to an infringement on
+privacy. A software application may have many dependency
+points, such as the remote server over which the software
+system depends, the database server, internet connection,
+etc.
+
+5.6 Privacy Threat Identification and Categorization
+After recognizing the all possible PoA, PoB, PoC, and PoD
+with the help of the privacy attack analysis in the preceding stage of the P-STORE methodology, it would be easy
+to determine the privacy risks, the next stage of P-STORE.
+This move emphasizes every possible threat to the application regarding privacy. The perceived threat to privacy
+can be seen as a trigger of possible hacking attempts. The
+
+application development bugs are vulnerabilities that can be
+exploited easily. There are several possible threats to privacy
+which can adversely influence the application’s software.
+However, it is not practical to recognize all threats to the
+privacy of a software application, attention needs to be given
+to every potential threat to the privacy.
+Deng et al. [29] defined a privacy threat modelling
+approach focused on the threat levels such as Linkability,
+Identifiablitiy, Non-repudiation, Detectability, Information
+disclosure, Content unawareness, as well as Consent Noncompliance. Table 2 shows the description of LINDDUN
+privacy threat categories.
+
+5.7 Risk Evaluation and Prioritization
+Risk evaluation for software security as well as privacy
+requirements defines the program’s weaknesses and risks,
+the likelihood for the risks to surface as real attacks, and
+the possible consequences of an invasion. Risk estimation
+offers a baseline for categorizing as well as enforcing the
+application’s privacy requirements. Risk detection as well
+as priority management may also contribute to the elicitation method that will further prioritize the privacy requirements [43]. Privacy risk assessment includes information
+vulnerabilities and how they may be infringed. Therefore, it
+takes into account privacy practices, legislation, as well as
+regulations. Since security risk assessment generally doesn’t
+address regulations and standards, the objectives of Privacy
+Risk Assessment differ significantly from the objectives of
+the software security’s risk assessment.
+There have been several rules and regulations on privacy
+which control the various companies and regions. All the
+laws have some guidelines that can be used to deal with the
+
+Table 2  LINDDUN privacy threat categories (Adapted from [29])
+Privacy properties
+
+Privacy threat
+
+Unlinkability
+
+Linkability
+
+Threat description
+
+The linkingability of two or more objects of interest helps an adversary to easily
+determine whether or not such (items of interest) IOIs are linked within the
+network
+Anonymity & pseudonymity
+Identifiability
+Identifiability of a specific topic implies that the intruder can sufficiently identify
+the creator of a statement as the subject linked to an IOI
+Plausible & deniability
+Non-repudiation
+Non-repudiation permits the adversary to gather evidence to disprove the repudiating member’s allegations, as well as claim a receiver understands, does, or
+says anything
+Undetectability & unobservability Detectability
+Detectability of such an IOI ensures the adversary may make a clear distinction
+including whether such an object exists or not
+Confidentiality
+Disclosure of information Information Disclosure Risks of leaking information expose classified details to
+individuals that may not have connections to it
+Content awareness
+Content unawareness
+Content unawareness indicates a client does not know the details exposed to the
+application
+Consent compliance
+Consent noncompliance Policy and consent noncompliance implies that although the program will demonstrate the privacy policies to its users, there’s no assurance that the system
+will likely comply with the recommended policies
+
+13
+
+Arabian Journal for Science and Engineering
+
+risk of software privacy. For example, the HIPAA addresses
+the privacy issues of healthcare data networks by taking
+steps to share data. The Privacy Impact Assessment (PIA)
+is an effective mechanism for assessing privacy, confidentiality, and targeted activities associated with data gathering, use, as well as sharing. A standard probability impact
+formative and summative evaluation given below, as used in
+software industry, shows the risk assessment and effect of
+a specific threat as equitable to the probability of a privacy
+threat occurrence multiplied by the damage potential.
+
+Risk = Probability × Damage Potential
+The above formula evaluates the potential for likelihood
+as well as serious harm at a 10-scale, in which 1 is the least
+likely to happen, and 10 is the most likely to happen. According to this method, if the possibility of a threat happening
+is 5 and also the potential for threat harm is 10, the chance
+will be 50%. Threat risk assessment may also be carried
+out using a DREAD evaluation model from Microsoft [44].
+DREAD_Risk_Value = (Damage + Reproduciablity + Exploitability
++Affected Users + Discoverability)∕5
+
+5.8 Privacy Requirements Elicitation
+A further stage of P-STORE procedure is to accomplish
+acceptable software privacy requirements with the help of
+previous outcome of P-STORE methodology. The P-STORE
+approach first sees high-risk privacy attacks, after that, the
+medium-risk potential risks, and eventually the lesser potential risks. A threat dictionary is thus developed. The dictionary is a composite list of the threats to privacy consisting of
+several previously identified privacy threats with some of
+the most recent privacy needs and requirements. The key
+objective is to make it easier for the requirement engineer
+to deliver privacy requirements by gaining authentic and
+comprehensive knowledge of the privacy threat.
+
+5.9 Privacy Requirements Validation
+This step validates the obtained effective privacy requirements in order to mitigate any potential threat to privacy. Unmitigated risks to privacy are bugs that could be
+abused by the adversaries to damage the software system
+[45]. All threats are not a serious risk to the application
+program, therefore mitigating each threat is not appropriate. The essential phase in the process is the verification of
+specifications. Inspections of elicited privacy requirements
+remove defects of the conditions as well as basic inconsistencies. Researchers believe that maximum number of
+defects is introduced in the requirement-gathering process
+of the application development process [46]. Hence, the
+
+13
+
+requirement-gathering system is regarded as a highly critical step. Testing may be formal or informal. There is a range
+of inspection approaches, varying through ad hoc to checklist
+implementation, and also Fagan assessments and scenariobased analyses. Various studies demonstrate how scenariobased inspection methods have a higher rate of fault detection than checklists and ad hoc inspections [47]. In order
+to accomplish this step through the procedure, the requirements engineering organization can guide the stakeholders
+to exercise any of the verification approaches accessible. The
+outcome of this move is a comprehensive report on privacy
+principles that would be approved upon and reviewed by
+every stakeholder as well as the technical members of the
+privacy requirements specifications.
+
+5.10 Privacy Requirements Specification Document
+The final stage of the P-STORE privacy requirements engineering procedure is the creation of the specification documents of privacy requirements. The specifics of the conditions for privacy are made and discussed with the potential
+stakeholders. For the preliminary privacy partnership in
+software development, the requirement engineer must forward this Privacy Requirements Specification (PRS) report
+to the software designing team. Finkelstein and Fuks [48]
+suggested that the creation of the blueprint report, using
+different stakeholders’ viewpoints with varying opinions,
+should be identified through a complete conversation that
+demonstrates answers in the form of claims, problems, rejections, challenges, etc.
+
+6 Application of P‑STORE Methodology
+for HMS Project
+6.1 Architecture of Healthcare Management
+Software
+Over the last decades, healthcare management has changed
+tremendously. Healthcare organizations have introduced
+state-of-the-art technology, network devices, mobile applications and enhanced medical awareness. These are key facets
+for implementing healthcare management software (HMS)
+system project. There has been an increase in the numbers
+of healthcare providers, and the patients can now opt for
+their preferred medical aid from a wide selection of medical practitioners. Besides its’ main objective of ensuring the
+best possible medical scaffolds, healthcare sector must also
+effectively address the legal and economic considerations
+associated with this sector [49]. Security and privacy implementation in healthcare information systems is a difficult
+task due to multi-dimensional effects of complex factors.
+In the social context, for example, there are relationships of
+
+Arabian Journal for Science and Engineering
+
+trust between patient-doctor and the user-system. Regulations and restrictions also extend along medical and financial parameters. Furthermore, adding utterly different new
+technologies such as unified electronic medical records and
+software agents is supposed to make the design task even
+more difficult, since issues arising from these new extents
+have to be taken into account [34].
+Prior to the actual production of this software application,
+the proposed extension of STORE process, P-STORE, was
+implemented onto the HMS application so that the requirement engineer may obtain complete privacy specifications
+considered necessary for the development of the software
+application. Eliciting the comprehensive privacy requirement before the completion of the software product is not
+an easy process. However, the requirement engineer may
+make it simple with the help of P-STORE technique. Often
+described as e-Hospital, management system is the healthcare management platform that is dependent on the cloud
+and web-based application. It may be interconnected with
+medical records as well as maintains all clinical, economic,
+operational, legal, and regulatory hospital activities. Figure 6 represents the architecture of healthcare management
+software.
+There are five types of users in the healthcare management software: doctor, patient, accountant, HMS administrator, and visitors. HMS administrator has the authorization to
+
+add new services, departments into the system, assign new
+doctors, and add new notifications. Doctors are authorized
+to examine the patients, maintain patients’ appointments,
+connect the live treatment, and email to patients. All these
+activities are done department-wise. When the patients
+access into the HMS system, they see the facilities that they
+can avail of; they can take appointment from the specialist doctors; and they can view their health records online.
+Accountant organizes the patient’s and the medical organizations financial matters, details of insurance expenditures,
+financial information of hospital expenses and total benefits.
+Online unauthorized visitors can see the different facilities
+available in the hospital. They can select from the profile
+of the available doctors and book appointments. HMS user
+types and roles in this application are presented in Table 3.
+
+6.2 Implementation on the Case Study
+The case study on an HMS application discussed in this
+section clearly demonstrates how well the P-STORE
+methodology elicits efficient privacy requirements. Conducting the case study to support a new approach is an
+extremely common and demanding task, mostly in software engineering-based research. Every sequential step of
+the P-STORE approach for complete and well-structured
+
+Fig. 6  Architecture of healthcare management software
+
+13
+
+Arabian Journal for Science and Engineering
+Table 3  HMS system user’s category
+HMS user
+
+Permission
+
+Authorization
+
+Limitations
+
+Doctor
+
+To the doctor
+
+Can amend only own generated records
+
+Patient
+
+To the patient
+
+Can view and amend all information regarding
+given department
+Can see the reports and view data about them
+
+Accountant
+HMS administrator
+
+To the accountant
+To the HMS administrator page
+To the visitors
+
+Visitors
+
+Can perform and access all financial task
+Can view all data in the system
+
+Can only access to the own reports
+information and to the general information
+All financial rights granted
+All rights granted
+
+Can visit the pages on HMS portal
+
+Cannot see the internal data
+
+Table 4  Recognized privacy goals for the HMS application
+Goal ID
+
+Privacy goals
+
+GL1
+GL2
+GL3
+GL4
+
+Only authorized user should be measured
+Patient’s confidential information cannot be changed
+Make sure that the personal information is obtained with the knowledge of the patient
+Make sure that the information collected for a legitimate purpose is not being used without proper permission for other reasons
+Ensure that the patients are aware of the implications about which confidential information is being gathered
+A firewall should safeguard the database server against direct access through the internet
+HTTP as well as HTTPS ports permit uninterrupted access to the network
+The transmission of messages between both the web server as well as the database server must be performed
+over a secure private network
+Must activate the HMS application over HTTPS
+
+GL5
+GL6
+GL7
+GL8
+GL9
+
+engineering of privacy requirements has been discussed in
+the following section.
+6.2.1 Identify Privacy Goals
+The very first phase of the P-STORE approach is the determination of the software privacy goals. In this crucial
+stage, the requirement engineer captures every possible
+privacy objective for the HMS application that is to be
+established in this phase. Requirement engineer may use
+various strategies to recognize and collect software system
+privacy objectives including meetings, brainstorming, etc.
+The following Table 4 lists the possible privacy goals for
+the HMS application in this research study.
+
+Table 5  List of potential stakeholders including their importance for
+the HMS application
+No
+
+Name
+
+Significance
+
+Type
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+
+HMS Project Director
+Project Deputy Director
+Senior Executives
+Internal Auditor
+Manager
+HMS Project Manager
+Database Administrator
+Software Developer
+Networking Team
+Patients
+Doctors
+Assistant
+
+Critical
+Critical
+Major
+Critical
+Critical
+Critical
+Critical
+Critical
+Major
+Major
+Major
+Minor
+
+Managerial
+
+Marketing
+Information system
+
+Client
+
+6.2.2 Identify and Prioritize the Stakeholders
+This stage of the proposed P-STORE approach recognizes
+as well as prioritizes the potential stakeholders involved
+at various steps of development of the HMS application. Table 5 lists the potential stakeholders for the HMS
+system.
+
+13
+
+6.2.3 Agreed‑upon Privacy Goals
+After these stakeholders associated with the HMS application project have been recognized, the subsequent stage of
+the proposed P-STORE privacy requirements engineering
+
+Arabian Journal for Science and Engineering
+
+approach is to come to an agreement with all the stakeholders upon this planned HMS application’s privacy objectives. The requirement engineers as well as the stakeholders
+should agree on the application product’s specified privacy
+goals. This would create better application development
+platform environment, wherein all the stakeholders can
+interact directly with one another.
+6.2.4 Asset Identification
+The proposed P-STORE approach is intended to safeguard
+sensitive assets against privacy threat risk to HMS application privacy. This procedure is an imperative stage in the
+proposed P-STORE approach because this stage determines
+the valuable property associated with the HMS application.
+Table 6 lists the identified assets of the HMS system.
+6.2.5 Privacy Attack Analysis
+The case study on an HMS presented here corroborates the
+fact that P-STORE methodology is highly efficient in determining the privacy requirements. Privacy attack analysis is a
+crucial step of the P-STORE approach for potential privacy
+threat identification. This stage involves the identification of
+four significant points which is discussed in the following
+section.
+
+6.2.5.1 Point of Attack (PoA) The Table 7 below displays the
+recognized Points of Attack (PoA) for the implementation
+of HMS system through the support of proposed P-STORE
+methodology for privacy intervention assessment.
+6.2.5.2 Point of Belief (PoB) The following Table 8 illustrates the HMS program’s recognized Point of Belief (PoB)
+from the proposed P-STORE procedure for software privacy
+attack analysis.
+6.2.5.3 Point of Conjecture (PoC) The following Table 9
+demonstrates the Point of Conjecture (PoC) established
+for the HMS application in the framework of proposed
+P-STORE approach for the analysis of privacy attack.
+6.2.5.4 Point of Dependency (PoD) The Table 10 given
+below demonstrates the defined Point of Dependency (PoD)
+to the HMS application in the proposed P-STORE approach
+privacy attack analysis procedure.
+6.2.6 Privacy Threat Identification and Categorization
+Further with support of the LINDDUN procedure, it is
+vital to define the perceived threat with each valuable asset
+upon recognizing the assets as well as evaluating the privacy attack. After this, every identified threat to privacy
+is classified according to LINDDUN [29]. LINDDUN is
+a framework for classifying possible threats to privacy
+
+Table 6  Identified assets of the HMS system project
+Asset ID
+
+Asset
+
+Description
+
+AT1
+AT2
+AT3
+AT4
+AT5
+AT6
+AT7
+AT8
+AT9
+AT10
+AT11
+AT12
+AT13
+
+Accuracy of healthcare data
+HMS users
+Patient’s login data
+Doctor’s login data
+HMS admin login data
+Patient’s personal data
+Department’s personal data
+System
+Availability of HMS system
+Process
+Application
+Login session
+Backend database access
+
+AT14
+
+Treatment charges details
+
+AT15
+
+Online service details
+
+AT16
+AT17
+AT18
+
+Message notification
+Audit data
+Access to the record
+
+The healthcare data must be accurate
+An asset that relates to all types of HMS users
+Patient’s credibility such as HMS service username as well as password
+Credibility of the physician such as username as well as password for handling online HMS facilities
+The HMS admin’s credentials: username and password to control services
+The patient’s personal record and assets
+The departmental details, patients’ record, and other assets
+Resources linked to the extremely valuable HMS system
+If the HMS system goes down, patient /and doctor cannot perform several operations
+Assets which contribute to the HMS web application operating process
+Valuable property related to a HMS web application
+The HMS web application session connected to a patient, physician, admin and other logged in visitors
+The opportunity to communicate with the storage database, client records, service data including passwords for joining the HMS application
+Records of care costs for the patient needs to be safe. Tampering this confidential information may
+result in the healthcare organization’s loss
+All record concerning the online platform must be safe. Tinkering with such a data may trigger institutional damage
+The message notice comprises the patients’ as well as the doctors’ data
+Malicious actors may continue to attack the HMS application without logging in or auditing
+Only registered HMS system client must be able to gain access his/her confidential information
+
+13
+
+Arabian Journal for Science and Engineering
+Table 7  List of the recognized points of attack (PoA)
+ID
+
+PoA
+
+PA1
+PA2
+
+Network server port (HTTPS) The address port (HTTPS) upon which the HMS Web server listens
+Login page
+To establish a login for client, physician, administrator or any other visitor as well as conduct a login for
+either the web to access services or to check information
+Data entry page
+HMS web application pages used to register as well as access personal information of patient or section
+in the dataset so that it can be checked by the admin
+Retrieve data function
+Enable the patients’/physicians’ approval to display their healthcare reports from the database
+Create login function
+Enter a new patient (Departmental credentials as well as Admin credentials must be generated directly
+from the processes contained in the database
+Login to site function
+Compares approved individual credentials with those in the repository, as well as generates a regular
+session if credentials meet
+Store user data procedure
+Used to save user information through HMS application data input page
+Retrieve user data procedure
+Collects information and requests from the customer
+Retrieve data function
+Recovers information about the patient or the healthcare organization
+Submit data function
+Delivers some patient or healthcare organization’s detail
+List Requests function
+Requests collection prepared for review
+Database listening port
+Allows the permitted individuals to be using the database from anywhere
+Database stored procedures
+HMS application data documents are stored as well as retrieved
+Create login procedure
+Enable an individual authorized to login to the HMS application
+Remove login procedure
+Log back from the HMS application
+Submit data function
+Provides patients’ as well as healthcare departmental data for the administrator to analyze
+Admin review page
+This section is accessed by the HMS administrator to evaluate requests from the patient or team
+
+PA3
+PA4
+PA5
+PA6
+PA7
+PA8
+PA9
+PA10
+PA11
+PA12
+PA13
+PA14
+PA15
+PA16
+PA17
+
+Description
+
+Table 8  List of recognized point of belief (PoB)
+ID
+
+PoB
+
+Description
+
+PB1
+PB2
+PB3
+PB4
+PB5
+PB6
+PB7
+
+HMS admin
+HTTP user
+HTTPS user
+Database server process identity
+Unauthorized remote user
+Authorized remote user
+Web server process identity
+
+HMS admin accesses as well as modifies the repository using login details
+Remote client who wants to access the web application via HTTP
+A distant user accessing a website via HTTPS
+The user account the web server runs as the web page which is recognized through its process token
+A client linked to the HMS network but who still hasn’t received the login credential
+An approved user who built the profile as well as has the authorized identifications to log in
+Used while collecting or extracting data to verify the web server into the directory
+
+Table 9  List of recognized point of conjecture (PoC)
+ID
+
+PoC
+
+Description
+
+PC1 Encrypted communication If in the future, encrypted messaging capability is introduced in the HMS system, the transmission of messages must be done as per the rules and regulations
+PC2 Imbursement gateway
+If payment gateway is implemented in the coming years, the HMS application must meet PCI DSS or several
+other safety requirements
+PC3 Digital payment
+Another feature for this HMS system can be the online payment system. If applied to this HMS application,
+this functionality would not offer adversaries a way to exploit existing privacy features
+
+centered on threat classifications such as Linkability, identifiability, non-repudiation, detectability, information disclosure, content unawareness, as well as policy/consent
+
+13
+
+noncompliance. The Table 11 below comprises identified
+threats to the HMS application regarding privacy.
+
+Arabian Journal for Science and Engineering
+Table 10  List of the recognized point of dependency (PoD)
+ID
+
+PoD
+
+Description
+
+PD1
+PD2
+PD3
+
+Database server
+Web server
+Network
+
+PD4
+PD5
+
+External SMTP
+Session management
+
+The HMS application relies on database server’s reliability
+The HMS application is heavily reliant on the privacy of the virtual server
+The HMS application is able to rely upon the network security among each of the Web servers as well as the database server
+To send any communication message, the HMS application relies on an outside SMTP server
+The HMS application relies on secure Web server session management
+
+Table 11  Identified privacy threats for HMS system
+TID
+
+PT1
+PT2
+PT3
+PT4
+PT5
+PT6
+PT7
+PT8
+PT9
+PT10
+PT11
+PT12
+
+Privacy threat
+
+Incorrect or outdated personal data
+Data transfer over insecure channels
+Lack of terms and conditions
+Data transfer over insecure channels
+Session expiration problems
+Vulnerabilities in web applications
+Collection of unnecessary data
+Lacking breach response
+Insiders and poorly trained employees
+Personal data sharing
+Lack of transparency in privacy policies
+Inadequate personal data disposal
+
+LINDDUN
+L
+
+I
+
+✓
+✓
+
+✓
+
+Assets
+N
+
+D
+
+D
+
+✓
+✓
+
+✓
+
+U
+
+N
+✓
+✓
+✓
+
+✓
+✓
+
+✓
+
+✓
+
+✓
+✓
+✓
+
+✓
+
+✓
+✓
+✓
+
+✓
+
+✓
+✓
+✓
+
+✓
+
+Table 12  Prioritized privacy threats with corresponding DREAD risk
+value
+PT ID
+
+Privacy threat
+
+DREAD value
+
+PT1
+PT5
+PT10
+PT4
+PT8
+PT6
+PT9
+PT12
+PT2
+PT7
+PT11
+PT3
+
+Incorrect or outdated personal data
+Session expiration problems
+Personal data sharing
+Data transfer over insecure channels
+Lacking breach response
+Vulnerabilities in web applications
+Insiders and poorly trained employees
+Inadequate personal data disposal
+Data transfer over insecure channels
+Collection of unnecessary data
+Lack of transparency in privacy policies
+Lack of terms and conditions
+
+10
+10
+10
+9.2
+9.2
+7.6
+7.6
+7.6
+6.6
+6.4
+6.4
+5.8
+
+6.2.7 Risk Evaluation and Prioritization
+The presented risk analysis in the P-STORE approach as
+well as prioritization module analyses the risk impact of
+
+✓
+
+✓
+
+AT1-AT7
+AT3-AT6
+AT5, AT18
+AT6, AT8-AT10
+AT2-AT6, AT12, AT17
+AT13, AT18
+AT12
+AT1, AT5-AT7
+AT3, AT4, AT5
+AT13, AT18
+AT5, AT7
+AT17
+
+privacy threats on important assets as well as illustrates a
+holistic indication of the total of risk to an asset. The following Table 12 lists the threats found in relation to their
+privacy risk ranking.
+6.2.8 Privacy Requirement Elicitation
+The proposed P-STORE approach phase elicits the accurate
+and complete privacy requirements for any possible threat to
+privacy found. The Table 13 below is composed of privacy
+requirements to every recognized threat to HMS application
+privacy.
+6.2.9 Privacy Requirement Validation
+This stage is associated with the verification and validation
+of the obtained privacy requirements for the HMS application development through the P-STORE methodology.
+Each of the software privacy specifications mentioned must
+be capable of increasing the HMS program’s functionality
+and efficiency by integrating acceptable privacy concerns.
+Efficient privacy requirements are given priority during this
+stage, depending on the considerable risk of the associated
+privacy threat. The mechanism through which the privacy
+
+13
+
+Arabian Journal for Science and Engineering
+Table 13  Elicited privacy requirements for every privacy threat
+TID
+
+PR ID Privacy requirement
+
+PT1 PR1
+PT5 PR2
+PT10 PR3
+PT4
+PT8
+
+PR4
+PR5
+
+PT6
+PT9
+
+PR6
+PR7
+
+PT12
+PT2
+PT7
+PT11
+PT3
+
+PR8
+PR9
+PR10
+PR11
+PR12
+
+The system shall supply correct personal information and keep the data updated where necessary
+The system shall provide session management cheat sheet that can be used to avoid privacy problems
+The system shall take the clause or legally binding agreement of the customer for gathering, using, processing and transmitting of
+personal information
+The service provider shall guarantee that the data subject will have the lawful authority to view his/her confidential info
+The management team should implement new technological as well as regulatory measures to safeguard personal information
+against inadvertent or illegal devastation or improper disclosure, alteration, unapproved procreation or access
+The application must have effective authentication mechanisms at all network gateways as well as entry points
+Individual information should be protected with proper privacy against risks including loss or identity theft, degradation, use,
+modification or disclosure of information
+Individual patient’s data is secure, consistent and would be updated regularly if appropriate
+The system shall provide a method for users to test their information
+The data manager shall define the intent before capturing the sensitive personal information
+The record manager shall limit personal information gathering as well as obtain such data by lawful and acceptable means
+The software should provide work-inspection reports and use documents that do not disclose any personally identifying information
+
+specifications are checked involves data privacy requirement
+engineers as well as interested stakeholders as participants.
+Individuals may use analysis and review, or walk-through
+methods to verify and validate the HMS application’s elicited privacy requirements.
+
+Fig. 7  Hierarchy structure for
+usability evaluation of privacy
+requirements engineering
+approaches
+
+13
+
+6.2.9.1 Privacy Requirements Specification Document The
+last as well as a crucial phase of the proposed P-STORE
+methodology is the organized creation of the HMS system’s
+complete and accurate software privacy requirement specification documentation. The specification document for pri-
+
+Arabian Journal for Science and Engineering
+Table 14  Different criteria for usability analysis
+Usability criteria
+
+Description
+
+T1
+
+Efficiency
+
+T2
+
+Effectiveness
+
+T3
+
+Learnability
+
+T4
+
+Satisfaction
+
+T5
+
+Productivity
+
+It is a software application measurement which allows the user to produce the desired outcomes in terms of asset
+investment
+It is a software application measurement for which the user can perform the particular tasks and the expected outcome
+for completeness as well as certainty
+A measurement of how easily and efficiently a functionality can be understood. The unit of measurement is learning
+times. Interfaces are usually simpler to comprehend when familiar with and they are also structured to be convenient
+to use depending on key psychological principles
+It’s a measurement of reactions, users’ emotions as the participants use the app, i.e., independence from pain and likeability
+It is the level of useful performance by the software product
+
+vacy requirements (PRS) tends to create a more robust and
+consistent HMS application that addresses privacy issues
+right from the very early stages of application’s development.
+
+7 Usability Analysis of P‑STORE
+Methodology
+7.1 Proposed Hierarchical Usability Model
+The ongoing and rising development of digital applications
+in every sphere of our activity from personal to professional
+and business spheres has also increased the demand for
+mechanisms that can ensure effective privacy requirements
+in these applications. For achieving this objective, a robust
+analysis of several alternatives that determine the privacy
+requirements is needed. The different alternatives used in
+this research study are P-STORE, RBAC, ProPAn, PriS,
+P-SQUARE and STRAP which have been represented as
+A-1, A-2, A-3, A-4, A-5 and A-6, respectively. A survey, done
+through a questionnaire, was undertaken with the help of 59
+requirements engineers, researchers and academicians from
+different institutions and software industry. The objective
+of the survey was to assess the usability impact of different
+privacy requirements engineering approaches with the functionality of the proposed fuzzy AHP-TOPSIS method. In
+this section, we developed a centralized, hierarchical model
+for usability evaluation using its comprehensive categorization. This approach can effectively evaluate the usability of
+different PRE approaches including our proposed P-STORE
+methodology. The model explicitly integrates the usability
+variables, features, software application quality features as
+well as describes them in a clear manner. Figure 7 shows
+the hierarchical model used in this research which defines
+usability by using five factors also listed in Table 14.
+
+7.2 Fuzzy AHP‑TOPSIS Methodology
+
+Fig. 8  Flowchart of integrated fuzzy AHP-TOPSIS method
+
+The integrated fuzzy AHP-TOPSIS approach is essentially a
+hybrid of the fuzzy AHP [50] and the fuzzy TOPSIS method
+[51]. From the first step itself, fuzzy AHP is used to measure
+the comparative significance of each factor. This measured
+criterion can be used in many assessment criteria to allocate a scoring rate to every individual. Following this step
+
+13
+
+Arabian Journal for Science and Engineering
+Table 15  Fuzzy pair-wise comparison matrix at level 1
+
+(T1)
+(T2)
+(T3)
+(T4)
+(T5)
+
+(T1)
+
+(T2)
+
+(T3)
+
+(T4)
+
+(T5)
+
+1.00000,
+1.00000,
+1.00000
+–
+–
+–
+–
+
+1.00000, 1.54500, 1.97500
+
+0.51200, 0.63500, 1.75400
+
+0.40000, 0.60000, 1.00000
+
+0.24570, 0.31100, 0.41200
+
+1.00000, 1.00000, 1.00000
+–
+–
+–
+
+0.61100, 0.71200, 0.82500
+1.00000, 1.00000, 1.00000
+–
+–
+
+0.30000, 0.40000, 0.60000
+1.00000, 1.30000, 1.60000
+1.00000, 1.00000, 1.00000
+–
+
+0.34700, 0.41200, 0.50000
+0.34500, 0.41200, 0.80000
+0.51400, 0.94500, 1.64700
+1.00000, 1.00000, 1.00000
+
+Table 16  Fuzzy aggregated pair-wise comparison matrix at level 2
+for efficiency
+
+(T11)
+(T12)
+
+Table 19  Aggregated pair-wise comparison matrix at level 2 for satisfaction
+
+(T11)
+
+(T12)
+
+1.00000, 1.00000,
+1.00000
+–
+
+0.71400, 0.91400, 1.18500
+
+(T41)
+
+1.00000, 1.00000, 1.00000
+
+(T42)
+
+is the fuzzy TOPSIS, wherein the similarity rating of every
+candidate with the ideal is measured based on the results
+allocated, for both the positive ideal as well as for the negative ideal. The strongest candidate must be as close to the
+positive ideal when necessary, whereas the negative ideal
+must be as far as necessary.
+Several studies have applied integrated fuzzy AHP with
+fuzzy TOPSIS approach to assess usability analysis for different situations and problems. Sharawat & Dubey [52]
+implemented the integrated fuzzy AHP-TOPSIS to choose
+mobile companies based on the findings of usability analysis. They showed the best mobile company in their study as
+well as found out which one makes the best applications.
+Masudin & Saputro [53] attempted to assess the degree of
+relevance with B2C e-commerce applications to identify the
+highest usability factors among the different alternatives.
+Table 17  Fuzzy aggregated
+pair-wise comparison matrix at
+level 2 for effectiveness
+
+(T21)
+(T22)
+(T23)
+
+Table 18  Aggregated pair-wise
+comparison matrix at level 2 for
+learnability
+
+(T31)
+(T32)
+(T33)
+
+13
+
+(T41)
+
+(T42)
+
+1.00000, 1.00000,
+1.00000
+–
+
+1.20000, 1.40000, 1.70000
+1.00000, 1.00000, 1.00000
+
+Table 20  Aggregated pair-wise comparison matrix at level 2 for productivity
+
+(T51)
+(T52)
+
+(T51)
+
+(T52)
+
+1.00000, 1.00000,
+1.00000
+–
+
+0.31000, 0.40200, 0.60300
+1.00000, 1.00000, 1.00000
+
+They used the hybrid fuzzy AHP-TOPSIS methodology to
+solve this problem. Nagpal et al. [54] undertook a study to
+optimize the usability of the website according to the opinions of the users. In order to eliminate uncertainty as well
+as inaccuracy in decision-making, they used FAHP with
+fuzzy TOPSIS method, in which distinct decision-makers
+(DM’s) views were regarded for evaluating and ranking the
+
+(T21)
+
+(T22)
+
+(T23)
+
+1.00000, 1.00000,
+1.00000
+–
+–
+
+0.71400, 1.24400, 1.71400
+
+0.71400, 1.00000, 1.44400
+
+1.00000, 1.00000, 1.00000
+–
+
+1.20000, 1.60000, 2.20000
+1.00000, 1.00000, 1.00000
+
+(T31)
+
+(T32)
+
+(T33)
+
+1.00000, 1.00000,
+1.00000
+–
+–
+
+0.20000, 0.30000, 0.40000
+
+1.20000, 1.40000, 1.70000
+
+1.00000, 1.00000, 1.00000
+–
+
+0.30000, 0.40000, 0.60000
+1.00000, 1.00000, 1.00000
+
+Arabian Journal for Science and Engineering
+Table 21  Defuzzified pair-wise
+comparison matrix
+
+(T1)
+(T2)
+(T3)
+(T4)
+(T5)
+
+(T1)
+
+(T2)
+
+(T3)
+
+(T4)
+
+(T5)
+
+Weights
+
+1.00000
+0.70000
+1.40000
+1.60000
+3.30000
+
+1.50000
+1.00000
+1.50000
+2.40000
+2.70000
+
+0.70000
+0.70000
+1.00000
+0.80000
+2.00000
+
+0.60000
+0.40000
+1.30000
+1.00000
+1.00000
+
+0.30000
+0.40000
+0.50000
+1.00000
+1.00000
+
+0.13150
+0.10940
+0.19750
+0.23560
+0.32600
+C.R. = 0.00245
+
+Table 22  Aggregated pair-wise comparison matrix at level 2 for efficiency
+
+(T11)
+(T12)
+
+(T11)
+
+(T12)
+
+Weights
+
+1.00000
+1.10000
+
+0.90000
+1.00000
+
+0.47370
+0.52630
+C.R. = 0.00020
+
+Table 23  Aggregated pair-wise comparison matrix at level 2 for
+effectiveness
+
+(T21)
+(T22)
+(T23)
+
+(T21)
+
+(T22)
+
+(T23)
+
+Weights
+
+1.00000
+0.90000
+1.00000
+
+1.20000
+1.00000
+0.60000
+
+1. 00,000
+1.60000
+1.00000
+
+0.35210
+0.36470
+0.28320
+CR = 0.02300
+
+Table 24  Aggregated pair-wise comparison matrix at level 2 for
+learnability
+
+(T31)
+(T32)
+(T33)
+
+(T31)
+
+(T32)
+
+(T33)
+
+Weights
+
+1.00000
+3.50000
+0.70000
+
+0.30000
+1.00000
+2.40000
+
+1.40000
+0.40000
+1.00000
+
+0.24450
+0.35940
+0.39610
+C.R. = 0.00354
+
+Table 25  Aggregated pair-wise comparison matrix at level 2 for satisfaction
+
+(T41)
+(T42)
+
+(T41)
+
+(T42)
+
+Weights
+
+1.00000
+0.70000
+
+1.40000
+1.00000
+
+0.58330
+0.41670
+C.R. = 0.00050
+
+website. Atalay & Eraslan [55] performed a research study
+wherein various types and dimensions of MP3 players were
+collected and its usability assessed. The usability criteria
+included in evaluation of MP3 players were classified into
+
+Table 26  Aggregated pair-wise comparison matrix at level 2 for productivity
+
+(T51)
+(T52)
+
+(T51)
+
+(T52)
+
+Weights
+
+1.00000
+2.40000
+
+0.40000
+1.00000
+
+0.28570
+0.71430
+C.R. = 0.00400
+
+two key groups: quality as well as emotional demands. The
+alternatives were listed and the results obtained were compared through fuzzy MCDM methods, including FTOPSIS,
+FAHP as well as Fuzzy Axiomatic Design Theory (FADT).
+Figure 8 provides a succinct step of the fuzzy AHP-TOPSIS
+method.
+
+7.3 Statistical Data Analysis
+This subsection addresses numerous statistical analysis
+data achieved through the implementation of the integrated
+fuzzy AHP-TOPSIS process. In the software engineering
+field, the new approach should be developed and assessed
+from the usability point of view. It addresses whoever the
+targeted recipient of the product is, assessment of the profile of the users who would be using the service, as well
+as the real-world experiences wherein the product may be
+used. This knowledge can be described as well as specified via several structured Human–Computer Interface
+(HCI) approach. The HCI expert selects an appropriate
+subcategory of methodologies to be used for any particular product, considering the time, infrastructure, risk, and
+industry’s priorities associated with the project. A few of
+these methodologies involve interviews and surveys, competitive assessments [56]. The researchers adopted a wellestablished as well as tested decision-making approach,
+the hybrid fuzzy AHP-TOPSIS. This methodology was
+enlisted to prioritize different privacy requirements engineering techniques that focused on the usability impact
+evaluation in the current software privacy demand setting. The researchers have taken recommendations from 59
+software privacy experts from various technology and educational backgrounds to gather accurate information and
+
+13
+
+Arabian Journal for Science and Engineering
+Table 27  Overall weights and
+ranking of methods
+
+First level Local
+methods weights of
+first level
+
+Local weights Overall weights Percentage (%) Overall ranks
+Second
+level meth- of second level
+ods
+
+T1
+
+0.13150
+
+T2
+
+0.10940
+
+T3
+
+0.19750
+
+T4
+
+0.23560
+
+T5
+
+0.32600
+
+T11
+T12
+T21
+T22
+T23
+T31
+T32
+T33
+T41
+T42
+T51
+T52
+
+0.47370
+0.52630
+0.35210
+0.36470
+0.28320
+0.24450
+0.35940
+0.39610
+0.58330
+0.41670
+0.28570
+0.71430
+
+0.06230
+0.06920
+0.03850
+0.03990
+0.03100
+0.04830
+0.07100
+0.07830
+0.13740
+0.09820
+0.09310
+0.23290
+
+6.23
+6.92
+3.85
+3.99
+3.10
+4.83
+7.10
+7.83
+13.74
+9.82
+9.31
+23.29
+
+8
+7
+11
+10
+12
+9
+6
+5
+2
+3
+4
+1
+
+Table 28  Fuzzy decision matrix of alternatives
+
+T11
+T12
+T21
+T22
+T23
+T31
+T32
+T33
+T41
+T42
+T51
+T52
+
+A-1
+
+A-2
+
+A-3
+
+A-4
+
+A-5
+
+A-6
+
+6.40123, 7.40145,
+8.40459
+6.73257, 7.74453,
+8.74122
+5.10124, 6.21145,
+7.28123
+6.20159, 7.23548,
+8.25456
+6.00254, 7.00234,
+8.00121
+4.09221, 5.16111,
+6.20120
+6.00120, 7.00250,
+8.00450
+6.20470, 7.23460,
+8.25480
+6.20730, 7.23460,
+8.25044
+4.09044, 5.16000,
+6.20077
+4.33450, 5.34250,
+6.35035
+5.10044, 6.11043,
+7.13025
+
+4.98450, 6.01741,
+7.03123
+5.72124, 6.76412,
+7.79142
+4.70440, 5.80470,
+6.87445
+6.20470, 7.23440,
+8.25430
+4.33044, 5.34077,
+6.35787
+4.33589, 5.43556,
+6.49578
+5.40453, 6.43256,
+7.45357
+4.70785, 5.72556,
+6.73357
+5.10759, 6.11582,
+7.13236
+3.48654, 4.51256,
+5.53357
+4.98123, 6.01456,
+7.03789
+4.70741, 5.80852,
+6.87963
+
+4.70258, 5.80963,
+6.87147
+5.10753, 6.11159,
+7.13845
+4.98856, 6.01652,
+7.03235
+5.86741, 6.88753,
+7.89789
+4.09742, 5.16258,
+6.20269
+3.28357, 4.35259,
+5.40332
+4.44214, 5.52159,
+6.57258
+6.00845, 7.00965,
+8.00957
+5.53750, 6.54550,
+7.55520
+3.10254, 4.21552,
+5.27335
+3.48556, 4.51854,
+5.53523
+5.53325, 6.54558,
+7.55553
+
+6.20552, 7.23225,
+8.25357
+5.86758, 6.88256,
+7.89253
+5.86258, 6.88456,
+7.89447
+6.73114, 7.74116,
+8.74257
+5.10229, 6.11888,
+7.13999
+4.70142, 5.80140,
+6.87010
+5.53020, 6.54030,
+7.55250
+5.40350, 6.43480,
+7.45750
+5.86124, 6.87445,
+7.89957
+3.56750, 4.66456,
+5.72582
+4.72552, 5.72252,
+6.73352
+5.86253, 6.88457,
+7.89452
+
+4.09742, 5.16258,
+6.20269
+3.54520, 4.66445,
+5.72000
+6.00254, 7.00234,
+8.00121
+4.09221, 5.16111,
+6.20120
+6.00120, 7.00250,
+8.00450
+6.20470, 7.23460,
+8.25480
+6.20730, 7.23460,
+8.25044
+4.09044, 5.16000,
+6.20077
+4.33450, 5.34250,
+6.35035
+2.00000, 2.66000,
+3.28000
+3.03000, 4.07000,
+5.10000
+3.56000, 4.66000,
+5.72000
+
+5.10229, 6.11888,
+7.13999
+3.77256, 4.82445,
+5.84550
+4.33044, 5.34077,
+6.35787
+4.33589, 5.43556,
+6.49578
+5.40453, 6.43256,
+7.45357
+4.70785, 5.72556,
+6.73357
+5.10759, 6.11582,
+7.13236
+3.48654, 4.51256,
+5.53357
+4.98123, 6.01456,
+7.03789
+6.20552, 7.23225,
+8.25357
+5.86758, 6.88256,
+7.89253
+5.86258, 6.88456,
+7.89447
+
+perceptions. The local criteria and sub-criteria weights are
+calculated by the use of pair-wise comparison matrices.
+The fuzzy pair-wise comparative matrix of the Level 1
+criteria is formed and can be seen in Table 15. The fuzzy
+aggregated pair-wise comparison matrix at Level 2 for
+Efficiency, Effectiveness, Learnability, Satisfaction and
+Productivity is given in Tables 16, 17, 18, 19, and 20,
+respectively. Further the defuzzified pair-wise comparison matrix shown in Table 21. The aggregated pair-wise
+
+13
+
+comparison matrix at Level 2 for Efficiency, Effectiveness,
+Learnability, Satisfaction, and Productivity is also given in
+Tables 22, 23, 24, 25, and 26, respectively. For every second layer dimension, the global weights were calculated.
+These are tabulated in Table 27. Numerous attributes are
+replicated in Table 28, although the impact they have on
+their extremely greater layer element is complicated. Supplementary Table 29 shows the fuzzy positive and negative ideal solutions. Table 30 demonstrates the distance
+
+Arabian Journal for Science and Engineering
+Table 29  Fuzzy positive and
+negative ideal solutions
+
+T11
+T12
+T21
+T22
+T23
+T31
+T32
+T33
+T41
+T42
+T51
+T52
+
+Fuzzy positive ideal solution (FPIS)
+
+Fuzzy negative ideal solution (FNIS)
+
+0.17140, 0.21424, 0.23421
+0.14122, 0.17033, 0.19015
+0.12923, 0.15122, 0.17315
+0.01243, 0.01442, 0.01954
+0.09324, 0.10920, 0.12547
+0.05123, 0.06142, 0.07346
+0.01132, 0.01344, 0.01545
+0.01240, 0.01211, 0.01325
+0.01327, 0.01420, 0.01715
+0.04548, 0.05778, 0.06909
+0.03739, 0.04446, 0.05205
+0.02121, 0.02520, 0.02902
+
+0.09716, 0.12714, 0.15624
+0.07622, 0.10005, 0.12323
+0.07838, 0.10209, 0.12622
+0.00144, 0.00207, 0.00203
+0.04124, 0.05370, 0.06690
+0.02623, 0.03370, 0.04680
+0.00621, 0.00830, 0.01060
+0.00522, 0.00630, 0.00760
+0.00824, 0.01310, 0.01630
+0.02224, 0.02300, 0.03660
+0.02212, 0.03031, 0.03680
+0.01122, 0.01530, 0.01806
+
+Table 30  Distance between the alternatives and the ideal solutions
+Positive
+
+d11
+d12
+d21
+d22
+d23
+d31
+d32
+d33
+d41
+d42
+d51
+d52
+dt
+
+Negative
+
+A-1
+
+A-2
+
+A-3
+
+A-4
+
+A-5
+
+A-6
+
+A-1
+
+A-2
+
+A-3
+
+A-4
+
+A-5
+
+A-6
+
+0.00000
+0.00000
+0.01515
+0.00024
+0.00052
+0.00652
+0.00004
+0.00045
+0.00002
+0.00744
+0.00542
+0.00248
+0.02249
+
+0.03715
+0.02210
+0.02453
+0.00024
+0.02455
+0.00454
+0.00155
+0.00224
+0.00222
+0.00734
+0.00022
+0.00422
+0.13045
+
+0.04112
+0.03412
+0.01953
+0.00140
+0.02842
+0.01514
+0.00122
+0.00445
+0.00144
+0.01225
+0.01445
+0.00145
+0.17444
+
+0.00444
+0.01538
+0.00250
+0.00220
+0.01382
+0.00220
+0.00550
+0.00125
+0.00058
+0.00525
+0.00255
+0.00055
+0.04693
+
+0.07432
+0.06622
+0.04922
+0.00022
+0.04225
+0.01541
+0.00422
+0.00423
+0.00224
+0.02822
+0.01224
+0.00228
+0.32222
+
+0.06040
+0.06275
+0.04995
+0.00088
+0.05288
+0.02466
+0.00356
+0.00565
+0.00554
+0.02555
+0.01551
+0.01055
+0.30845
+
+0.23136
+0.18778
+0.14467
+0.04503
+0.12047
+0.06448
+0.04415
+0.01562
+0.01458
+0.06455
+0.04459
+0.02648
+0.97445
+
+0.20448
+0.17194
+0.16165
+0.00327
+0.09985
+0.07014
+0.01484
+0.01410
+0.01646
+0.05944
+0.05553
+0.02556
+0.90051
+
+0.20112
+0.16157
+0.16554
+0.00378
+0.09870
+0.06159
+0.01377
+0.01252
+0.01758
+0.05656
+0.04558
+0.02825
+0.87252
+
+0.22825
+0.17375
+0.17795
+0.00338
+0.10914
+0.07342
+0.01455
+0.01174
+0.01457
+0.06550
+0.05144
+0.02944
+0.96140
+
+0.18126
+0.14214
+0.14563
+0.00295
+0.08042
+0.06198
+0.01268
+0.00958
+0.01568
+0.04268
+0.04396
+0.02314
+0.76844
+
+0.18524
+0.14382
+0.14744
+0.00282
+0.08265
+0.05662
+0.01325
+0.00855
+0.01543
+0.04455
+0.04585
+0.02173
+0.77885
+
+Table 31  Relative closeness of
+the alternatives
+
+Alternatives
+
+A-1
+
+A-2
+
+A-3
+
+A-4
+
+A-5
+
+A-6
+
+Relative closeness (RCi)
+Ranks
+
+0.97124
+1
+
+0.87145
+3
+
+0.84658
+4
+
+0.96445
+2
+
+0.74586
+5
+
+0.72425
+6
+
+between the different Alternatives and the Ideal Solution.
+To be more empathetic, integration is executed to quantify
+the element weights of each point. In addition, with the
+support of the hierarchical structure, Table 31 and Fig. 9
+represent the complete and final relative closeness of the
+alternatives.
+Finally, based upon the obtained findings of this research
+study, P-STORE denoted by A-1 has been established to be
+preeminent among six qualified alternatives as it provides
+the highest usability with an Relative Closeness (RCi) of
+0.97124 in the different Privacy Requirements Engineering
+
+approaches. Alternative A-1 is followed by A-4, A-2, A-3,
+A-5 and A-6 with performance scores of 0.96445, 0.87145,
+0.84658, 0.74586 and 0.72425, respectively.
+
+8 Conclusion
+The applicability and the functionality of the P-STORE
+methodology are pragmatic, easy to comprehend and use.
+Furthermore, the methodology helps the privacy requirement engineers by enabling them to produce complete and
+
+13
+
+Arabian Journal for Science and Engineering
+Fig. 9  Graphical representation of relative closeness of the
+alternatives
+
+1.2
+
+Relave Closeness (RCi)
+
+1
+
+0.97124
+
+0.96445
+0.87145
+
+0.84658
+0.74586
+
+0.8
+
+0.72425
+
+A-1
+A-2
+
+0.6
+
+A-3
+A-4
+
+0.4
+
+A-5
+A-6
+
+0.2
+0
+Privacy Requirements Engineering Techniques
+
+well-organized privacy requirements. The method is reliable
+for its consistency, accuracy and efficacy at all levels. From
+this research, we have seen that minor changes need to be
+made to adjust the STORE process for the privacy requirements engineering. To test the efficiency of this STORE
+adaptation, the technique can be applied onto several other
+case studies. The methodology needs to be revised so as to
+allow the use of STORE for privacy requirements engineering. Although on the surface, the steps might seem identical,
+different techniques come into effect in the tool’s automated
+assistance. In this paper, we have successfully implemented
+P-STORE methodology on a case study of HMS system.
+However, for an even more convincing validation of the technique’s accuracy, P-STORE can be applied on medium-tolarge case studies in the field. The hierarchical depictions of
+the usability evaluation of different PRE approaches explain
+the group of criteria and its subcategory.
+The researchers used the accurate and well-established
+combined fuzzy AHP-TOPSIS method to provide the ranking of the overall result identified while describing the other
+significant observations. Feedback was garnered from 59
+domain experts from software organizations and academic
+institutions for reliable knowledge and expectations. The
+results were collected by using an integrated fuzzy AHPTOPSIS framework. The findings would help the experts
+understand the mechanism of determining the privacy
+requirements engineering approach with higher usability.
+The usability analysis of all the six PRE approaches concluded that P-STORE acquired the highest priority among
+RBAC, ProPAn, PriS, P-SQUARE and STRAP. Thus, we
+recommend that P-STORE methodology would establish relatively appropriate privacy requirements as well as
+enable the software engineer to efficiently organize privacy
+requirements. P-STORE requires a reliable, integrated tool
+that supports security and privacy, or both. The privacy
+
+13
+
+threat dictionary must be expanded to cover many other
+laws, for example the Financial Privacy Act, the Privacy
+Act on Electronic Communications, Leech-Bliley Act, PIPA
+and the newly enacted General Data Protection Regulation (EU GDPR). The next move is to implement it on real
+time projects for the extensive use in the industry. We want
+this approach to be more practical and an appropriately accurate evaluation needs a real project. We also intend to use the
+proposed P-STORE methodology for different software as
+well as web application development projects.
+Acknowledgments This project was supported by Taif University
+Researchers Supporting Project number (TURSP-2020/107), Taif
+University, Taif, Saudi Arabia
+Funding Taif University Researchers Supporting Project at Taif University, Taif, Saudi Arabia.
+
+Compliance with ethical standards
+Conflict of interest Authors have declared that no competing interests
+exist.
+
+References
+1. Ari, A.A.A., Ngangmo, O.K., Titouna, C., Thiare, O., Mohamadou, A., & Gueroui, A.M.: Enabling privacy and security in cloud
+of things: architecture, applications, security & privacy challenges. Appl. Comput. Inf. (2019)
+2. Ansari, M.T.J., & Pandey, D.: Risks, security, and privacy for
+HIV/AIDS data: Big Data perspective. In: Censorship, Surveillance, and Privacy: Concepts, Methodologies, Tools, and Applications, pp. 58–74. IGI Global (2019)
+3. Zulkernine, M., & Ahamed, S. I.: Software security engineering:
+toward unifying software engineering and security engineering.
+In: Enterprise Information Systems Assurance and System Security: Managerial and Technical Issues, pp. 215–233. IGI Global
+(2006)
+
+Arabian Journal for Science and Engineering
+4. Mead, N. R.: Security requirements engineering. Build Security
+In 2006-08, 10 (2008)
+5. Mai, P.X.; Goknil, A.; Shar, L.K.; Pastore, F.; Briand, L.C.;
+Shaame, S.: Modeling security and privacy requirements: a use
+case-driven approach. Inf. Softw. Technol. 100, 165–182 (2018)
+6. Paja, E.; Dalpiaz, F.; Giorgini, P.: Modelling and reasoning
+about security requirements in socio-technical systems. Data
+Knowl. Eng. 98, 123–143 (2015)
+7. Baldassarre, M. T., Santa Barletta, V., Caivano, D., & Scalera,
+M.: Integrating security and privacy in software development. Softw. Qual. J. pp. 1–32 (2020)
+8. Darr, E.: Health Services Management. Health Professions
+Press, Inc., Baltimore, MD. (1997)
+9. Alotaibi, Y.K.; Federico, F.: The impact of health information
+technology on patient safety. Saudi Med. J. 38(12), 1173 (2017)
+10. Earp, J.B.; Payton, F.C.: Dirty laundry: privacy issues for IT professionals. IT Prof. 2(2), 51–54 (2000)
+11. Klar, R.: Selected impressions on the beginning of the electronic
+medical record and patient information. Methods Inf. Med.
+43(05), 537–542 (2004)
+12. Roukema, J.; Los, R.K.; Bleeker, S.E.; van Ginneken, A.M.; van
+der Lei, J.; Moll, H.A.: Paper versus computer: feasibility of an
+electronic medical record in general pediatrics. Pediatrics 117(1),
+15–21 (2006)
+13. Ayatollahi, H.; Bath, P.A.; Goodacre, S.: based versus computerbased records in the emergency department: staff preferences,
+expectations, and concerns. Health Inf. J. 15(3), 199–211 (2009)
+14. ISO, E.: 27799: 2008 Health informatics. In: Information Security
+Management in Health Using ISO/IEC, 27002 (2008).
+15. Hash, J.; Bowen, P.; Johnson, A.; Smith, C.D.; Steinberg, D.I.: An
+introductory resource guide for implementing the health insurance portability and accountability act (HIPAA) security rule. US
+Department of Commerce, Technology Administration, National
+Institute of Standards and Technology (2005)
+16. Fassett, W.E.: Patient safety and quality improvement act of 2005.
+Ann. Pharmacother. 40(5), 917–924 (2006)
+17. David Blumenthal, M.D.: Launching hitech. N. Engl. J. Med.
+362(5), 382 (2010)
+18. Austin, L.M.: Reviewing PIPEDA: control, privacy and the limits
+of fair information practices. Can. Bus. LJ 44, 21 (2006)
+19. Voigt, P., & Von dem Bussche, A.: The EU General Data Protection Regulation (GDPR). A Practical Guide, 1st Ed., Springer
+International Publishing, Cham (2017)
+20. Taylor, E.: UK schools, CCTV and the Data Protection Act 1998.
+J. Educ. Policy 26(1), 1–15 (2011)
+21. Rao, S.: Information Technology Act: Consumers’ Perspective. Econ. Political Wkly. pp. 3501–3503 (2001)
+22. Team, I. P.: EU General Data Protection Regulation (GDPR):
+An Implementation and Compliance Guide. IT Governance Ltd
+(2017)
+23. Tikkinen-Piri, C.; Rohunen, A.; Markkula, J.: EU general data
+protection regulation: changes and implications for personal data
+collecting companies. Comput. Law Secur. Rev. 34(1), 134–153
+(2018)
+24. Moses, L. B.: Recurring dilemmas: The law’s race to keep up with
+technological change. U. Ill. JL Tech. &Pol’y, 239 (2007)
+25. Danezis, G., Domingo-Ferrer, J., Hansen, M., Hoepman, J. H.,
+Metayer, D. L., Tirtea, R., & Schiffner, S.: Privacy and data
+protection by design-from policy to engineering. arXiv preprint
+(2015)
+26. Ansari, M.T.J., Pandey, D., & Alenezi, M.: Store: security threat
+oriented requirements engineering methodology. J. King Saud
+Univ. Comput. Inf. Sci. (2018)
+27. Jensen, C.; Tullio, J.; Potts, C.; Mynatt, E.D.: STRAP: A Structured Analysis Framework for Privacy. Georgia Institute of Technology (2005)
+
+28. Mead, N.R.; Miyazaki, S.; Zhan, J.: Integrating privacy requirements considerations into security requirements engineering
+method and tool. Int. J. Inf. Priv. Secur. Integr. 1(1), 106–126
+(2011)
+29. Deng, M.; Wuyts, K.; Scandariato, R.; Preneel, B.; Joosen, W.:
+A privacy threat analysis framework: supporting the elicitation
+and fulfillment of privacy requirements. Requir. Eng. 16(1), 3–32
+(2011)
+30. Spiekermann, S.; Cranor, L.F.: Engineering privacy. IEEE Trans.
+Softw. Eng. 35(1), 67–82 (2008)
+31. Kalloniatis, C.; Kavakli, E.; Gritzalis, S.: Addressing privacy
+requirements in system design: the PriS method. Requir. Eng.
+13(3), 241–255 (2008)
+32. He, Q., & Antón, A. I.: A framework for modeling privacy
+requirements in role engineering. In: Proceediings of REFSQ,
+Vol. 3, pp. 137–146 (2003)
+33. Meis, R.: Problem-Based Privacy Analysis (ProPAn): A Computer-aided Privacy Requirements Engineering Method. Universitaet Duisburg-Essen, Germany (2018)
+34. Liu, L., Yu, E., & Mylopoulos, J.: Security and privacy requirements analysis within a social setting. In: Proceedings. 11th IEEE
+International Requirements Engineering Conference, 2003, pp.
+151–161. IEEE (2003)
+35. Beckers, K., Fabender, S., Heisel, M., & Meis, R. A problembased approach for computer-aided privacy threat identification.
+In: Annual Privacy Forum, pp. 1–16. Springer, Berlin, Heidelberg
+(2012)
+36. Dalpiaz, F., Van der Schalk, I., &Lucassen, G.: Pinpointing ambiguity and incompleteness in requirements engineering via information visualization and NLP. In: International Working Conference on Requirements Engineering: Foundation for Software
+Quality, pp. 119–135. Springer, Cham (2018)
+37. Fernández, D.M.; Wagner, S.: Naming the pain in requirements
+engineering: A design for a global family of surveys and first
+results from Germany. Inf. Softw. Technol. 57, 616–643 (2015)
+38. Sharp, H., Finkelstein, A., & Galal, G.: Stakeholder identification in the requirements engineering process. In: Proceedings of
+Tenth International Workshop on Database and Expert Systems
+Applications. DEXA 99, pp. 387–391. IEEE (1999)
+39. Fabian, B.; Gürses, S.; Heisel, M.; Santen, T.; Schmidt, H.: A
+comparison of security requirements engineering methods.
+Requir. Eng. 15(1), 7–40 (2010)
+40. Glinz, M.; Wieringa, R.J.: Guest editors’ introduction: Stakeholders in requirements engineering. IEEE Softw. 24(2), 18–20 (2007)
+41. Almorsy, M., Grundy, J., & Ibrahim, A. S.: Collaboration-based
+cloud computing security management framework. In: 2011 IEEE
+4th International Conference on Cloud Computing, pp. 364–371.
+IEEE (2011)
+42. Spiekermann, S.: The challenges of privacy by design. Commun.
+ACM 55(7), 38–40 (2012)
+43. Mead, N.R.; Stehney, T.: Security quality requirements engineering (SQUARE) methodology. ACM SIGSOFT Softw. Eng. Notes
+30(4), 1–7 (2005)
+44. Snyder, W.; Swiderski, F.: Threat modeling. Microsoft Press 35,
+36–37 (2004)
+45. Xu, D.; Nygard, K.E.: Threat-driven modeling and verification
+of secure software using aspect-oriented Petri nets. IEEE Trans.
+Softw. Eng. 32(4), 265–278 (2006)
+46. Kelly, J.C.; Sherif, J.S.; Hops, J.: An analysis of defect densities
+found during software inspections. J. Syst. Softw. 17(2), 111–117
+(1992)
+47. Porter, A.A.; Votta, L.G.; Basili, V.R.: Comparing detection methods for software requirements inspections: a replicated experiment. IEEE Trans. Softw. Eng. 21(6), 563–575 (1995)
+
+13
+
+Arabian Journal for Science and Engineering
+48. Finkelstein, A., & Fuks, H.: Multiparty specification. In: Proceedings of the 5th International Workshop on Software Specification
+and Design, pp. 185–195 (1989)
+49. Cysneiros, L. M.: Requirements engineering in the health care
+domain. In: Proceedings IEEE Joint International Conference on
+Requirements Engineering, pp. 350–356. IEEE (2002)
+50. Saaty, T.L.: Decision making with the analytic hierarchy process.
+Int. J. Serv. Sci. 1(1), 83–98 (2008)
+51. Hwang, C. L., & Yoon, K.: Methods for multiple attribute decision making. In: Multiple attribute decision making, pp. 58–191.
+Springer, Berlin, Heidelberg (1981)
+52. Sharawat, K., & Dubey, S. K.: An approach to vendor selection on
+usability basis by AHP and fuzzy topsis method. In: Soft Computing: Theories and Applications, pp. 595–604. Springer, Singapore
+(2018)
+
+13
+
+53. Masudin, I., & Saputro, T. E.: Evaluation of B2C website based
+on the usability factors by using fuzzy AHP & hierarchical fuzzy
+TOPSIS. In: IOP Conference Series: Materials Science and Engineering, Vol. 114, No. 1, p. 012091. IOP Publishing (2016)
+54. Nagpal, R.; Mehrotra, D.; Bhatia, P.K.; Sharma, A.: Rank university websites using fuzzy AHP and fuzzy TOPSIS approach on
+usability. Int. J. Inf. Eng. Electron. Bus. 7(1), 29 (2015)
+55. Atalay, K.D.; Eraslan, E.: Multi-criteria usability evaluation of
+electronic devices in a fuzzy environment. Hum. Factors Ergon.
+Manuf. Serv. Ind. 24(3), 336–347 (2014)
+56. Cranor, L., & Garfinkel, S.: Security and usability. Retrieved 10
+May 2020, from https​://www.oreil​ly.com/libra​r y/view/secur ​ityand-usabi​lity/05960​08279​/ch04.html
+
+

@@ -1,0 +1,2483 @@
+Security and Privacy Requirements for the Internet of
+Things: A Survey
+NADA ALHIRABI, Cardiff University, UK and King Saud University, Saudi Arabia
+OMER RANA and CHARITH PERERA, Cardiff University, UK
+The design and development process for internet of things (IoT) applications is more complicated than that
+for desktop, mobile, or web applications. First, IoT applications require both software and hardware to work
+together across many different types of nodes with different capabilities under different conditions. Second,
+IoT application development involves different types of software engineers such as desktop, web, embedded,
+and mobile to work together. Furthermore, non-software engineering personnel such as business analysts are
+also involved in the design process. In addition to the complexity of having multiple software engineering specialists cooperating to merge different hardware and software components together, the development process
+requires different software and hardware stacks to be integrated together (e.g., different stacks from different companies such as Microsoft Azure and IBM Bluemix). Due to the above complexities, non-functional
+requirements (such as security and privacy, which are highly important in the context of the IoT) tend to be
+ignored or treated as though they are less important in the IoT application development process. This article
+reviews techniques, methods, and tools to support security and privacy requirements in existing non-IoT application designs, enabling their use and integration into IoT applications. This article primarily focuses on
+design notations, models, and languages that facilitate capturing non-functional requirements (i.e., security
+and privacy). Our goal is not only to analyse, compare, and consolidate the empirical research but also to
+appreciate their findings and discuss their applicability for the IoT.
+CCS Concepts: • Human-centered computing → Ubiquitous and mobile computing systems and
+tools; Visualization systems and tools; • Software and its engineering → Software design engineering; •
+Security and privacy → Security requirements;
+Additional Key Words and Phrases: Internet of Things, software engineering, software design tools, non
+functional requirements, notation, design principles
+ACM Reference format:
+Nada Alhirabi, Omer Rana, and Charith Perera. 2021. Security and Privacy Requirements for the Internet of
+Things: A Survey. ACM Trans. Internet Things 2, 1, Article 6 (February 2021), 37 pages.
+https://doi.org/10.1145/3437537
+
+6
+This work is partially supported by EPSRC PETRAS (EP/S035362/1) and PACE (EP/R033439/1). We would like to acknowledge the scholarship and support provided by King Saud University.
+Authors’ addresses: N. Alhirabi, Cardiff University, School of Computer Science and Informatics, Cardiff, CF24 3AA, UK
+and King Saud University, Riyadh, Saudi Arabia; email: alhirabin@cardiff.ac.uk; O. Rana and C. Perera, Cardiff University,
+School of Computer Science and Informatics, Cardiff, CF24 3AA, UK; emails: {ranaof, pererac}@cardiff.ac.uk.
+Permission to make digital or hard copies of all or part of this work for personal or classroom use is granted without fee
+provided that copies are not made or distributed for profit or commercial advantage and that copies bear this notice and
+the full citation on the first page. Copyrights for components of this work owned by others than ACM must be honored.
+Abstracting with credit is permitted. To copy otherwise, or republish, to post on servers or to redistribute to lists, requires
+prior specific permission and/or a fee. Request permissions from permissions@acm.org.
+© 2021 Association for Computing Machinery.
+2577-6207/2021/02-ART6 $15.00
+https://doi.org/10.1145/3437537
+ACM Transactions on Internet of Things, Vol. 2, No. 1, Article 6. Publication date: February 2021.
+
+6:2
+
+N. Alhirabi et al.
+
+1 INTRODUCTION
+Until 2003, Cisco IBSG’s [27] did not recognise the Internet of Things (IoT) due to the relatively
+small number of connected devices. With the exponential growth of smartphones, tablets, smart
+devices, and their applications, the number of connected devices per person has increased considerably over recent years. In 2010, there were 6.8B people using 12.5B devices, which equated to
+1.84 devices per person. Availability of affordable sensors, contactless data exchange such as RFID,
+short-range wireless such as Bluetooth and ZigBee, and internet mobile access, a global network
+of connected things has emerged [9]. For example, the number of companies using IoT technology
+grew from 13% in 2014 to approximately 25% in mid-2019 [21].
+Designing and developing IoT applications has a greater degree of potential options than creating desktop, web, or mobile applications. First, IoT applications need to support different technologies working together such as hardware/firmware, software, sensor, data storage, processing, and
+communication technologies [91]. All of these components work collectively across many different types of nodes under different conditions and constraints, leading to a wide and diverse attack
+surface [40]. Moreover, applications should consider many features that IoT needs to support, such
+as device heterogeneity, scalability, ubiquitous data exchange, semantic interoperability, and data
+management [17, 75].
+In addition to the heterogeneous nature of the IoT, development of such applications involves
+a team of software engineers, each with different expertise. Those engineers must work together
+on components that may be used across different application domains such as home automation,
+smart cities, smart driving. Due to limited availability of full-stack developers, the development
+process requires a common programming framework to support developers’ needs [34]. Moreover,
+end-user preferences can be diverse and require customisation for use in a particular context.
+Consequently, application developers and device manufacturers need to closely focus on end-user
+requirements [46].
+As a result of the stated complexities, non-functional requirements (NFRs) such as security and
+privacy [90] have not received sufficient attention [113], especially in the traditional software
+development lifecycle (SDLC). It has been stated that the main source of software vulnerabilities
+is found in the early stages of the SDLC and the majority of them could be eliminated at this
+step [32]. Consequently, incorporating security and privacy in the SDLC is becoming critical, as
+is embedding them in the early stages of the SDLC [32, 111]. Microsoft took a step forward and
+introduced Microsoft’s Security Development Lifecycle (SDL), which consists of “practices” for
+supporting security [73].
+With increasing connectivity and availability of IoT devices and their hosted applications, the
+associated threats keep evolving [52]. Vulnerabilities in the traditional SDLC become bigger with
+IoT heterogeneity. Security by Design (SbD) has been identified as an effective way to create a
+secure system by considering security at an early stage of the SDLC. As well as SbD, Privacy by
+Design (PbD) [87] has recently been recognised as an important and useful approach for preserving
+the privacy for software-based systems [106]. The importance of this is confirmed by the General
+Data Protection Regulation (GDPR) [26], which applies to all systems that deal with personal data
+processing, a common requirement in IoT applications. The contributions of this article are as
+follows:
+• Review the evolution of design notations, models, and languages that facilitate capturing
+non-functional requirements (i.e., security and privacy).
+• Propose and use a taxonomy to compare and contrast previous approaches.
+
+ACM Transactions on Internet of Things, Vol. 2, No. 1, Article 6. Publication date: February 2021.
+
+Security and Privacy Requirements for the Internet of Things: A Survey
+
+6:3
+
+Fig. 1. Software Development Life Cycle (SDLC) based on References [49] and [114].
+
+Article structure. The article is as follows: Section 2 presents background information about the
+SDLC and its phases. Section 3 briefly introduces functional and non-functional requirements. As
+part of non-functional requirements, we also define security and privacy generally and briefly
+describe their attributes. Section 4 provides a brief overview of the IoT. This section includes a
+case scenario that will be used to address privacy risks associated with IoT. Section 4.2 explains the
+differences between the distributed nature of IoT application development and the available SDLC
+models. Section 5 presents security and privacy risks of the IoT specifically. The methodology used
+to select and evaluate relevant literature is introduced in Section 6, with details being provided
+about the search queries and data selection and extraction steps followed. Section 7 presents a
+systematic literature review that investigates some of the available non-functional requirements
+(security and privacy) visual notations. This section aims to understand which of the techniques
+are used to represent security and privacy visually. Section 8 identifies research challenges and
+future opportunities, and Section 9 concludes the survey.
+2
+
+SOFTWARE DEVELOPMENT LIFE CYCLE
+
+This section will be used to give an overview of SDLC, covering both the waterfall SDLC, agile, and
+other approaches. It also identifies the design phases and demonstrates the importance of security
+and privacy by design in some systems, such as Cyber Physical Systems (CPS), and in reducing
+overall cost. In later sections (such as in Section 4.2), we will discuss specific challenges to the IoT
+and their impact on the SDLC. In software engineering, SDLC is the most significant element, as
+a methodology or process used for building and maintaining software systems requiring certain
+essential phases to be followed. In general, software development models have three primary goals:
+improving system quality, providing management controls, and maximising productivity. There
+are several different SDLC models. Each one is developed for specific purposes. According to Hoffer
+[49] and Valacich [114], SDLC consists of five phases: planning, analysis, design, implementation,
+and maintenance, as shown in Figure 1.
+The planning phase is used to identify and analyse information system needs, subsequently
+prioritising and translating these into a development schedule. In the analysis phase, requirements
+are determined and alternative designs are suggested and compared. After the requirements have
+been analysed, they become well-defined and documented in a software requirement specification
+(SRS) document. At the end of this stage, the SRS document is handed to the end-user for their
+approval [68]. In the design phase, all of the provided description is converted into logical and
+then physical system specifications. The logical design is independent of any software, hardware,
+or platform. It focuses on the business features of the system. While in physical design, the
+specifications are transformed into technical specifications. In the implementation phase, six
+ACM Transactions on Internet of Things, Vol. 2, No. 1, Article 6. Publication date: February 2021.
+
+6:4
+
+N. Alhirabi et al.
+Table 1. Differences between Traditional, Agile, and OOAD Development Approaches
+Software development models
+Traditional development
+Agile development
+
+Development model
+
+Life cycle model
+
+Primary objectives
+
+Organisational
+structure
+
+Safety. Too many processes
+and too much documentation
+for safety purposes leads to
+slow development
+Well-defined before
+implementation
+Formal, targeting large
+organisations
+
+Cost of restart
+
+*Object-Oriented Analysis
+and Design (OOAD)
+
+Evolutionary-delivery
+model
+Quick results due to
+many iterations
+
+Object-oriented approach
+
+Co-operative input
+
+Co-operative
+Flexible, focussing on
+objects
+
+High
+
+Flexible, targeting
+Small\medium sized
+organisations
+Low
+
+Cost of remodeling
+
+Expensive
+
+Inexpensive
+
+Testing
+Developers
+
+After coding
+Organised with a plan
+
+At each iteration
+Co-located and
+interactive
+
+User requirements
+
+Quality and productivity
+by focusing on inheritance
+for refuteability
+
+For each iteration, a full
+assessment is performed
+for the needed correction
+[48]
+Inexpensive due to
+continuous assessment
+In iterations
+Interactive
+
+*OOAD shares the iterative method of the agile model; consequently, they share certain characteristics [48, 68, 114].
+
+main activities are performed, which are coding, testing, installation, documentation, training,
+and support. The goal of this phase is to translate physical system specifications into reliable
+working software. This phase also considers the support needed for all users including current
+and future ones [49]. The last phase is the maintenance phase whereby any issues found by the
+customer/end-user are fixed to keep the system working well. Although the previously described
+SDLC gives a general overview of the systems development process, there are very specific
+methods that use the idea of the SDLC with some additions. For example, Microsoft’s SDL is a
+specialised SDLC that consists of practices for supporting security [73].
+As previously mentioned, there are many models of SDLC—such as waterfall, the V model, prototyping, agile model. Each model has its own features, drawbacks, and usages. One of the traditional SDLC impacts that affects cost and security, such as in waterfall, happens when the end-user
+requirements keep changing when developing the system. Changes in this stage are complicated
+and expensive, as can be seen in Table 1. As a result, several models like agile modelling and objectoriented analysis and design (OOAD) have been introduced to overcome some of these limitations.
+For each iteration, a full assessment is undertaken for the required corrections [48]. Additionally,
+traditional SDLC has a high-cost in terms of restarting or remodelling the system once a significant mistake or threat has occurred in the final stages of the development cycle. However, the cost
+of remodelling in agile is relatively inexpensive due to user engagement and repeated assessment
+[48, 68, 114]. Table 1 offers a short comparison between traditional development, agile development, and object-oriented analysis and design to provide an overview of each model and to help
+identify which one could be used in IoT applications. This comparison is based on criteria such as
+the primary objectives of the system, the type of user requirements, and the cost of restarting and
+remodelling.
+ACM Transactions on Internet of Things, Vol. 2, No. 1, Article 6. Publication date: February 2021.
+
+Security and Privacy Requirements for the Internet of Things: A Survey
+
+6:5
+
+In the past few years, new kinds of systems have emerged such as CPS and IoT systems. Both
+CPS and IoT depend on interaction with other systems to perform the required function in products such as autonomous vehicles, smart grids, and smartphones. [76, 123]. These systems may
+interact but their features are somewhat different, which can lead to interoperability issues or lack
+of consistent operation. Unfortunately, the safety/security problems associated with CPSs and IoT
+applications are too various and could lead to attacks and failures (such as the crash of the Airbus
+A400M airliner in May 2015 that was attributed to a software bug [123]). These security attacks on
+CPS, specifically at the cyber layer, can adversely affect people’s lives. Therefore, CPS safety and
+security should be taken into consideration in the early stages of the system’s design process [8,
+54, 100].
+Traditional safety-critical system design could use the V methodology, which is an extension to
+waterfall. However, this assumes that the system is not connected and the requirements are static
+and well-defined (see Table 1), which is not the case in CPS and IoT systems [123]. Connecting to
+the internet increases exposure to attacks and dynamic changes to the set of system specifications
+while the system operates. These dynamic and heterogeneous features of CPS networks must
+be considered during the development of the system. The agile model could manage, to some
+extent, the requirement for change but there are other issues such as the heterogeneous nature
+of the IoT, which remains a challenge. Also, the development process of traditional systems must
+consider other cyber physical challenges such as sensing human intentions, Human-in-the-Loop
+Cyber-Physical-Systems (HiLCPS), and information exchange [101]. Existing security specification
+languages can be difficult to adapt for CPSs/IoT applications [123]. In addition, in recent years,
+approaches from software engineering such as safety, security, and requirements engineering have
+been used in the CPS development process. However, many CPS/IoT challenges have still to be
+addressed [101]. As CPS and IoT serve a wide variety of purposes, safety and security requirements
+in such applications are numerous and varied, which makes the need for a method to overcome
+these issues at an early stage of development more urgent [123].
+Geer [32] states that the primary source of software vulnerabilities can be exposed and excluded
+in the early stages of the SDLC. Consequently, it is a crucial factor for reducing costs and attacks
+to highlight any vulnerabilities or errors at the design stage, which is much cheaper than fixing
+them in the later stages. Security by Design (SbD) and Privacy by Design (PbD) are among the
+methods available to preserve a system’s security and privacy [106]. Designing protected and secure embedded systems demands that we explicitly consider and merge these two requirements at
+an early stage of the SDLC [65, 73]. Section 6 analyses some of the modelling representations that
+support security-aware modelling. Section 8 includes a discussion of methods and opportunities
+to support SbD and PbD.
+In summary, traditional SDLC or agile methods are used in the current study to develop nonIoT software applications. Because IoT applications present security and privacy challenges that
+affect SDLC, consequently, IoT applications require an improved software development life cycle
+to adapt to its characteristics and integrate privacy engineering in system development. These
+issues are described further in Sections 4, 4.2, 5, and 8.
+3
+
+FUNCTIONAL AND NON-FUNCTIONAL REQUIREMENTS
+
+Some studies have shown that the effective use of requirements engineering (RE) in software
+projects is an important success factor [78]. For that reason and because our focus in this study
+is security and privacy, we will briefly introduce requirements engineering in this section. Subsequently, we define privacy and security and their attributes as part of requirements definition.
+In Section 5, we present the security and privacy risks of IoT to address some of the associated
+challenges.
+ACM Transactions on Internet of Things, Vol. 2, No. 1, Article 6. Publication date: February 2021.
+
+6:6
+
+N. Alhirabi et al.
+
+There are many types of requirements, the three most common types being: business requirements (the software value in business terms); functional requirements (FRs), known as software
+behaviour requirements; and non-functional requirements (NFRs), known as software quality standards requirements [70, 97]. Business requirements define how a system improves the needs of the
+organisation. FRs define system services, functions, or behaviour that the system is required to accomplish. It describes how to understand what is required to build a system correctly and deliver
+what the end-user expects. In the traditional SDLC, functional requirements gathering takes place
+in the analysis phase [97]. Holding interviews, meetings, or using questionnaires to ask opinions
+of end-users are some of the ways to capture FRs. These requirements are typically given a unique
+identifier and a description in the requirements document. An example of these requirements is:
+REQ1.1. The system shall authenticate that the PIN number entered by the user is correct.
+However, NFRs can be defined as the quality attributes (e.g., security, integrity, reliability, usability, flexibility, platform compatibility, and recovery) or the applied constraints on the application
+during the development process [37, 97] . These requirements are used to support the functional
+aspects of a system. While FRs describe how the system should behave, NFRs describe the constraints that guarantee end-user satisfaction. Existing efforts mainly focus on FRs. However, many
+studies have shown that engaging NFRs in the early design phases significantly improves the satisfaction of end-users [6, 37].
+3.1 Security Definition
+Security can be considered from a variety of different perspectives, such as data privacy, information security, or system cybersecurity. ISO 27001 [55] defines security (information security in
+particular) as the way to preserve the integrity, confidentiality, and availability of information.
+Whitman and Mattord [120] defined information security as “the protection of information and
+its critical elements, including the systems and hardware that use, store, and transmit that information.” Cybersecurity is concerned with protecting data held in electronic form (such as mobile
+devices and computers) from being attacked. Bishop says that security from a cybersecurity viewpoint has three components: requirements that define security goals, a policy that explains the
+semantics of security, and mechanisms that enforce a security policy [12].
+The International Organization for Standardization (ISO) and the International Electrotechnical
+Commission (IEC) propose attributes called “Qualities.” These qualities are divided into three categories: intrinsic qualities, usage qualities, and external qualities [56]. Security (our main concern
+along with privacy) is a part of the intrinsic qualities where it reflects the characteristics of the
+product and solution itself. When an institution seeks to protect and secure its systems, it first
+needs to decide what requirements to address. In Table 2, ISO/IEC 25010:2011 defines some of the
+security sub-characteristics, which are confidentiality, integrity, non-repudiation, accountability,
+and authenticity [56].
+3.2 Privacy Definition
+Privacy is defined by Shirey [103] as “the right of individuals to control or influence what information related to them may be collected and stored and by whom, and to whom that information may
+be disclosed.” Privacy is developed to be distinct from information security [81] and its primary
+goal is to protect personal data along with being able to control what could occur to that data
+[119]. Security concerns the protection and integrity of data generally. However, the requirement
+for privacy is a requirement for security. There is also no privacy without security [81]. There are
+many standards defining privacy attributes, such as the ISO/IEC 29100:2011(en) where some of the
+privacy attributes (e.g., anonymisation) are introduced (see Table 2) [1].
+ACM Transactions on Internet of Things, Vol. 2, No. 1, Article 6. Publication date: February 2021.
+
+Security and Privacy Requirements for the Internet of Things: A Survey
+
+6:7
+
+Table 2. Detailed-level of NFR Classification and Definition from ISO/IEC 25010 [56]
+Characteristics Sub-Characteristics Description
+Accountability
+degree to which the actions of an entity can be traced uniquely to
+the entity.
+Authenticity
+degree to which the identity of a subject or resource can be
+proved to be the one claimed.
+Confidentiality
+degree to which a product or system ensures that data are
+accessible only to those authorized to have access.
+Security
+Integrity
+degree to which a system, product or component prevents
+unauthorized access to, or modification of, computer programs or
+data.
+Non-repudiation
+degree to which actions or events can be proven to have taken
+place, so that the events or actions cannot be repudiated later.
+Anonymization
+process by which personally identifiable information (PII) is
+irreversibly altered in such a way that a PII principal can no
+longer be identified directly or indirectly, either by the PII
+controller alone or in collaboration with any other party.
+Privacy *
+Consent
+process by which principals freely give specific and informed
+agreement to the processing of their personally identifiable
+information (PII).
+Pseudonymization process applied to personally identifiable information (PII),
+which replaces identifying information with an alias.
+(*)Privacy characteristics are examples and are not limited to those listed here from ISO/IEC 29100 [1]. There are many
+standards from ISO/IEC that are divided based on the policymaker’s viewpoint, such as 29151: Code of practice for
+personally identifiable information protection and 20889: Privacy enhancing data de-identification techniques.
+
+Fig. 2. Insertable cardiac monitors (ICMs) to illustrate human-device interaction.
+
+4 INTERNET OF THINGS (IOT)
+This section introduces IoT applications and their characteristics in general. Sections 4.2 and 5
+discuss SDLC from an IoT perspective, highlighting unique aspects and challenges associated with
+IoT. According to Gartner, IoT is a network of physical objects that contain embedded technology
+to communicate and sense or interact with their internal states or the external environment [116].
+These physical objects or things can be buildings, devices, automobiles, or other objects that are
+embedded with sensors, software, electronics, and network connections. Once an embedded device
+is given access to the internet, it becomes an IoT device.
+IoT enables more human-device interaction [40] and generally requires a high volume of data to
+be transmitted and analysed, as illustrated by the two applications below. Later, Section 5 discusses
+how such data can present a privacy risk to individuals. The first example is a health device, such
+as an implanted heart monitor (which uses a small amount of energy). As seen in Figure 2, the
+monitoring device transmits personal and health data (signals and pulse readings) to a server via
+the internet. These readings are processed to detect an anomaly and send an alert to a mobile phone
+ACM Transactions on Internet of Things, Vol. 2, No. 1, Article 6. Publication date: February 2021.
+
+6:8
+
+N. Alhirabi et al.
+
+Fig. 3. IoT technology illustrating the transfer and analysis of data using a smart air conditioner (AC), phone,
+and Nest thermostat.
+
+Fig. 4. IoT application to support diabetes treatment and monitoring.
+
+(e.g., of a family member) if detected. It also sends additional information, including the current
+condition of the patient, to their doctor. Another example is using a smart air conditioner (AC)
+with a Google Nest thermostat (see Figure 3). The Nest thermostat [39] has an embedded system
+that includes home temperature, humidity, light, and activity sensors. The smart AC is connected
+to the internet and it interacts with the Nest temperature device and app. By taking advantage of
+Nest, the AC can be turned to energy-saving mode when nobody is at home.
+4.1
+
+Example IoT Scenario
+
+In this section, a diabetes treatment and monitoring use case scenario is presented from a problem
+owner’s perspective. This scenario presents privacy challenges, as outlined in Section 5.
+Use case: diabetes treatment and monitoring. Sara is a researcher in a healthcare company where
+patients with diabetes require treatment and continual monitoring. Sara is concerned about gathering and analysing data from a Continuous Glucose Monitor (CGM) device worn by patients
+where the sensor is placed into the patient’s body, as seen in Figure 4. The sensor measures the
+glucose in the patient’s interstitial fluid by taking readings at regular intervals over several days.
+ACM Transactions on Internet of Things, Vol. 2, No. 1, Article 6. Publication date: February 2021.
+
+Security and Privacy Requirements for the Internet of Things: A Survey
+
+6:9
+
+Fig. 5. Heterogeneous IoT framework. Data and semantic sharing is not straightforward. Starting from the
+source, data goes through different nodes until it reaches its final destination. Security and privacy constraints should be considered while transferring data.
+
+Sara has a monitoring application that can recognise any triggers or patterns for abnormal glucose levels. This application can analyse patient data and produces an alarm to notify the patient
+and the nurse. There is a speciality nurse that has a level of access to patient data for a follow-up
+and provides essential instructions when required. These instructions may include suitable insulin
+doses, an exercise plan, daily meals or snacks, and types or dosage of medication.
+4.2 Internet of Things SDLC
+The IoT has its own properties and introduces specific usage and deployment requirements. Heterogeneity (see Figure 5) is a key challenge, where managing and securing different objects, devices, sensors, protocols, and applications can be complicated [38]. Moreover, each object could be
+developed differently by each manufacturer. As a result, making changes or enhancements to the
+traditional SDLC is necessary. Privacy, as one of the NFRs, could be the most significant problem
+associated with ubiquitous computing [51]. Pew Internet research [14] has stated that 54% of app
+users refuse to install a mobile app when they realise the amount of personal information that
+the app gathers. Also, 30% of smartphone owners do not want to share personal information that
+prompts them to uninstall the app when they learn that it collects personal data.
+Due to the large scale use of smartphone apps, a smartphone privacy ecosystem can be divided into many entities [51]. These entities collectively contribute to privacy and include: developers, service providers, app stores (delivery platforms), OS providers, hardware manufacturers,
+government agencies, and third parties harnessing user data, and users themselves. It is apparent that IoT applications have significant potential (much more than smartphone applications)
+ACM Transactions on Internet of Things, Vol. 2, No. 1, Article 6. Publication date: February 2021.
+
+6:10
+
+N. Alhirabi et al.
+
+to collect personal information that could lead to loss of data privacy. Integrating non-functional
+requirements (security and privacy in particular) into IoT application design is therefore essential.
+5 SECURITY AND PRIVACY RISK IN IOT
+We consider security and privacy risks for the case study mentioned in Figure 4, to describe how
+essential these requirements are in IoT. Subsequently, research studies that have been conducted
+to discuss other IoT risks, and potential solutions, are outlined.
+When a Continuous Glucose Monitor (CGM) device sends a reading, the data goes through
+a number of nodes until reaching the final destination, as seen in Figure 5, one of these nodes
+could be a third party able to access sensitive patient data (if transmitted unencrypted), without
+having the patient’s consent or without the research company’s knowledge. This situation could
+arise as a result of the app developer lacking knowledge of (or visibility into) third-party software
+libraries [3, 10]. In reality, data subjects lose control of their data when data are stored on a server
+operated by a third party. According to Reference [51], half of the apps analysed by a team via
+PrivacyGrade.org use location details, not because the app needs it but because the third party
+library uses it. In healthcare, distributing patient data such as their location, phone number, patient
+file number, or medical history is critical. This limitation can be overcome by applying privacy
+patterns during software development, such as using protection against tracking, onion routing,
+and use of an “anonymity set” privacy patterns [20].
+Various surveys have addressed security and privacy challenges, (e.g., Sicari et al. discuss existing IoT security challenges and solutions). They consider security issues to be divided into eight
+categories: authentication, access control, confidentiality, privacy, trust, secure middleware, mobile
+security, and policy enforcement [104]. Yang et al. [127] presented two main security limitations
+with IoT devices: battery capacity and computing power [112]. These limitations were addressed
+with various solutions, such as using lightweight encryption. In addition to exploring the limitations, Yang et al. introduced a classification of IoT attacks, such as physical and software attacks,
+and focused on design approaches to improve IoT authentication scheme and architectures. Last,
+they discussed security issues at different IoT system layers such as perception, network, and
+transport layers.
+Kumar and Patel [64] divided security threats associated with the IoT into three categories. First,
+front-end sensors and equipment, which include unauthorised access to data, threats to the internet, DoS attacks, and privacy analysis of Machine-to-Machine (M2M) information. Second, network security, which consists of the following concerns: unauthorised access to data or service,
+stealing or altering communication data, and viruses or malware attacks. Third is the back-end of
+IT systems such as middleware and gateways, which involve safety management of code resources
+and the replacement of operators. Currently, protection for IoT devices relies on implemented security measures, software, and protocols [127]. The majority of IoT security issues are associated
+with the large-scale applications and systems [130]. In industrial control systems, the concept of
+security is often synonymous with safety [64, 130]. Focusing on Operational Technology (OT), protection against cyberattacks has become one of main design objectives for industrial IoT systems
+[64, 91].
+For IoT devices [88], security and privacy remain significant concerns for customers. These
+devices not only gather personal information such as the names and telephone numbers of individuals but also track user behaviours, such as when users are in their homes and what potential
+data they are accessing (e.g., music and movies). Moreover, IoT devices analyse and share a vast
+amount of critical security data and sensitive private information, which makes them appealing
+targets for attack [47, 98]. An example of privacy risk to individual can be observed in Figure 3.
+This device collects usage statistics and learns about a user’s behaviour. Usage data, along with
+ACM Transactions on Internet of Things, Vol. 2, No. 1, Article 6. Publication date: February 2021.
+
+Security and Privacy Requirements for the Internet of Things: A Survey
+
+6:11
+
+other information, such as user location and device settings, are uploaded to the Nest cloud when
+connecting to a network. Some Nest thermostats prompt the user for information about their
+home and share this information with energy providers for energy-efficiency purposes. A smart
+Nest thermostat can easily be compromised by attackers to install malware [47].
+An individuals’ data can also be tracked and left across different (network-connected) storage
+devices [119]. Any misuse of this information could have negative consequences for the individual(s) involved and may lead to security violations [86] such as using implicit authentication techniques that could give access to systems based on detailed profile data gathered by IoT systems
+[102].
+As previously mentioned in Section 2, a lack of software quality management and assurance
+leads to less reliable software being delivered to end-users. If the quality of the SDLC can be predicted at an early stage, such as at the design stage, this will reduce the development process time
+and the associated human effort [41, 67]. Private companies or governments that use IoT technologies will have to incorporate enhanced requirements to their risk management, such as resilience to
+attacks, access control, and client privacy [119]. The intertwining of security and privacy concerns
+implies that IoT systems need to acknowledge privacy as a key requirement [86]. The importance
+of PbD has been acknowledged as an approach for maintaining the privacy for software-based
+systems [106]. One of the methodologies that applied the PbD concept is “LINDDUN,” which is
+a systemic procedure for privacy threat modelling [125]. Threat modelling methods and tools are
+discussed in greater detail in Section 8.
+6 METHODOLOGY
+For this survey, we identified a search strategy for selecting suitable literature. The first step involved selecting papers from Google Scholar to avoid publisher bais. A manual search was then
+performed to look for particular authors and papers based on forward and backward snowballing.
+We selected several of the collected papers after the filtering process. After that, we did the data
+extraction step to identify some of the properties from each notation or representation. Finally, we
+analysed the data to review the literature included in this survey.
+6.1 Data Sources and Search Strategy
+For data collection and extraction purposes, Kitchenham’s [61] method is generally used (not all
+the steps) as a guideline to extract data from each paper. To start with, we created the initial search
+query with Google Scholar using keywords that include the word notation or non-functional requirements (security and privacy). This resulted in general queries using “AND” and “OR” combinations (see Table 3). These queries resulted in many papers, some of which were only loosely related to visual notation or non-functional requirements. We used this step to provide an indication
+of which digital libraries and journals were interested in notation, visualisation, non-functional requirements, and IoT. Subsequently, we used a hybrid search with more complex queries in specific
+journals and libraries (see Table 4), such as IEEE Xplore, Scopus, Springer, ACM, and ScienceDirect.
+For the notations study, we checked papers from 1999 onward to ensure comparability and to
+cover a wide variety of notations. The search process is conducted in several iterations with three
+search processes: automatic, manual, and snowballing.
+• Automatic search (see Figures 6 and 7): We performed this stage with a search engine using keywords that combined any of the terms: “Visual languages,” “Visual notation,” “Software design languages,” “Software design visual notation,” “Software notations,” “Architecture
+design,” “Privacy,” “Use all above combinations,” “Security,” “IoT visualisation,” “IoT modelling,” “Architecture,” “Cyber- physical systems,” and “Ubiquitous computing.” Google
+ACM Transactions on Internet of Things, Vol. 2, No. 1, Article 6. Publication date: February 2021.
+
+6:12
+
+N. Alhirabi et al.
+
+Fig. 6. Search and selection processes ultimately produce 47 papers.
+
+Fig. 7. Initial search query.
+ACM Transactions on Internet of Things, Vol. 2, No. 1, Article 6. Publication date: February 2021.
+
+Security and Privacy Requirements for the Internet of Things: A Survey
+
+6:13
+
+Table 3. Examples of Queries and Terms Used for the Online Library Search
+Category
+
+General
+
+Queries and Terms
+“Architecture design”
+“IoT modeling”
+“IoT visualisation”
+“cyber-physical systems”
+“ubiquitous Computing” AND “visualization”
+“Visual” AND (“ languages” OR “notation”)
+“Software design languages” OR “Software design Visual notation”
+“Security” AND (combinations of the above)
+“Privacy” AND (combinations of the above)
+
+Google Scholar:allintitle: (modeling) AND (security OR privacy OR notation OR threat OR
+IoT OR secure)
+More specific IEEE: (((((“All Metadata”:Software design notation) AND “Abstract”:security notation)
+OR “Abstract”:privacy notation) OR “Abstract”:threat modeling) OR “Abstract”:design
+notation)
+ACM: (+Visual +notation software requirements +security +privacy)
+Scopus: TITLE-ABS-KEY-AUTH(“non functional” AND requirements AND IoT)
+AND (LIMIT-TO (SUBJAREA,“COMP”) OR LIMIT-TO (SUBJAREA,“ENGI”))
+AND (LIMIT-TO (LANGUAGE,“English”))
+
+Scholar was used as a starting point to avoid bias in favour of any specific publisher [122].
+Using this approach, we took advantage of looking for the whole spectrum of available publications regardless of the publishers. At the beginning, general search queries were used in
+Google Scholar, which led to a large number of papers (473,000 results for “IoT” and 85,000
+results for “IoT secure design”). In addition, searching for IoT security or IoT privacy also
+led to many thousands of results (299,000 for IoT security and 175,000 for IoT privacy keywords). Some of these results do not consider modelling or visualisation, which makes the
+filtering process difficult. To reduce scope, IoT visualisation and IoT modelling were used
+in combination with security and privacy, as shown in Table 3.
+• Manual search (see Figures 6 and 7): We conducted this stage using the proceedings of certain conferences and journals, such as Ubiquitous Computing (UbiComp), Journal of Systems
+and Software (JSS), ACM Transactions on Software Engineering and Methodology (TOSEM),
+and others listed in Table 4. For these sources, the studied time period was 1999–2019.
+• Snowballing (see Figures 6 and 7): We performed this stage on papers from the manual
+search and some of the results of the automatic search, based on known papers from the
+same relevant topic authors. Then, backward snowballing was performed by checking references to selected relevant papers based on the title, abstract, and paper structure review.
+6.2 Selection Strategy
+The selection strategy, as shown in Figure 6, consisted of the inclusion/exclusion criteria in addition to filtering, which was also done during the searching process. The first selection step involved applying the inclusion/exclusion criteria. The next step involved applying another stage of
+filtering with a quality assessment to ensure certain quality criteria for the studies being considered. The following section discusses each of these steps.
+
+ACM Transactions on Internet of Things, Vol. 2, No. 1, Article 6. Publication date: February 2021.
+
+6:14
+
+N. Alhirabi et al.
+
+Table 4. Sources of Selected Conference Proceedings and Journals for Manual and Automatic Searches
+Venue
+
+Abbr.
+OOPSLA
+ESORICS
+DAC
+EuroS PW
+COMPSAC
+ICECCS
+
+ICECCS
+SCC
+Conference ICSA-C
+ICWS
+ISESS
+VL/HCC
+AVI
+ICSE
+SEKE
+FME
+
+Journal
+
+IST
+TSE
+IEEE T SYST
+MAN CY C
+IST
+IJSE
+INTR
+JSW
+SoSyM
+-
+
+Source
+ACM SIGPLAN conference companion on Object Oriented
+Programming Systems Languages and Applications
+European Symposium on Research in Computer Security
+IEEE Design Automation Conference
+IEEE European Symposium on Security and Privacy
+Transactions on Software Engineering Workshops
+IEEE International Computer Software and Applications
+Conference
+IEEE International Conference on Engineering Complex
+Computer Systems Navigating Complexity in the
+e-Engineering Age
+IEEE International Conference on Engineering of Complex
+Computer Systems
+IEEE International Conference on Services Computing
+IEEE International Conference on Software Architecture
+Companion
+IEEE International Conference on Web Services
+IEEE International Software Engineering Standards
+Symposium and Forum
+IEEE Symposium on Visual Languages-Human Centric
+Computing
+International Conference on Advanced Visual Interfaces
+International Conference on Software Engineering
+International Conference on Software Engineering and
+Knowledge Engineering
+International FME Workshop on Formal Methods in Software
+Engineering
+Information and Software Technology
+Computers & Security
+Computer Networks
+Decision Support Systems
+IEEE Transactions on Software Engineering
+IEEE Transactions on Systems, Man, and Cybernetics, Part C
+(Applications and Reviews)
+Information and Software Technology
+International Journal of Software Engineering
+Internet Research
+Journal of Software
+Journal of Visual Languages and Computing
+Science of Computer Programming
+Software and Systems Modeling
+The Journal of Systems and Software
+
+ACM Transactions on Internet of Things, Vol. 2, No. 1, Article 6. Publication date: February 2021.
+
+Publisher
+ACM
+Springer
+ACM\IEEE
+IEEE
+IEEE
+IEEE
+
+IEEE
+IEEE
+IEEE
+IEEE
+IEEE
+IEEE
+ACM
+ACM\IEEE
+Springer
+ACM\IEEE
+
+Elsevier
+Elsevier
+Elsevier
+Elsevier
+IEEE
+IEEE
+Elsevier
+CSC
+Emerald
+Elsevier
+Elsevier
+Springer
+Elsevier
+
+Security and Privacy Requirements for the Internet of Things: A Survey
+
+6:15
+
+6.2.1 Filtering Irrelevant Papers. The papers collected through the manual, automatic, and
+snowballing approaches contained several papers that are not applicable to this analysis (false
+positives) and these had to be filtered out. The filtering process is done in two steps. The first (F1
+in Figure 6) is located in search step where the papers are filtered based on the title, keywords,
+abstract, and sometimes the conclusion in case of any doubts. Based on this step, a decision was
+made regarding whether or not to include this paper in the next step. The filtering process (F1) is
+undertaken before and after the snowballing process to reduce the number of the papers. When a
+paper passes the initial filtering step (F1), it goes through inclusion and exclusion criteria. The second round of filtering (F2 in Figure 6) is located in the selection step where the paper is read fully.
+To make the study feasible, we used Google Scholar metrics along with Excellence in Research for
+Australia (ERA) metrics [7]. We considered journals that were ranked “B” or higher and conferences that ranked as “A” or higher by the ERA. We ignored some papers that were not published
+at top-tier venues. As mentioned in Figure 6, the selection phase led to the inclusion of 47 papers.
+6.2.2 Inclusion and Exclusion Criteria. In this process, we defined the positive and negative
+criteria. When a paper satisfies one or more of the negative criteria, it is considered for exclusion.
+Initially it was thought that if the paper did not mention IoT, it would be excluded. However, this
+could lead to missing some of the previous beneficial efforts made in the design notation outside
+the IoT context. Moreover, the search for papers covering the concept of only the IoT security
+and privacy design notation is limited. This would result in only a few papers. Therefore, the
+concept was used later as one of the inclusion criteria, not as an exclusion criteria. In case there
+are duplicate papers, the most extensive or recent version was included. The criteria for exclusion
+for each paper were: (i) not written in English; (ii) does not mention security or privacy or talks
+about these concepts in general terms; (iii) discusses security or privacy without offering any
+notation or representation; (iv) does not have a full version (is a poster or abstract only). If a paper
+is not excluded, then it is evaluated by an inclusion list that has other criteria. The paper will
+be discarded if no inclusion criteria are met. The inclusion criteria for a paper were: (i) discusses
+security or privacy concerns in software design; (ii) discusses how to model threats or attacks in
+software design; (iii) enhances a notation defined in another relevant paper; (iv) presents a notation
+for use with IoT or discusses IoT software or system visualisation.
+6.3 Data Extraction
+As previously stated, researchers generally follow the Kitchenham method [61] for data collection
+purposes. For this study, we constructed a repository that contains the meta-data for the analysed
+papers, containing: notation ID, name, publication year, scope, visual design, tool support, security or privacy support, IoT support, validation type, experiment participants’ background, and
+the conference proceeding/journal. In this survey, we analysed a list of notations (across different publications). The publications and their types, over the period 1999–2019, are presented in
+Figures 8(a) and (b).
+7 DESIGN NOTATION, LANGUAGES, AND REPRESENTATIONS
+Many security-related design notations have been introduced by the research community, covering
+a variety of concepts and features in a software design model. These efforts are often fragmented
+across different types of publications, making it difficult for researchers to assess which technique
+they need to follow. An effort has been made in the field of security notations [117]; however, these
+do not fully reflect developments in IoT.
+The following section presents a systematic literature review that investigates the available
+notations for non-functional requirements (security and privacy), with a particular focus on
+ACM Transactions on Internet of Things, Vol. 2, No. 1, Article 6. Publication date: February 2021.
+
+6:16
+
+N. Alhirabi et al.
+
+Fig. 8. Overview of the number of analysed papers (a) distributed per year (1999–2019) and (b) by venue.
+
+Fig. 9. Timeline for the surveyed notations, models, and languages from 1999 to 2019.
+
+characteristics that can be specified visually. Some of these notations (see Figure 9) follow existing
+representation standards such as UML and DFD (see Figure 10). In addition to the representation
+model, we investigated all of the notations in terms of their scope, coverage, and software tool
+support. We then assess how these notations have been evaluated and the types of participants
+involved when validation is carried out experimentally.
+7.1 Scope and Coverage
+This study analyses 47 design notations to assess breadth and coverage (see Table 5). The term
+“scope” is used to reflect which privacy or security application domain this notation is applied
+to, such as notation supporting only the banking field or use across general application domains.
+Meanwhile, the term “coverage” is used here to assess the depth at which the security vs. privacy
+notation has been covered and whether or not it also discusses IoT.
+In the analysis, we considered a number of domains to determine how notations are specified
+and how they support NFRs. We found that only three of these notations (developed over the
+last five years) cover IoT systems: SiMoNa, Midgar, and Microsoft Threat Modeling Tool. Security
+ACM Transactions on Internet of Things, Vol. 2, No. 1, Article 6. Publication date: February 2021.
+
+Security and Privacy Requirements for the Internet of Things: A Survey
+
+6:17
+
+Fig. 10. The analysed notations, models, languages over time (in grey rectangles) with their associated standard notations such as UML, DFD, and BPMN (orange rectangles).
+
+ACM Transactions on Internet of Things, Vol. 2, No. 1, Article 6. Publication date: February 2021.
+
+6:18
+
+N. Alhirabi et al.
+Table 5. Analyses of 47 Design Notations Based on the Covered Scope of Notation
+List of notations
+
+2008
+2002
+2007
+2010
+2011
+2007
+2009
+2010
+2010
+2004
+2006
+2005
+2012
+2005
+2011
+2009
+2015
+2010
+2009
+2012
+2017
+2019
+2014
+2018
+2006
+2012
+2004
+2004
+2014
+2010
+2009
+2018
+2018
+2005
+2018
+2000
+1999
+
+✔
+
+Privacy
+
+Security
+
+IoT
+
+System-on-Ship
+
+DSML
+
+Coverage
+
+Education
+
+Patterns design
+
+Authorization
+
+SOA
+
+[25]
+[4]
+[4]
+[53]
+[15]
+[22]
+[28]
+[33]
+[35]
+[36]
+[43]
+[42]
+[50]
+[66]
+[60]
+[63]
+[125]
+[84]
+[113]
+[71]
+[110]
+[74]
+[38]
+[95]
+[99]
+[2]
+[79]
+[96]
+[19]
+[72]
+[11]
+[23]
+[106]
+[107]
+[105]
+[30]
+[109]
+
+Web system
+
+Citation Year
+
+ADM-RBAC
+Ahn-AC
+Alam-SECTET
+AMF
+Buyens-LP
+FDAF
+FESA-UML
+Georg-AO
+Giordano AC
+Gomaa UML
+Hafner-SECTET
+Hafner-SOA
+Hoisl-SOA
+Kaitiaki
+Kim-AC
+Kong-Threat
+LINDDUN
+Mariscal-AC
+Medina-DB
+Memon-SECTET
+MetaEdit+ 5.5
+Microsoft Threat Modeling
+Midgar
+Milo
+Nakamura-SOA
+PbSD
+Pounamu
+Ray-AC
+Secure*BPMN
+SecureSOA
+SecureUML
+SiMoNa
+Sion-LINDDUN
+Sohr-AC
+SPARTA
+Superlog
+Suzuki-UML
+
+Database
+
+Name
+
+Generic
+
+Scope
+
+✔
+✔
+✔
+✔
+✔
+✔
+
+✔
+✔
+✔
+✔
+✔
+✔
+✔
+✔
+✔
+
+✔
+✔
+✔
+✔
+✔
+✔
+
+✔
+✔
+✔
+✔
+✔
+✔
+✔
+✔
+
+✔
+✔
+✔
+✔
+✔
+✔
+
+✔
+✔
+✔
+✔
+
+✔ ✔
+✔
+
+✔
+✔
+✔
+
+✔
+✔
+
+✔
+✔
+✔
+
+✔
+✔
+✔
+✔
+✔
+
+✔
+✔
+✔
+
+✔
+
+✔
+✔
+✔
+
+✔
+✔
+✔ ✔
+✔
+✔
+
+(Continued)
+ACM Transactions on Internet of Things, Vol. 2, No. 1, Article 6. Publication date: February 2021.
+
+Security and Privacy Requirements for the Internet of Things: A Survey
+
+6:19
+
+Table 5. Continued
+List of notations
+
+Total
+
+2006
+2003
+2008
+2017
+2012
+2010
+2001
+2002
+2006
+2009
+
+✔
+✔
+✔
+✔
+
+Privacy
+
+Security
+
+IoT
+
+System-on-Ship
+
+DSML
+
+Education
+
+Coverage
+
+Patterns design
+
+Authorization
+
+SOA
+
+[62]
+[45]
+[58]
+[115]
+[118]
+[24]
+[129]
+[31]
+[126]
+[128]
+
+Web system
+
+Citation Year
+
+UML AC
+UMLS
+UMLsec
+VandenBerghe-DFD
+Vela-DB-XML
+VESIG
+VisPro
+VLDesk
+Xu-Petri
+Yu-AC
+
+Database
+
+Name
+
+Generic
+
+Scope
+
+✔
+✔
+✔
+✔
+
+✔
+✔
+
+✔
+✔
+
+✔
+✔
+
+✔
+✔
+25
+
+✔
+✔
+3
+
+2
+
+7
+
+1
+
+2
+
+1
+
+6
+
+1
+
+3 33
+
+3
+
+and privacy are the two assessed NFRs in this study. Security has been supported by more than
+half of the analysed papers (33 notations out of 47), while privacy is only covered in SPARTA,
+LINDDUN, and Sion-LINDDUN (3 notations out of 47). It is noticeable that more than half of the
+analysed notations (25 out of 47) are generic and do not focus on a specific application domain
+(the term generic means that this notation is constructed for general security issues and is not
+limited to a single application domain such as banking or healthcare). As stated in Section 6.1,
+the initial thought was that if a paper does not mention IoT, it should be excluded. However, this
+would have led to some of the previous efforts made in secure design notation outside the IoT
+context being overlooked, because privacy design notation and its use in IoT in particular is still
+immature. Consequently, we expanded the search to look for secure design notation even if it did
+not cover IoT. There are some domain-specific notations and service-oriented architecture (SOA)
+that are relatively common (7 notations). The other notations vary between database (3 notations),
+DSML (6 notations), web system (2 notations), design pattern recovery (2 notations), authorisation
+(1 notation), education (1 notation), and System-on-Chip (1 notation).
+7.2 Tool Support
+It can be seen from Table 6 and Figure 11 that the majority of the analysed notations did not
+produce a final software tool (34 notations: 16 notations use a limited capability prototype and 18
+do not have any tool support). A quarter of the notations make use of a software tool (12 out of
+47 notations) and some of the notations that have a tool do not support security, such as SiMoNa,
+which is an IoT infographics domain-specific modelling language.
+7.3
+
+Representation Support
+
+UML-based notations. The majority of notations used to represent security concerns are based
+on the Unified Modelling Language (UML) [117]. As the main focus in this article is NFRs, most of
+the notations being surveyed also focus on security. As seen in Table 6, these notations are mainly
+ACM Transactions on Internet of Things, Vol. 2, No. 1, Article 6. Publication date: February 2021.
+
+6:20
+
+N. Alhirabi et al.
+Table 6. Representation Model and Tool Support for Investigated Notations
+
+✔
+
+Non
+UM
+L/D
+FD
+
+se d
+L ba
+
+DFD
+base
+d
+
+[25]
+[4]
+[4]
+[53]
+[15]
+[22]
+[28]
+[33]
+[35]
+[36]
+[43]
+[42]
+[50]
+[66]
+[60]
+[63]
+[125]
+[84]
+[113]
+[71]
+[110]
+[74]
+[38]
+[95]
+[99]
+[2]
+[79]
+[96]
+[19]
+[72]
+[11]
+[23]
+[106]
+[107]
+[105]
+[30]
+[109]
+[62]
+[45]
+
+Supported Model
+
+UM
+
+ADM-RBAC
+Ahn-AC
+Alam-SECTET
+AMF
+Buyens-LP
+FDAF
+FESA-UML
+Georg-AO
+Giordano AC
+Gomaa UML
+Hafner-SECTET
+Hafner-SOA
+Hoisl-SOA
+Kaitiaki
+Kim-AC
+Kong-Threat
+LINDDUN
+Mariscal-AC
+Medina-DB
+Memon-SECTET
+MetaEdit+ 5.5
+Microsoft Threat Modeling
+Midgar
+Milo
+Nakamura-SOA
+PbSD
+Pounamu
+Ray-AC
+Secure*BPMN
+SecureSOA
+SecureUML
+SiMoNa
+Sion-LINDDUN
+Sohr-AC
+SPARTA
+Superlog
+Suzuki-UML
+UML AC
+UMLS
+
+Non
+e
+
+Citation
+
+Prot
+otyp
+e
+
+Notation
+
+Too
+l
+
+Final product
+
+
+✔
+
+✔
+✔
+✔
+✔
+✔
+
+
+
+
+
+
+✔
+
+
+
+
+
+✔
+
+
+✔
+✔
+✔
+
+✔
+✔
+✔
+
+
+
+
+
+
+
+
+✔
+✔
+✔
+✔
+
+
+
+
+
+
+
+✔
+✔
+✔
+✔
+✔
+
+
+
+
+
+✔
+
+
+
+
+✔
+
+
+
+✔
+✔
+
+
+✔
+✔
+
+
+
+
+
+✔
+✔
+✔
+✔
+✔
+
+
+
+
+
+
+✔
+✔
+✔
+✔
+
+
+
+
+
+
+(Continued)
+ACM Transactions on Internet of Things, Vol. 2, No. 1, Article 6. Publication date: February 2021.
+
+Security and Privacy Requirements for the Internet of Things: A Survey
+
+6:21
+
+Table 6. Continued
+
+Total
+
+Non
+UM
+L/D
+FD
+
+
+✔
+✔
+
+✔
+✔
+✔
+
+12
+
+L ba
+
+se d
+
+✔
+
+DFD
+base
+d
+
+[58]
+[115]
+[118]
+[24]
+[129]
+[31]
+[126]
+[128]
+
+Supported Model
+
+UM
+
+UMLsec
+VandenBerghe-DFD
+Vela-DB-XML
+VESIG
+VisPro
+VLDesk
+Xu-Petri
+Yu-AC
+
+Non
+e
+
+Citation
+
+Prot
+otyp
+e
+
+Notation
+
+Too
+l
+
+Final product
+
+
+
+
+
+
+
+17
+
+✔
+✔
+
+
+
+
+
+18
+
+27
+
+5
+
+15
+
+Fig. 11. Chart (A): the notations did not produce any tool (13 out of 47). Chart (B): most of the analysed
+papers use UML-based modelling.
+
+UML-based (27 notations out of 47). Some of the design notations are created to only detect new
+vulnerabilities, while others such as Georg-AO [33] assess whether a particular attack poses a
+significant risk and then identify security mechanisms to mitigate the risk.
+DFD-based notations. As mentioned previously, most of the common security design notations are UML-based. Data Flow Diagram (DFD) representation is followed by some, such as
+VandenBerghe-DFD and SPARTA modelling notations [105, 115]. VandenBerghe-DFD extends
+DFD with additional security elements attached with well-defined semantics. In this model, an
+expert developer’s knowledge is used to identify and mitigate potential threats. A banking system
+is used to show how this notation can be used as a foundation for the security-by-design paradigm.
+In SPARTA is a prototype that simplifies the embedding of security and privacy in a design. The
+approach describes the process of capturing security and privacy patterns in a DFD-based design
+and then providing threat elicitation based on the constructed knowledge.
+ACM Transactions on Internet of Things, Vol. 2, No. 1, Article 6. Publication date: February 2021.
+
+6:22
+
+N. Alhirabi et al.
+
+Fig. 12. Pie chart on the left shows the validation type. Pie chart on the right shows the participants’ educational background.
+
+LINDDUN and Sion-LINDDUN are other examples that use DFD in their activity representation
+[106, 124, 125]. LINDDUN is a threat modelling methodology that focuses mainly on privacy, using
+a systemic approach for producing privacy requirements. Identifying all potential privacy threats
+is achieved by iterating over the model elements. After that, the threats are manually assessed
+based on their importance (likelihood and impact).
+Non UML- or DFD-based notations. UML and DFD are general-purpose modelling languages
+that can be used across a number of different systems. However, some languages are DomainSpecific Modelling Languages (DSML) or highly specialised ones (14 in total in this study), as
+can be seen in Table 6. In DSML, a domain-specific language is used to represent a system such
+as SiMoNa [23]. SiMoNa is an IoT Infographic Domain-Specific Modelling Language that is built
+using MetaEdit+ 5.5 workbench software, which uses a Graph, Object, Port, Property, Relationship,
+and Role (GOPPRR) meta-modelling language.
+Furthermore, there are very specialised visual languages such as ADM-RBAC and Giordano-AC
+[25, 35]. ADM-RBAC (Ariadne Development Method with Role-Based Access Control) is used for
+modelling hypermedia and web systems to specify Role Based Access Control (RBAC) rules at two
+integrated abstraction levels. This notation is an extension of the Ariadne Development Method
+(ADM), which does not use UML for its representation. Instead, the visual model is designed for
+specifying access control based on a user role, identifying relations between roles/objects, assigned
+permissions, and generated policies. In conceptual models, policies are specified using function
+specifications, authorisation rules, and user diagrams. In detailed models, policies are extended
+using access tables in addition to some of the previously produced models from the conceptual
+phase [25]. Likewise, the Giordano-AC model [35] is a visual model for RBAC that does not (mainly)
+use UML for its representation. In the Giordano AC system there are many tools to enable different kinds of users to visually edit security policies. After that, the system will generate XACML
+(eXtensible Access Control Markup Language) code.
+7.4 Validation of the Notations
+Table 7 provides a summary of the different types of validation conducted for each design notation,
+along with the number and educational background of participants involved. It is noticeable that
+the majority of the notations lack case studies and experiments; in contrast, most use application
+examples to illustrate their use and benefit. Only a few of the notations used experiments (10 out
+of 47) and some have case studies (10 out of 47) as a way of validation. In the experiments, it is
+noticeable that many participants have a master’s (postgraduate) degree (see Figure 12). However,
+some studies do not include any validation such as Sohr-AC and Ahn-AC.
+ACM Transactions on Internet of Things, Vol. 2, No. 1, Article 6. Publication date: February 2021.
+
+Security and Privacy Requirements for the Internet of Things: A Survey
+
+6:23
+
+Table 7. Validation Techniques Used for Each Notation, Which Can Be
+Case Studies, Experiments, or Illustrations
+
+Illustrations
+
+✔
+
+Experiments*
+
+Validation technique
+Case studies
+
+Expert
+
+PhD
+
+[25]
+[4]
+[4]
+[53]
+[15]
+[22]
+[28]
+[33]
+[35]
+[36]
+[43]
+[42]
+[50]
+[66]
+[60]
+[63]
+[125]
+[84]
+[113]
+[71]
+[110]
+[74]
+[38]
+[95]
+[99]
+[2]
+[79]
+[96]
+[19]
+[72]
+[11]
+[23]
+[106]
+[107]
+[105]
+[30]
+[109]
+[62]
+
+Master
+
+Citation
+
+ADM-RBAC
+Ahn-AC
+Alam-SECTET
+AMF
+Buyens-LP
+FDAF
+FESA-UML
+Georg-AO
+Giordano AC
+Gomaa UML
+Hafner-SECTET
+Hafner-SOA
+Hoisl-SOA
+Kaitiaki
+Kim-AC
+Kong-Threat
+LINDDUN
+Mariscal-AC
+Medina-DB
+Memon-SECTET
+MetaEdit+ 5.5
+Microsoft Threat Modeling
+Midgar
+Milo
+Nakamura-SOA
+PbSD
+Pounamu
+Ray-AC
+Secure*BPMN
+SecureSOA
+SecureUML
+SiMoNa
+Sion-LINDDUN
+Sohr-AC
+SPARTA
+Superlog
+Suzuki-UML
+UML AC
+
+Undergraduate
+
+Notation
+
+Novice
+
+Participants background
+
+18
+
+✔
+✔
+✔
+✔
+✔
+✔
+✔
+
+✔
+
+✔
+
+✔
+
+✔
+
+✔
+
+20
+
+✔
+✔
+
+54
+✔
+
+✔
+
+✔
+
+21
+20
+
+✔
+✔
+
+✔
+
+148
+
+✔
+
+✔
+
+31
+
+✔
+✔
+✔
+✔
+✔
+✔
+✔
+✔
+✔
+✔
+✔
+✔
+✔
+✔
+✔
+✔
+✔
+✔
+✔
+✔
+✔
+✔
+✔
+✔
+
+✔
+✔
+✔
+
+(Continued)
+ACM Transactions on Internet of Things, Vol. 2, No. 1, Article 6. Publication date: February 2021.
+
+6:24
+
+N. Alhirabi et al.
+Table 7. Continued
+
+Illustrations
+
+Case studies
+
+Validation technique
+Experiments*
+
+Total
+
+Expert
+
+[45]
+[58]
+[115]
+[118]
+[24]
+[129]
+[31]
+[126]
+[128]
+
+PhD
+
+UMLS
+UMLsec
+VandenBerghe-DFD
+Vela-DB-XML
+VESIG
+VisPro
+VLDesk
+Xu-Petri
+Yu-AC
+
+Master
+
+Citation
+
+Undergraduate
+
+Notation
+
+Novice
+
+Participants background
+
+12
+
+✔
+✔
+✔
+✔
+✔
+✔
+✔
+✔
+✔
+
+324
+
+43
+
+✔
+✔
+✔
+✔
+✔
+✔
+1
+
+1
+
+5
+
+1
+
+3
+
+10
+
+Novice, undergraduate, postgraduate, PhD, and experts are the participants’ educational backgrounds.
+(*) for the experiments column: the number represents the total number of participants in the experiment for each notation. An empty cell indicates that there was no experiment done. (-) in SPARTA
+means that they stated there was an experiment but they did not give details about the number of
+participants or their background.
+
+Other notations, such as Giordano AC, use a varied validation group from both university and
+industry (both managers and technicians). Notations such as ADM-RBAC and PbSD use a group of
+master’s and bachelor’s students, respectively. In ADM-RBAC [25], a comparison was made in the
+experiment where 18 evaluators were divided into two groups. One of the groups trained while the
+other did not. All of the evaluators were first-year master’s students, and the evaluation was part
+of a Hypermedia Design course and performed on small scale. In Giordano AC [35], the authors
+validate their model using both a case study and experiment. The case study was conducted using
+20 evaluators who were managers and technicians from universities and industry, to test the system’s usability using a technique called Think. In the experiment, they compared their notation to
+the most related visual tool called XGrid. The evaluators participated for three days and followed
+the think-aloud technique using a one-to-one session. Each validator underwent an introductory
+course for 90 minutes about the two systems and their notations. Subsequently, they were asked to
+use these systems for 20 minutes with their tutor’s support. Then they were asked to apply three
+different scenarios using the system tools in the definition of access policies. The scenarios include
+a file hosting service, a massively multiplayer online role-playing game (MMORPG), and a content
+management system. This experiment was conducted on a small scale (only 6 participants) and
+lacked in-depth analysis. In the use case, they produced a Multimedia Content Management System (MCMS) to support collaboration and embedded access control policies using their approach.
+MCMS is based on an open source content management system called OpenCMS. It was demonstrated that by applying their approach, user management functions (such as authorisation and
+administration) were minimised.
+In PbSD [2], 148 third-year undergraduate students participated in the experiment from a Security of Computers and Communication Networks course. The students were from Information
+Systems Engineering (ISE) and Software Engineering (SE) departments and were divided into two
+groups to apply a set of pre-defined tasks to compare the security requirements between PbSD
+ACM Transactions on Internet of Things, Vol. 2, No. 1, Article 6. Publication date: February 2021.
+
+Security and Privacy Requirements for the Internet of Things: A Survey
+
+6:25
+
+with SQL and Oracle’s Virtual Private Database (VPD). Similarly, the VESIG initial tool was tested
+in the Formal Methods for Web Design course using 12 master’s students on a Science and Technology in Computing course [24]. The required design task was conducted in pairs for 90 minutes:
+10 minutes as an introduction to the tool from the VESIG team, 45 minutes to draw a sketch on
+paper, and the remaining time to apply the sketch using the tool and complete 6 open questions.
+In the end, 6 different designs and 12 questionnaires were collected. Both postgraduate and (computer science) undergraduate students were used for evaluation purposes [95]. In Midgar [38], the
+experiment was conducted based on 21 participants who were tested individually. 12 of the participants were software developers and 9 of them were interested in IoT. They were asked to evaluate
+the use of the application editor and generator from a developer and an end user point of view.
+In SPARTA [105], evaluation was carried out by running risk analysis on a WebRTC system. The
+SPARTA system is also compared with Microsoft Threat Analysis performance.
+A number of authors use similar scenarios to validate their systems. For example, the Kim-AC
+case study is presented as an application for online shopping, similar to the Xu-Petri case study,
+which models a real-world shopping cart application [126]. Both of them apply the STRIDE technique to identify threats. There are no participants involved in these validation studies. Medina-DB
+presents a Secure Data Warehouse for several pharmacies, based on a study conducted by the authors themselves in a separate paper [108]. Similarly, VisPro, and UMLsec have some examples
+and case studies [58, 129].
+8 RESEARCH CHALLENGES AND OPPORTUNITIES
+IoT application design presents a number of challenges, some requiring changes to the traditional
+SDLC. Below, we presented some of the solutions or enhancements to support IoT development.
+For instance, integrating threat modelling techniques during the design stage (such as STRIDE),
+introducing a framework to support privacy, or enhancing the SDLC to include different views
+such as prosumerisation.
+8.1
+
+Lack of Notations and Languages for Privacy
+
+Considerable efforts have been made to control software quality at an early stage, such as using
+bad-smell identification and prediction methods. Bad-smell happens as a result of an inefficient design or imperfect implementation [67]. For that reason, tools called smell detectors were developed
+to give programmers an alert about the occurrence of “smells” in the code [77].
+Additionally, efforts have been made to start security control earlier than the implementation
+phase. The concept of Security by Design (SbD) supports this approach, and it is intended that
+modern software development should embrace it as part of SDLC. At any organisation, some assets need to be protected, because they could be vulnerable to threats. Risk assessment is part of
+the wider risk management process, intended to provide a systematic framework to identify, analyse, and prioritise possible threats and risks and detect any effects that a system may face as a
+consequence [93].
+To manage application security risks, many organisations seek to use threat modelling to identify attacks and reduce the number of risks that an application may encounter. Using threat modelling helps quality assurance (QA) teams to manage potential risks that could affect the software
+[121]. This approach, such as STRIDE, is made by modelling and then analysing the system’s logical entities to identify potential vulnerabilities and threats.
+Threat modelling techniques such as OWASP [83] and the Microsoft Threat Modelling Tool [74]
+are among the solutions available to ensure that the system is secure during the design phase. There
+are two main methodologies (STRIDE and DREAD) that have been used for the majority of threat
+modelling techniques [29]. STRIDE (Spoofing, Tampering, Repudiation, Information disclosure,
+ACM Transactions on Internet of Things, Vol. 2, No. 1, Article 6. Publication date: February 2021.
+
+6:26
+
+N. Alhirabi et al.
+
+Fig. 13. Continuous Glucose Monitor (CGM) use case in Figure 4 is modelled here using two threat modelling
+tools. Note: both tools focus on security (not privacy) and neither presents security/privacy issues visually.
+
+Denial of Service, and Elevation of privilege) is a methodology used within the Microsoft Threat
+Modelling Tool. DREAD (Damage potential, Reproducibility, Exploitability, Affected users, and
+Discoverability) is used for risk calculation. The difference between the two is that STRIDE is used
+for threat identification, whereas DREAD is used for risk calculation. Both OWASP [83] and the
+Microsoft Threat Modelling Tool [74] are used for security threats and neither is used for privacy
+in particular.
+To show limitations with modelling privacy, we consider how the Continuous Glucose Monitor
+(CGM) use case (from Section 4.1 Figure 4) can be represented using threat modelling tools (see
+Figure 13). However, these tools lack any visual representation to describe privacy risk. Considerable research efforts have sought to target security notation concerns (see Table 5) but adequate
+privacy modelling support still remains a challenge. Based on our analysis, we believe there to be
+an opportunity to add and improve the area of privacy notation modelling across different applications domains [89].
+8.2 Lack of Tools to Supplement Methods
+As stated in Section 8.1, some tools are used for security threats in the absence of a privacy framework. Since the main focus of STRIDE is security threat modelling, LINDDUN was introduced
+to cover the privacy requirements. LINDDUN is a model-based framework that has been used to
+focus exclusively on modelling privacy threats in software-based systems [125]. It is an acronym
+for seven types of threats: Linkability, Identifiability, Non-repudiation, Detectability, information
+ACM Transactions on Internet of Things, Vol. 2, No. 1, Article 6. Publication date: February 2021.
+
+Security and Privacy Requirements for the Internet of Things: A Survey
+
+6:27
+
+STRIDE
+LINDDUN
+
+Privacy
+
+Security
+
+Table 8. Security and Privacy Concerns with Their Corresponding Threats Mapped with DFD Elements
+that are Vulnerable to Threats (DF: Data Flow, DS: Data Store, P: Process, E: External Entity)*
+Property
+Authentication
+Integrity
+Non-repudiation
+Confidentiality
+Availability
+Authorization
+Unlinkability
+Anonymity and pseudonymity
+Plausible deniability
+Undetectability and unobservability
+Confidentiality
+Content awareness
+Policy and consent compliance
+
+Threat
+Spoofing
+Tampering
+Repudiation
+Information Disclosure
+Denial of Service
+Elevation of Privilege
+Linkability
+Identifiability
+Non-repudiation
+Detectability
+Disclosure of information
+Content Unawareness
+Policy and Consent Non-compliance
+
+DF DS P
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+•
+
+E
+•
+•
+
+•
+•
+•
+•
+•
+•
+
+*Note: STRIDE and LINDDUN are proposed by the SDLC [52] and Privacy Threats in Software Architectures [125],
+respectively.
+
+Fig. 14. LINDDUN vs. STRIDE Methodology.
+
+Disclosure, content Unawareness and policy, and consent Non-compliance. All of these threats are
+mapped to an application DFD (see Table 8).
+STRIDE and LINDDUN include a difference in steps for dealing with privacy threats (see
+Figure 14). In STRIDE, a user must first define a use case scenario, but this is the third step in
+LINDDUN, which requires defining a DFD. As well as STRIDE, which was adopted in the Microsoft Threat Modelling Tool to cover security concerns, we believe LINDDUN could be used to
+fulfil the privacy gap associated with other IoT tools. LINNDUN was initiated as a privacy modelling framework but it does not support privacy patterns, use of IoT, or related software tools (see
+Tables 5 and 6). It also focuses on the problem space without offering many solutions to mitigate
+these problems. This area could open a research direction for the development of software tools to
+address and visualise privacy threats. This notation can cover IoT issues and suggest a solution to
+enhance the design. It can be used by different users: (i) novice learners who want to be aware of
+ACM Transactions on Internet of Things, Vol. 2, No. 1, Article 6. Publication date: February 2021.
+
+6:28
+
+N. Alhirabi et al.
+
+privacy issues, (ii) expert developers who want to enhance the privacy of their software systems,
+or (iii) lawyers who want to present privacy laws, such as the use of the European General Data
+Protection Regulation (GDPR).
+8.3
+
+Proactive Assistance
+
+Proactive service means anticipating and predicting user concerns and addressing them proactively. For instance, most users who have concerns when browsing a website or using a tool will
+search for a help or contact option. In contrast, with a proactive service, the user concerns are
+predicted and solutions/suggestions are offered (non-intrusively) based on their behaviour and
+actions.
+By identifying and addressing issues before they become a problem, the availability of systems
+and applications will increase. Some critical systems require high availability of supporting hardware. For instance, Phillips [92] has a solution called e-Alert that is used to ensure a high level
+of performance by Magnetic Resonance Imaging (MRI) systems. This is achieved by sensing and
+monitoring the system continuously and responding quickly to any possible issues with an MRI
+scanner by issuing mobile messaging alerts that are sent to the Philips service engineers. In general, to support management of hardware systems, many companies are moving from reactive to
+proactive engagement/maintenance processes. Another example is Oracle [82], which has developed a proactive diagnostic support tool to predict system behaviour, prioritise actions, and avoid
+potential problems.
+In IoT, the tradeoff between business requirements (e.g., to capture data and carry out predictive analysis) and user privacy remains a challenge. As IoT technology does not have completely
+standardised security and privacy requirements [18], there is a need for a proactive framework
+and assistive tool to help develop IoT applications. Existing tools provide limited proactive support, especially those that are used during the design phase of IoT applications. For example, if a
+developer wants to draw a data flow diagram for a supermarket security system, there will be a
+smart camera in front of a supermarket that will collect Personally Identifiable Information (PII)
+such as human faces. The engineer does not know how long the data needs to be stored, where it
+should be stored, or mechanisms needed to ensure that both of these practices comply with legal
+requirements (e.g., GDPR legislation).
+There is therefore a need for a tool that focuses on the architecture/design element, where both
+data flow requirements are met and privacy is preserved. A tool that supports the developer in
+meeting privacy requirements, e.g., whenever a camera is dragged and dropped, privacy concerns
+will pop up automatically to offer a hint about IoT privacy concerns and associated legislation. For
+instance, it will be helpful for the developers if there is a knowledgeable tool that visually presents
+any errors, warnings, or recommendations when actions are taken (e.g., suggesting a data retention
+period based on the application domain, law, and other application domain and use specific factors
+[85, 94]).
+8.4 Integration of IoT Standards and Privacy
+One way to support privacy in software systems is to integrate privacy engineering in system development. There have been various efforts to merge existing SDLC with privacy concerns to put
+the privacy-by-design concept into practice. One of the studies that has been conducted is to integrate OWASP standard Secure-SDLC with the Microsoft Threat Modelling Tool in IoT Application
+SDLC to produce Secure-SDLC for IoT [29]. In this study, privacy and security are demonstrated in
+a healthcare application (IoT-based Health Monitor) to track and monitor body temperature and
+pulse rate of hospital patients. Security has been integrated while designing and implementing
+the system. The main idea is to embed security requirements from the outset to the final software
+ACM Transactions on Internet of Things, Vol. 2, No. 1, Article 6. Publication date: February 2021.
+
+Security and Privacy Requirements for the Internet of Things: A Survey
+
+6:29
+
+system development stages, from requirements gathering to deployment. At each stage, a number of known vulnerabilities are identified and mitigated. Subsequently, testing of the IoT-based
+Health Monitor is conducted based on the OWASP top 5 IoT vulnerabilities. The SDLC is divided
+into five phases: Requirements Gathering, Design, Development, Testing, and Deployment [29].
+Each phase has its own level of security review. In the Requirement Gathering phase (planning
+and analysis), security requirements and significant risks are identified and added. The following security requirements are considered: authentication, authorisation, error handling, session
+management, input validations, logging, secure communications, storage, and so on.
+In the design phase, security threat modelling techniques are used to revise the design. At the
+development and implementation phase, code revision is undertaken to identify coding errors that
+can cause security risks. In the testing phase, the system is checked to confirm and validate that
+it meets the FRs as well as the NFRs, such as checking the system using test cases with OWASP
+Top 10 vulnerabilities. In the final deployment stage, security properties are added to the system
+configurations, with a retesting for further vulnerabilities [29].
+Al-Momani et al. [59] describe an extension of the software engineering V-model, called Wmodel, with privacy support. This model adds a privacy-enhanced stage in each step. In addition,
+they add a privacy-centric stage based on their proposed PRIPARE (privacy-enhanced) methodology [80]. This model is suggested for privacy-preserving systems in organisations that follow the
+V-model for software development. There is some work potential to enhance some of the available SDLC for building privacy-preserving systems. Additionally, there are options to enhance the
+LINDDUN problem and solution phases to include IoT privacy and to provide recommendations
+for a developer.
+8.5
+
+Tools and Methods for Stakeholder Engagement Through Co-design
+
+Another way to develop an IoT system is to follow End-User Development (EUD) approaches for
+design and development [69]. EUD suggests that end-users could develop their own programs by
+giving them suitable tools that fulfil their requirements and saves costs and effort.
+Martin’s [69] framework was created to enable prosumer users to create services in IoT scenarios. A prosumer is both a producer and consumer of data and services. The main goal in this
+framework is to enable an end-user (who does not have a high level of expertise) to be involved in
+the development stages. The framework is structured based on two interacting roles of developers
+and users (prosumers), as illustrated in Figure 15. A developers’ view comprises five traditional
+stages of software development: requirements acquisition, analysis, design, implementation, and
+testing. Each of these development stages in the service creation framework should take into account the prosumer value. There are five more stages that present the prosumers’ view: training,
+service requirement identification, system element identification, service building, and measuring.
+This framework was tested for creating and personalising templates of web technologies in a hospital pharmacy management system. The built prototype was tested by prosumer users who have
+no technical expertise, such as pharmacy workers. They did various actions such as creating and
+sharing stock notifications for medication available in the pharmacy. This testing was undertaken
+to ensure that the presented approach benefited from engaging the prosumer in the design phase
+to increase the usability of the system. We believe that following the EUD approach helps to develop security and privacy in IoT systems. Engaging end-users in developing software will help to
+fulfil their actual security and privacy requirements based on a specific application domain.
+8.6 Design and Development Integration Tools
+This survey primarily focuses on design notations, models, and languages that facilitate capturing
+non-functional requirements (security and privacy specifically). Focusing on these concerns led to
+ACM Transactions on Internet of Things, Vol. 2, No. 1, Article 6. Publication date: February 2021.
+
+6:30
+
+N. Alhirabi et al.
+
+Fig. 15. Methodological approach in developers’ and prosumers’ views [69].
+
+discarding some of the popular and widely used IoT visualisation notation tools such as NodeRED
+and ThingML, due to space and scope constraints.
+ThingML [44] as a modelling language and tool offers customisability of its multi-platform code
+generators. It can be used for heterogeneous and distributed service-based systems. However, the
+Node-Red programming tool is used for wiring hardware devices and other online resources [13].
+Due to a lack of direct support for security and privacy, both tools were discarded at the exclusion step in our literature survey. In addition, these tools are not directly intended to be used for
+modelling. NodeRED does enable support for authorisation and authentication, based on the specification of a collection of nodes and flows. Although both tools have a large user community, and
+as security and privacy are not the primary focus, we suggest an in-depth study of these tools and
+consider the addition of extensions/plugins to support IoT privacy within ThingML and NodeRED.
+9 CONCLUSION
+The use and development of IoT applications continue to grow. This increase presents challenges
+in both the design and implementation of these applications—such as supporting node heterogeneity, multiple hardware and software systems, multiple implementation technologies, and the need
+for developers working across different parts of the software systems stack to collaborate. These
+additional capabilities also increase the potential of the available attack surface, particularly with
+reference to privacy issues associated with IoT. We posit that non-functional requirements (i.e.,
+security and privacy) are critical to successful take-up and continued growth of IoT systems, and
+yet they tend to be ignored or are only partially supported in current design tools.
+The key goals of this study are to review the evolution of design notations, models, and languages that can be used to capture non-functional requirements (mainly security and privacy). The
+study also explores the possible risk assessment methodologies and how they could be integrated
+with IoT applications and systems. We discuss why integrating privacy in system development
+is important at an early stage of development. We explore how a proactive support mechanism
+could be used in a software tool to increase potential privacy techniques that could be adopted by
+developers, while implementing IoT applications.
+This survey provides the outcome of a literature review for including non-functional requirements in IoT systems. We describe how such an analysis of literature can be used to reduce IoT
+ACM Transactions on Internet of Things, Vol. 2, No. 1, Article 6. Publication date: February 2021.
+
+Security and Privacy Requirements for the Internet of Things: A Survey
+
+6:31
+
+application design process complexity. We discuss how existing (widely used) methods could be
+adapted for IoT environments such as STRIDE and LINDDUN. There are, however, other potential
+risk management methodologies that could be adapted, such as Operationally Critical Threat, Asset, and Vulnerability Evaluation (OCTAVE) Allegro methodology. Using OCTAVE could improve
+the process of assessing information security risks and achieve sufficient results with small resources [16]. This methodology has the possibility to assess the security risks of IoT-based smart
+homes. For instance, Reference [5] used the methodology to recognise security risks initiating
+from inside and outside smart homes.
+In this survey, 47 notations, languages, and representations have been systematically reviewed
+and compared. The study has shown that although most of the analysed publications support security in some way, they rarely provide support for data privacy. In the survey, we also highlight
+potential challenges and opportunities in supporting proactive design tools for IoT privacy. Since
+some users (developers) might find a proactive approach inherently intrusive, a tradeoff needs to
+be identified between overwhelming users with potential suggestions vs. utilising limited knowledge and experience a developer may have to integrate privacy techniques in their system. Using
+a human-centred design (HCD) approach could help with this issue [57]. In this approach, human
+needs, behaviours, and capabilities are taken into consideration in the first place. Therefore, understanding key psychological factors that influence design choices should go hand-in-hand with
+understanding the supporting technology. It is more important for tool designers to understand
+what will happen if things go wrong more than what will happen if they go as planned. Moreover,
+tracking users while using the tool may have an impact on the privacy of the user; consequently,
+the tradeoff between getting proactive support and staying without an active assistant should be
+considered. In some applications, users appear willing to trade their privacy for convenience, but
+they should be aware and give their consent for processing their data.
+Finally, we identify and discuss six research challenges (gaps) related to privacy in IoT systems
+that remain, and how addressing these can be important for the research and development community for IoT systems and applications.
+
+REFERENCES
+[1] ISO/IEC JTC 1/SC 27. 2011. ISO/IEC 29100:2011(en): Information technology—Security techniques—Privacy framework. Retrieved from https://www.iso.org/obp/ui/#iso:std:iso-iec:29100:ed-1:v1:en.
+[2] Jenny Abramov, Arnon Sturm, and Peretz Shoval. 2012. Evaluation of the pattern-based method for Secure Development (PbSD): A controlled experiment. Inf. Softw. Technol. 54, 9 (2012), 1029–1043. DOI:https://doi.org/10.1016/j.
+infsof.2012.04.001
+[3] Yuvraj Agarwal and Malcolm Hall. 2013. ProtectMyPrivacy: Detecting and mitigating privacy leaks on iOS devices
+using crowdsourcing. In Proceedings of the 11th International Conference on Mobile Systems, Applications, and Services.
+ACM, 97–110.
+[4] Gail Joon Ahn, Seung Phil Hong, and Michael E. Shin. 2002. Reconstructing a formal security model. Inf. Softw.
+Technol. 44, 11 (2002), 649–657. DOI:https://doi.org/10.1016/S0950-5849(02)00092-7
+[5] Bako Ali and Ali Ismail Awad. 2018. Cyber and physical security vulnerability assessment for IoT-based smart homes.
+Sensors 18, 3 (2018), 817.
+[6] D. Ameller, X. Franch, and J. Cabot. 2010. Dealing with non-functional requirements in model-driven development.
+In Proceedings of the 18th IEEE International Requirements Engineering Conference. 189–198. DOI:https://doi.org/10.
+1109/RE.2010.32
+[7] ARC. 2019. Excellence in Research for Australia (ERA). Retrieved from https://www.arc.gov.au/excellence-researchaustralia.
+[8] Yosef Ashibani and Qusay H. Mahmoud. 2017. Cyber physical systems security: Analysis, challenges and solutions.
+Comput. Secur. 68 (2017), 81–97.
+[9] Luigi Atzori, Antonio Iera, and Giacomo Morabito. 2010. The internet of things: A survey. Comput. Netw. 54, 15
+(2010), 2787–2805.
+ACM Transactions on Internet of Things, Vol. 2, No. 1, Article 6. Publication date: February 2021.
+
+6:32
+
+N. Alhirabi et al.
+
+[10] Rebecca Balebako, Abigail Marsh, Jialiu Lin, Jason I. Hong, and Lorrie Faith Cranor. 2014. The privacy and security
+behaviors of smartphone app developers. Retrieved from http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.
+1.661.4221&rep=rep1&type=pdf.
+[11] David Basin, Manuel Clavel, Jürgen Doser, and Marina Egea. 2009. Automated analysis of security-design models.
+Inf. Softw. Technol. 51, 5 (2009), 815–831. DOI:https://doi.org/10.1016/j.infsof.2008.05.011
+[12] Matt Bishop. 2003. What is computer security? IEEE Secur. Priv. 1, 1 (2003), 67–69.
+[13] Michael Blackstock and Rodger Lea. 2014. Toward a distributed data flow platform for the Web of Things (distributed
+node-RED). In Proceedings of the 5th International Workshop on Web of Things (WoT’14). Association for Computing
+Machinery, New York, NY, 34–39. DOI:https://doi.org/10.1145/2684432.2684439
+[14] Jan Lauren Boyles, Aaron Smith, and Mary Madden. 2012. Privacy and Data Management on Mobile Devices. Retrieved from https://www.pewinternet.org/2012/09/05/privacy-and-data-management-on-mobile-devices/.
+[15] Koen Buyens, Riccardo Scandariato, and Wouter Joosen. 2013. Least privilege analysis in software architectures.
+Softw. Syst. Model. 12, 2 (2013), 331–348. DOI:https://doi.org/10.1007/s10270-011-0218-8
+[16] Richard A. Caralli, J. Stevens, L. Young, and W. R. Wilson. 2007. Introducing OCTAVE Allegro: Improving the information security risk assessment process. Technical Report. CMU/SEI-2007-TR-012. Retrieved from https://resources.
+sei.cmu.edu/library/asset-view.cfm?assetID=8419.
+[17] Ioannis Chatzigiannakis, Georgios Mylonas, and Sotiris Nikoletseas. 2007. 50 ways to build your application: A
+survey of middleware and systems for wireless sensor networks. In Proceedings of the IEEE Conference on Emerging
+Technologies and Factory Automation (EFTA’07). IEEE, 466–473.
+[18] Abhik Chaudhuri and Ann Cavoukian. 2018. The proactive and preventive privacy (3P) framework for IoT privacy
+by design. EDPACS 57, 1 (2018), 1–16.
+[19] Y. Cherdantseva. 2014. Secure * BPMN—A Graphical Extension for BPMN 2.0 Based on a Reference Model of Information
+Assurance & Security. Ph.D. Dissertation. Yulia Cherdantseva Cardiff University. Retrieved from https://ethos.bl.uk/
+OrderDetails.do?uin=uk.bl.ethos.655937.
+[20] Collaboration. [n.d.]. privacy patterns. Retrieved from https://privacypatterns.org/.
+[21] Fredrik Dahlqvist, Mark Patel, Alexander Rajko, and Jonathan Shulman. 2019. Growing opportunities in the Internet
+of Things. McKinsey July (2019).
+[22] Lirong Dai and Kendra Cooper. 2007. Using FDAF to bridge the gap between enterprise and software architectures
+for security. Sci. Comput. Prog. 66, 1 (2007), 87–102. DOI:https://doi.org/10.1016/j.scico.2006.10.010
+[23] Cleber Matos De Morais, Judith Kelner, Djamel Sadok, and Thea Lynn. 2018. SiMoNa: A proof-of-concept domain
+specific modeling language for IoT infographics. In Proceedings of the IEEE Symposium on Visual Languages and
+Human-centric Computing (VL/HCC’18). 199–203. DOI:https://doi.org/10.1109/VLHCC.2018.8506502
+[24] Paloma Díaz, Ignacio Aedo, Mary Beth Rosson, and John M. Carroll. 2010. A visual tool for using design patterns as
+pattern languages. In Proceedings of the International Conference on Advanced Visual Interfaces. ACM, 67–74.
+[25] Paloma Díaz, Ignacio Aedo, Daniel Sanz, and Alessio Malizia. 2008. A model-driven approach for the visual specification of Role-Based Access Control policies in web systems. In Proceedings of the IEEE Symposium on Visual
+Languages and Human-centric Computing (VL/HCC’08). 203–210. DOI:https://doi.org/10.1109/VLHCC.2008.4639087
+[26] European Union. 2016. Regulation 2016/679. Offic. J. Eur. Commun. 59, L 119 (2016), 1–88. DOI:https://doi.org/pri/
+en/oj/dat/2003/l_285/l_28520031101en00330037.pdf.
+[27] Dave Evans. 2011. The internet of things: How the next evolution of the internet is changing everything. CISCO
+White Paper 1, 2011 (2011), 1–11.
+[28] Tibor Farkas, Carsten Neumann, and Andreas Hinnerichs. 2009. An integrative approach for embedded software
+design with UML and simulink. In Proceedings of the International Computer Software and Applications Conference,
+Vol. 2. IEEE, 516–521. DOI:https://doi.org/10.1109/COMPSAC.2009.185
+[29] Avelet Maria Fernandes, Anusha Pai, and Louella M. Mesquita Colaco. 2018. Secure SDLC for IoT based health
+monitor. In Proceedings of the 2nd International Conference on Electronics, Communication and Aerospace Technology
+(ICECA’18). 1236–1241. DOI:https://doi.org/10.1109/ICECA.2018.8474668
+[30] Peter L. Flake and Simon J. Davidmann. 2000. Superlog, a unified design language for system-on-chip. In Proceedings
+of the Design Automation Conference. 583–586. DOI:https://doi.org/10.1145/368434.368814
+[31] R. Francese, G. Scanniello, G. Costagliola, A. De Lucia, and M. Risi. 2002. A component-based visual environment
+development process. In Proceedings of the 14th International Conference on Software Engineering and Knowledge
+Engineering. 327–334. DOI:https://doi.org/10.1145/568813.568818
+[32] David Geer. 2010. Are companies actually using secure development life cycles? Computer 43, 6 (2010), 12–16.
+[33] Geri Georg, Indrakshi Ray, Kyriakos Anastasakis, Behzad Bordbar, Manachai Toahchoodee, and Siv Hilde Houmb.
+2009. An aspect-oriented methodology for designing secure applications. Inf. Softw. Technol. 51, 5 (2009), 846–864.
+DOI:https://doi.org/10.1016/j.infsof.2008.05.004
+
+ACM Transactions on Internet of Things, Vol. 2, No. 1, Article 6. Publication date: February 2021.
+
+Security and Privacy Requirements for the Internet of Things: A Survey
+
+6:33
+
+[34] Nam Ky Giang, Michael Blackstock, Rodger Lea, and Victor C. M. Leung. 2015. Developing IoT applications in the
+fog: A distributed dataflow approach. In Proceedings of the 5th International Conference on the Internet of Things
+(IOT’15). IEEE, 155–162.
+[35] Massimiliano Giordano, Giuseppe Polese, Giuseppe Scanniello, and Genoveffa Tortora. 2010. A system for visual
+role-based policy modelling. J. Vis. Lang. Comput. 21, 1 (2010), 41–64. DOI:https://doi.org/10.1016/j.jvlc.2009.11.002
+[36] M. Eonsuk Shin and H. Gomaa. 2004. Modeling complex systems by separating application and security concerns.
+In Proceedings of the 9th IEEE International Conference on Engineering of Complex Computer Systems. 19—28.
+[37] Francisco Gomariz-Castillo, Irene Garrigós, Jose-Alfonso Aguilar, Jose Zubcoff, Sven Casteleyn, and Jose-Norberto
+Mazón. 2018. Evaluating different i*-based approaches for selecting functional requirements while balancing and
+optimizing non-functional requirements: A controlled experiment. Inf. Softw. Technol. 106, Jan. 2017 (2018), 68–84.
+DOI:https://doi.org/10.1016/j.infsof.2018.09.004
+[38] Cristian González García, B. Cristina Pelayo G-Bustelo, Jordán Pascual Espada, and Guillermo Cueva-Fernandez.
+2014. Midgar: Generation of heterogeneous objects interconnecting applications. A domain specific language proposal for Internet of Things scenarios. Comput. Netw. 64 (2014), 143–158. DOI:https://doi.org/10.1016/j.comnet.2014.
+02.010
+[39] Google. [n.d.]. Google Nest. Retrieved from https://nest.com/uk/.
+[40] Jayavardhana Gubbi, Rajkumar Buyya, Slaven Marusic, and Marimuthu Palaniswami. 2013. Internet of Things (IoT):
+A vision, architectural elements, and future directions. Fut. Gen. Comput. Syst. 29, 7 (2013), 1645–1660.
+[41] Aakanshi Gupta, Bharti Suri, Vijay Kumar, Sanjay Misra, Tomas Blažauskas, and Robertas Damaševičius. 2018.
+Software code smell prediction model using shannon, rényi, and tsallis entropies. Entropy 20, 5 (2018), 372.
+[42] M. Hafner, M. Breu, R. Breu, and A. Nowak. 2005. Modelling inter-organizational workflow security in a peer-topeer environment. In Proceedings of the IEEE International Conference on Web Services (ICWS’05). DOI:https://doi.
+org/10.1109/ICWS.2005.83
+[43] M. Hafner, R. Breu, B. Agreiter, and A. Nowak. 2006. SECTET—An extensible framework for the realization of secure
+inter-organizational workflows. Internet Res.: Electron. Netw. Applic. Polic. 16, 5 (2006), 491–506.
+[44] Nicolas Harrand, Franck Fleurey, Brice Morin, and Knut Eilif Husa. 2016. ThingML: A language and code generation
+framework for heterogeneous targets. In Proceedings of the ACM/IEEE 19th International Conference on Model Driven
+Engineering Languages and Systems. 125–135.
+[45] Rogardt Heldal and Fredrik Hultin. 2003. Bridging model-based and language-based security. In Proceedings of the
+European Symposium on Research in Computer Security. LNCS, Vol. 2808 (2003), 235–236.
+[46] Sehyeon Heo, Sungpil Woo, Janggwan Im, and Daeyoung Kim. 2015. IoT-MAP: IoT mashup application platform for
+the flexible IoT ecosystem. In Proceedings of the 5th International Conference on the Internet of Things (IOT’15). IEEE,
+163–170.
+[47] Grant Hernandez, Orlando Arias, Daniel Buentello, and Yier Jin. 2014. Smart Nest thermostat: A smart spy in your
+home. In Proceedings of the Black Hat USA Conference. 1–8.
+[48] Michael Hirsch. 2002. Making RUP agile. OOPSLA 2002 Practitioners Reports. Retrieved from http://citeseerx.ist.
+psu.edu/viewdoc/download?doi=10.1.1.119.9388&rep=rep1&type=pdf.
+[49] Jeffrey A. Hoffer. 2012. Modern Systems Analysis and Design, 6/e. Pearson Education India.
+[50] Bernhard Hoisl, Stefan Sobernig, and Mark Strembeck. 2014. Modeling and enforcing secure object flows in processdriven SOAs: An integrated model-driven approach. Softw. Syst. Model. 13, 2 (2014), 513–548. DOI:https://doi.org/
+10.1007/s10270-012-0263-y
+[51] J. Hong. 2017. The privacy landscape of pervasive computing. IEEE Pervas. Comput. 16, 3 (2017), 40–48. DOI:https:
+//doi.org/10.1109/MPRV.2017.2940957
+[52] Michael Howard and Steve Lipner. 2006. The Security Development Lifecycle. Vol. 8. Microsoft Press, Redmond WA.
+[53] Hongxin Hu and Gail-joon Ahn. 2010. Constructing authorization systems using assurance management framework.
+IEEE Trans. Syst., Man, Cyber., Part C (Applic. Rev.) 40, 4 (2010), 396–405.
+[54] A. Humayed, J. Lin, F. Li, and B. Luo. 2017. Cyber-physical systems security—A survey. IEEE Internet Things J. 4, 6
+(2017), 1802–1831.
+[55] ISO/IEC. 2013. BS ISO/IEC DIS 27001. Retrieved from https://www.iso.org/isoiec-27001-information-security.html.
+[56] ISO/IEC JTC 1/SC 7. 2011. ISO/IEC 25010:2011(en): Systems and software Quality Requirements and Evaluation
+(SQuaRE)—System and software quality models. Retrieved from https://www.iso.org/obp/ui/#iso:std:iso-iec:25010:
+ed-1:v1:en.
+[57] Esther Jun, Huafei Liao, April Savoy, Liang Zeng, and Gavriel Salvendy. 2008. The Design of Future Things, by D. A.
+Norman, Basic Books, New York, NY. Hum. Fact. Ergon. & Manuf. 18 (2008), 480–481. DOI:https://doi.org/10.1002/
+hfm.20127
+
+ACM Transactions on Internet of Things, Vol. 2, No. 1, Article 6. Publication date: February 2021.
+
+6:34
+
+N. Alhirabi et al.
+
+[58] Jan Jürjens, Joerg Schreck, and Peter Bartmann. 2008. Model-based security analysis for mobile communications. In
+Proceedings of the 13th International Conference on Software Engineering (ICSE’08), Vol. 2. 683. DOI:https://doi.org/
+10.1145/1368088.1368186
+[59] Frank Kargl, Robert Schmidt, Antonio Kung, Christoph Bösch, et al. 2019. A privacy-aware V-model for software
+development. In Proceedings of the IEEE Security and Privacy Workshops (SPW’19). IEEE, 100–104.
+[60] Sangsig Kim, Dae Kyoo Kim, Lunjin Lu, Suntae Kim, and Sooyong Park. 2011. A feature-based approach for modeling
+role-based access control systems. J. Syst. Softw. 84, 12 (2011), 2035–2052. DOI:https://doi.org/10.1016/j.jss.2011.03.
+084
+[61] Barbara Kitchenham and Pearl Brereton. 2013. A systematic review of systematic review process research in
+software engineering. Inf. Softw. Technol. 55, 12 (2013), 2049–2075. DOI:https://doi.org/10.1016/j.infsof.2013.07.
+010
+[62] Manuel Koch and Francesco Parisi-Presicce. 2006. UML specification of access control policies and their formal
+verification. Softw. Syst. Model. 5, 4 (2006), 429–447. DOI:https://doi.org/10.1007/s10270-006-0030-z
+[63] Jun Kong, Dianxiang Xu, and Xiaoqin Zeng. 2010. UML-based modeling and analysis of security threats. Int. J. Softw.
+Eng. Knowl. Eng. 20, 06 (2010), 875–897. DOI:https://doi.org/10.1142/S0218194010004980
+[64] J. Sathish Kumar and Dhiren R. Patel. 2014. A survey on internet of things: Security and privacy issues. Int. J. Comput.
+Applic. 90, 11 (2014).
+[65] Letitia W. Li, Florian Lugou, and Ludovic Apvrille. 2017. Security-aware modeling and analysis for HW/SW partitioning. In Proceedings of the International Conference on Model-driven Engineering and Software Development.
+302–311.
+[66] Na Liu, John Hosking, and John Grundy. 2005. A visual language and environment for specifying user interface event
+handling in design tools. In Proceedings of the IEEE Symposium on Visual Languages and Human-centric Computing
+(VL/HCC’05). 278–280.
+[67] Nakarin Maneerat and Pomsiri Muenchaisri. 2011. Bad-smell prediction from software design model using machine
+learning techniques. In Proceedings of the 8th International Joint Conference on Computer Science and Software Engineering (JCSSE’11). IEEE, 331–336. DOI:https://doi.org/10.1109/JCSSE.2011.5930143
+[68] Bogdan Ghilic-Micu, Marian Stoica, and Marinela Mircea. 2013. Software development: Agile vs. traditional. Inf.
+Econ. 17, 4 (2013), 64–76. DOI:https://doi.org/10.12948/issn14531305/17.4.2013.06
+[69] Diego Martin, Ramon Alcarria, Tomas Robles, and Augusto Morales. 2013. A systematic approach for service prosumerization in IoT scenarios. In Proceedings of the 7th International Conference on Innovative Mobile and Internet
+Services in Ubiquitous Computing (IMIS’13). 494–499. DOI:https://doi.org/10.1109/IMIS.2013.89
+[70] Bruce R. Maxim and Marouane Kessentini. 2016. An introduction to modern software quality assurance. In Software
+Quality Assurance, Ivan Mistrik, Richard Soley, Nour Ali, John Grundy, and Bedir Tekinerdogan (Eds.). Morgan
+Kaufmann, Boston, MA, 19–46. DOI:https://doi.org/10.1016/B978-0-12-802301-3.00002-8
+[71] Mukhtiar Memon, Gordhan D. Menghwar, Mansoor H. Depar, Akhtar A. Jalbani, and Waqar M. Mashwani. 2014.
+Security modeling for service-oriented systems using security pattern refinement approach. Softw. Syst. Model. 13,
+2 (2014), 549–572. DOI:https://doi.org/10.1007/s10270-012-0268-6
+[72] Michael Menzel and Christoph Meinel. 2010. SecureSOA—Modelling security requirements for service-oriented architectures. In Proceedings of the IEEE 7th International Conference on Services Computing (SCC’10). IEEE, 146–153.
+DOI:https://doi.org/10.1109/SCC.2010.63
+[73] Microsoft. 2004. Microsoft Security Development Lifecycle (SDL). Retrieved from https://www.microsoft.com/enus/securityengineering/sdl/.
+[74] Microsoft. 2018. Microsoft Threat Modeling Tool. Retrieved from https://docs.microsoft.com/en-us/azure/security/
+azure-security-threat-modeling-tool.
+[75] Daniele Miorandi, Sabrina Sicari, Francesco De Pellegrini, and Imrich Chlamtac. 2012. Internet of things: Vision,
+applications and research challenges. Ad Hoc Netw. 10, 7 (2012), 1497–1516. DOI:https://doi.org/10.1016/j.adhoc.
+2012.02.016
+[76] Pieter J. Mosterman and Justyna Zander. 2016. Cyber-physical systems challenges: A needs analysis for collaborating
+embedded software systems. Softw. Syst. Model. 15, 1 (2016), 5–16.
+[77] Emerson Murphy-Hill and Andrew P. Black. 2010. An interactive ambient visualization for code smells. In Proceedings of the 5th International Symposium on Software Visualization. 5–14.
+[78] M. H. N. Nasir and S. Sahibuddin. 2011. Critical success factors for software projects: A comparative study.
+Sci. Res. Essays 6, 10 (2011), 2174–2186. Retrieved from https://www.scopus.com/inward/record.uri?eid=2-s2.079956218741&partnerID=40&md5=294f5a21a02adf8352a4728178c5f3eb.
+[79] Nianping Zhu, J. Grundy, and J. Hosking. 2004. Pounamu: A meta-tool for multi-view visual language environment construction. In Proceedings of the IEEE Symposium on Visual Languages-Human Centric Computing. 254–256.
+DOI:https://doi.org/10.1109/vlhcc.2004.41
+
+ACM Transactions on Internet of Things, Vol. 2, No. 1, Article 6. Publication date: February 2021.
+
+Security and Privacy Requirements for the Internet of Things: A Survey
+
+6:35
+
+[80] Nicolás Notario, Alberto Crespo, Yod-Samuel Martín, Jose M. Del Alamo, Daniel Le Métayer, Thibaud Antignac,
+Antonio Kung, Inga Kroener, and David Wright. 2015. PRIPARE: Integrating privacy best practices into a privacy
+engineering methodology. In Proceedings of the IEEE Security and Privacy Workshops. IEEE, 151–158.
+[81] Dr. Ian Oliver. 2014. Privacy Engineering: A Dataflow and Ontological Approach. CreateSpace Independent Publishing
+Platform.
+[82] Oracle. 2009. proactive support tools diagnostics. Retrieved from http://www.oracle.com/us/support/library/
+proactive-support-tools-diagnostics-069181.pdf.
+[83] OWASP. 2018. OWASP Secure Software Development Lifecycle Project (S-SDLC). Retrieved from https://www.
+owasp.org/index.php/OWASP_Secure_Software_Development_Lifecycle_Project.
+[84] Jaime A. Pavlich-Mariscal, Steven A. Demurjian, and Laurent D. Michel. 2010. A framework of composable access
+control features: Preserving separation of access control concerns from models to code. Comput. Secur. 29, 3 (2010),
+350–379. DOI:https://doi.org/10.1016/j.cose.2009.11.005
+[85] Charith Perera and Mahmoud Barhamgi. 2019. Augmenting software engineering processes towards designing privacy aware Internet of Things applications. arXiv preprint arXiv:1908.02724 (2019).
+[86] Charith Perera, Mahmoud Barhamgi, Arosha K. Bandara, Muhammad Ajmal, Blaine Price, and Bashar Nuseibeh.
+2020. Designing privacy-aware internet of things applications. Inf. Sci. 512 (2020), 238–257.
+[87] Charith Perera, Chang Liu, Rajiv Ranjan, Lizhe Wang, and Albert Y. Zomaya. 2016. Privacy-knowledge modeling
+for the internet of things: A look back. Computer 49, 12 (2016), 60–68.
+[88] Charith Perera, Chi Harold Liu, and Srimal Jayawardena. 2015. The emerging internet of things marketplace from
+an industrial perspective: A survey. IEEE Trans. Emerg. Top. Comput. 3, 4 (2015), 585–598.
+[89] Charith Perera, Chi Harold Liu, Srimal Jayawardena, and Min Chen. 2014. A survey on internet of things from
+industrial market perspective. IEEE Access 2 (2014), 1660–1679.
+[90] Charith Perera, Rajiv Ranjan, Lizhe Wang, Samee U. Khan, and Albert Y. Zomaya. 2015. Big data privacy in the
+internet of things era. IT Prof. 17, 3 (2015), 32–39.
+[91] Charith Perera, Arkady Zaslavsky, Peter Christen, and Dimitrios Georgakopoulos. 2014. Context aware computing
+for the internet of things: A survey. IEEE Commun. Surv. Tutor. 16, 1 (2014), 414–454.
+[92] Philips. [n.d.]. Philips e-Alert. Retrieved from https://www.philips.co.uk/healthcare/resources/feature-detail/ealert-faq.
+[93] Georgi Popov, Bruce K. Lyon, and Bruce Hollcroft. 2016. Risk Assessment: A Practical Guide to Assessing Operational
+Risks. John Wiley & Sons.
+[94] Hanene Boussi Rahmouni, Tony Solomonides, Marco Casassa Mont, and Simon Shiu. 2010. Privacy compliance and
+enforcement on European healthgrids: An approach through ontology. Philos. Trans. Roy. Soc. A: Math., Phys. Eng.
+Sci. 368, 1926 (2010), 4057–4072.
+[95] Arjun Rao, Ayush Bihani, and Mydhili Nair. 2018. Milo: A visual programming environment for data science education. In Proceedings of the IEEE Symposium on Visual Languages and Human-cCentric Computing (VL/HCC’18). IEEE,
+211–215. DOI:https://doi.org/10.1109/VLHCC.2018.8506504
+[96] Indrakshi Ray, Robert France, Na Li, and Geri Georg. 2004. An aspect-based approach to modeling access control
+concerns. Inf. Softw. Technol. 46, 9 (2004), 575–587. DOI:https://doi.org/10.1016/j.infsof.2003.10.007
+[97] Martin Reddy. 2011. Design. In API Design for C++, Martin Reddy (Ed.). Morgan Kaufmann, Boston, MA, 105–150.
+DOI:https://doi.org/10.1016/B978-0-12-385003-4.00004-X
+[98] A. Sadeghi, C. Wachsmann, and M. Waidner. 2015. Security and privacy challenges in industrial Internet of Things.
+In Proceedings of the 52nd ACM/EDAC/IEEE Design Automation Conference (DAC’15). 1–6. DOI:https://doi.org/10.
+1145/2744769.2747942
+[99] Fumiko Satoh, Yuichi Nakamura, and Koichi Ono. 2006. Adding authentication to model driven security. In Proceedings of theIEEE International Conference on Web Services (ICWS’06). 585–592. DOI:https://doi.org/10.1109/ICWS.
+2006.25
+[100] Gunar Schirner, Deniz Erdogmus, Kaushik Chowdhury, and Taskin Padir. 2013. The future of human-in-the-loop
+cyber-physical systems. Computer 46, 1 (2013), 36–45.
+[101] Wesam Shanaa, Steven Spier, and Bastian Tenbergen. 2017. A case study into the development process of cyber
+physical systems. In Proceedings of the REFSQ Workshops.
+[102] Elaine Shi, Yuan Niu, Markus Jakobsson, and Richard Chow. 2010. Implicit authentication through learning user
+behavior. In Proceedings of the International Conference on Information Security. Springer, 99–113.
+[103] Robert W. Shirey. 2007. Internet Security Glossary, Version 2. RFC 4949. DOI:https://doi.org/10.17487/RFC4949
+[104] S. Sicari, A. Rizzardi, L. A. Grieco, and A. Coen-Porisini. 2015. Security, privacy and trust in Internet of Things: The
+road ahead. Comput. Netw. 76 (2015), 146–164. DOI:https://doi.org/10.1016/j.comnet.2014.11.008
+[105] Laurens Sion, Dimitri Van Landuyt, Koen Yskout, and Wouter Joosen. 2018. SPARTA: Security & privacy architecture through risk-driven threat assessment. In Proceedings of the IEEE 15th International Conference on Software
+Architecture Companion (ICSA-C’18). 89–92. DOI:https://doi.org/10.1109/ICSA-C.2018.00032
+ACM Transactions on Internet of Things, Vol. 2, No. 1, Article 6. Publication date: February 2021.
+
+6:36
+
+N. Alhirabi et al.
+
+[106] Laurens Sion, Kim Wuyts, Koen Yskout, Dimitri Van Landuyt, and Wouter Joosen. 2018. Interaction-based privacy
+threat elicitation. In Proceedings of the 3rd IEEE European Symposium on Security and Privacy Workshops. 79–86.
+DOI:https://doi.org/10.1109/EuroSPW.2018.00017
+[107] Karsten Sohr, Gail-Joon Ahn, Martin Gogolla, and Lars Migge. 2005. Specification and validation of authorisation
+constraints using UML and OCL. In Proceedings of the European Symposium on Research in Computer Security. LNCS,
+Vol. 3679, 64–79. DOI:https://doi.org/10.1007/11555827_5
+[108] Emilio Soler, Juan Trujillo, Eduardo Fernandez-Medina, and Mario Piattini. 2007. Application of QVT for the development of secure data warehouses: A case study. In Proceedings of the 2nd International Conference on Availability,
+Reliability and Security (ARES’07). IEEE, 829–836.
+[109] Junichi Suzuki and Yoshikazu Yamamoto. 1999. Toward the interoperable software design models: Quartet of UML,
+XML, DOM and CORBA. In Proceedings of the 4th IEEE International Symposium and Forum on Software Engineering
+Standards (ISESS’99). 163–172. DOI:https://doi.org/10.1109/SESS.1999.766591
+[110] Juha-pekka Tolvanen and Steven Kelly. 2009. MetaEdit+: Defining and using integrated domain-specific modeling
+languages. In Proceedings of the 24th ACM SIGPLAN Conference Companion on Object Oriented Programming Systems
+Languages and Applications. 819–820.
+[111] Inger Anne Tondel, Martin Gilje Jaatun, and Per Hakon Meland. 2008. Security requirements for the rest of us: A
+survey. IEEE Softw. 25, 1 (2008), 20–27.
+[112] Wade Trappe, Richard Howard, and Robert S. Moore. 2015. Low-energy security: Limits and opportunities in the
+internet of things. IEEE Secur. Priv. 13, 1 (2015), 14–21.
+[113] Juan Trujillo, Emilio Soler, Eduardo Fernández-Medina, and Mario Piattini. 2009. An engineering process for developing secure data warehouses. Inf. Softw. Technol. 51, 6 (2009), 1033–1051. DOI:https://doi.org/10.1016/j.infsof.2008.
+12.003
+[114] Joseph S. Valacich and Joey F. George. 2017. Modern Systems Analysis and Design. Pearson Education, Inc.
+[115] A. Van Den Berghe, K. Yskout, W. Joosen, and R. Scandariato. 2017. A model for provably secure software design.
+In Proceedings of the IEEE/ACM 5th International FME Workshop on Formal Methods in Software Engineering (FormaliSE’17). Institute of Electrical and Electronics Engineers Inc., 3–9. DOI:https://doi.org/10.1109/FormaliSE.2017.6
+[116] Rob van der Meulen and Gartner. 2017. Gartner Says 8.4 Billion Connected “Things” Will Be in Use in 2017, Up
+31 Percent From 2016. Retrieved from https://www.gartner.com/en/newsroom/press-releases/2017-02-07-gartnersays-8-billion-connected-things-will-be-in-use-in-2017-up-31-percent-from-2016.
+[117] Alexander van den Berghe, Riccardo Scandariato, Koen Yskout, and Wouter Joosen. 2017. Design notations for secure software: A systematic literature review. Softw. Syst. Model. 16, 3 (2017), 809–831. DOI:https://doi.org/10.1007/
+s10270-015-0486-9
+[118] Belén Vela, Carlos Blanco, Eduardo Fernández-Medina, and Esperanza Marcos. 2012. A practical application of our
+MDD approach for modeling secure XML data warehouses. Dec. Supp. Syst. 52, 4 (2012), 899–925. DOI:https://doi.
+org/10.1016/j.dss.2011.11.008
+[119] Rolf H. Weber. 2010. Internet of Things—-New security and privacy challenges. Comput. Law & Secur. Rev. 26, 1
+(2010), 23–30.
+[120] Michael E. Whitman and Herbert J. Mattord. 2011. Principles of Information Security. Cengage Learning.
+[121] Wiki.owasp.org. [n.d.]. CISO AppSec Guide: Criteria for Managing Application Security Risks. Retrieved from https:
+//wiki.owasp.org/index.php/CISO_AppSec_Guide:_Criteria_for_Managing_Application_Security_Risks.
+[122] Claes Wohlin. 2014. Guidelines for snowballing in systematic literature studies and a replication in software engineering. In Proceedings of the 18th International Conference on Evaluation and Assessment in Software Engineering.
+Citeseer, 38.
+[123] M. Wolf and D. Serpanos. 2018. Safety and security in cyber-physical systems and Internet-of-Things systems. Proc.
+IEEE 106, 1 (2018), 9–20.
+[124] Kim Wuyts. 2014. LINDDUN: A privacy threat analysis framework. Retrieved from https://people.cs.kuleuven.be/∼
+kim.wuyts/LINDDUN/LINDDUN.pdf.
+[125] Kim Wuyts. 2015. Privacy Threats in Software Architectures. Ph.D. Dissertation. Institution: KU Leuven – Faculty of
+Engineering Science (Belgium). Retrieved from https://lirias.kuleuven.be/retrieve/295669.
+[126] D. Xu and K. E. Nygard. 2006. Threat-driven modeling and verification of secure software using aspect-oriented
+Petri nets. IEEE Trans. Softw. Eng. 32, 4 (2006), 265–278. DOI:https://doi.org/10.1109/TSE.2006.40
+[127] Y. Yang, L. Wu, G. Yin, L. Li, and H. Zhao. 2017. A survey on security and privacy issues in Internet-of-Things. IEEE
+Internet Things J. 4, 5 (Oct. 2017), 1250–1258. DOI:https://doi.org/10.1109/JIOT.2017.2694844
+[128] Lijun Yu, Robert France, Indrakshi Ray, and Sudipto Ghosh. 2009. A rigorous approach to uncovering security policy
+violations in UML designs. In Proceedings of the IEEE International Conference on Engineering of Complex Computer
+Systems (ICECCS’09). 126–135. DOI:https://doi.org/10.1109/ICECCS.2009.16
+
+ACM Transactions on Internet of Things, Vol. 2, No. 1, Article 6. Publication date: February 2021.
+
+Security and Privacy Requirements for the Internet of Things: A Survey
+
+6:37
+
+[129] Kang Zhang, Da Qian Zhang, and Jiannong Cao. 2001. Design, construction, and application of a generic visual language generation environment. IEEE Trans. Softw. Eng. 27, 4 (2001), 289–307. DOI:https://doi.org/10.1109/32.917521
+[130] Kai Zhao and Lina Ge. 2013. A survey on the internet of things security. In Proceedings of the 9th International
+Conference on Computational Intelligence and Security. IEEE, 663–667.
+
+Received October 2019; revised September 2020; accepted October 2020
+
+ACM Transactions on Internet of Things, Vol. 2, No. 1, Article 6. Publication date: February 2021.
+
+

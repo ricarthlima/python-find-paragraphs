@@ -1,0 +1,639 @@
+Wireless Pers Commun (2016) 89:715–728
+DOI 10.1007/s11277-015-3094-7
+
+Injecting Subject Policy into Access Control
+for Strengthening the Protection of Personal Information
+Hyung-Jin Mun1 • Sejong Oh2
+
+Published online: 15 October 2015
+ Springer Science+Business Media New York 2015
+
+Abstract To protect stored personal information, many organizations and information
+systems adopt the role-based access control model (RBAC) or the mandatory access
+control model (MAC). Although individuals want to control their personal information, an
+individual-needs-based access control system is difficult to adopt in the existing environment. Recent proposals have included privacy-enhancing technologies such as communication anonymizers, shared bogus online accounts, and access to personal data.
+However, these systems cannot satisfy users’ privacy requirements. In this paper we
+propose two confidential access control models that apply individually established policy
+to existing RBAC and MAC technologies. In the SpRBAC model, a user’s right to access
+would follow organizational policy and accessing personal information would be restricted
+by subject policy. In the SpMAC model, users would have to satisfy the subject policy
+established by the provider of information in addition to the requirements of normal MAC
+policy. In the proposed models, it is possible to restrict access by authorized users
+according to the subject policy, that is, the policy defined by the subject (or informant—the
+one providing the personal information), and personal information can thus be protected.
+Keywords
+
+Information system  Security  Privacy  Subject policy  RBAC
+
+1 Introduction
+Because of advances in information technology, the protection of personal information
+becomes a major issue. To improve and extend data communications, considerable skill is
+needed in the areas of security and privacy [1–4]. Many Internet companies collect and
+& Sejong Oh
+sejongoh@dankook.ac.kr
+1
+
+Division of Information and Communication, Baekseok University, Cheonan 330-704, Korea
+
+2
+
+Department of Nanobiomedical Science, Dankook University, Cheonan 330-714, Korea
+
+123
+
+716
+
+H.-J. Mun, S. Oh
+
+manage the personal information of their customers so they can provide services more
+efficiently. Although organizations have applied various strategies to protect personal
+information and have outlined their privacy policies on their websites, there are no systematic mechanisms that can protect such information once it has been collected. Recent
+data leaks affecting the retailer Shinsegae Internet Auction Company, Hanarotelecom, and
+GS Caltex in South Korea led to disclosure of vast amounts of personal information on the
+Internet. Online users are afraid to provide their information because of recent information
+leaks by the credit card firms KB Kookmin, Lotte, and NH Nonghyup [5]. Once personal
+information has been disclosed, the organization’s image is damaged and the individual
+‘subject (provider)’ who was responsible for collecting such information becomes the
+target of spam mail, phishing, voice fishing (vishing), and short message service phishing
+(SMiShing). With the development of retrieval engines such as Google.com [6], a lot of
+personal information and files that include individual sensitive information (e.g., credit
+card number, social number, etc.) are collected and stored. Organizations collect information on individuals and store personal information in a database (DB), and the DB
+administrator has the authority to access all such data and can back it up easily. For this
+reason, attackers want to acquire the administrator’s authority, so a way to restrict the
+access rights of administrator group is needed.
+When the architecture of a system that deals with personal information is built, privacy
+as well as security must be taken into consideration. All information systems need to be
+designed for privacy [7], and Fig. 1 shows such an architecture [8]. In such a design, the
+flow of information from collection to discard must be verified by a trusted authority.
+Privacy legislation and regulations, which are based on the most recent Organization for
+Economic Cooperation and Development (OECD) Guidelines [9] and the European Union
+General Data Protection Regulation [10], require control with regard to access, use, and
+
+Personal Information Flow
+
+Collection
+Reason
+Aim
+
+Method
+
+Collection
+Management
+
+Repository
+Management
+
+Information Usage
+Management
+
+Direct Collection
+
+Information
+Encrypted
+
+Information
+Category
+
+Information Move
+
+Privacy Policy
+
+Subject Policy
+
+Database Stored
+
+Access Control
+
+Information
+Revoke
+
+Web Membership
+etc
+
+Privacy by
+Design
+
+Technique
+
+Fig. 1 Privacy architecture
+
+123
+
+Network
+Security
+
+Encryption
+
+Authentication
+
+Information
+discard &
+Discard
+verification
+
+Injecting Subject Policy into Access Control for Strengthening…
+
+717
+
+protection of personal information by subject. In this paper, the term ‘subject’ refers to the
+informant who provides his or her personal information to a specific information system or
+website. Organizations are required to adhere to the following primary principles of personal information protection [11]:
+• Organizations should have a privacy policy and protection techniques for a subject’s
+sensitive information.
+• Organizations should provide the subject with control regarding access, use, and
+leakage of own information.
+• Organizations should protect classified information as sensitive information.
+• Organizations should provide a supplementary device to protect a subject’s sensitive
+information from other users, including the database administrator.
+Thus, organizations must obtain the subject’s consent if they wish to use that person’s
+personal information. Today, most public organizations or companies obtain such consent
+only at the time this information is collected.
+Recently, research on the protection of personal information focused on information
+encryption techniques and access control. A new technique is needed that can control
+access to information for which consent has been given when users wish to access a
+subject’s sensitive information. In our previous research, we introduced the concept of
+subject policy in the RBAC model and personal sensitive information management system
+(SIMS) [12]. Here, we propose two confidential access control models: SpRBAC and
+SpMAC. RBAC and MAC models have been widely adopted by many information systems
+and most commercial database management system (DBMS) products. According to our
+proposal, subject policy would be inserted in these basic RBAC and MAC models as a way
+to strengthen the protection of personal information.
+
+2 Related Works
+Access control is defined as the mechanism by which users are permitted to have access to
+resources (e.g., electronic information) according to their identities, authentication, and
+associated privileged authorization. The concept of role-based access control (RBAC) was
+originally proposed by Ferraiolo and Kuhn and was developed by Sandhu [13–16]. Permission is associated with roles, and users are assigned appropriate roles that confer
+permission accordingly. The significant benefit of deploying RBAC is its flexibility in
+meeting the changing needs of an organization. The RBAC model is based on role hierarchy, which matches the complicated authority structures of organizations, and is able to
+satisfy various security requirements [14]. Models that have been proposed for decentralized RBAC administration include administrative RBAC (ARBAC), scoped administration of RBAC (SARBAC), and organization structure—based OS-RBAC [17–20]. The
+RBAC model has also been combined with other security techniques such as cryptography
+and authentication [21, 22].
+Mandatory access control (MAC) is an access policy designed to support systems that
+process especially sensitive data (e.g., government classified information or sensitive
+corporate data) [23, 24]. The MAC model assigns sensitivity labels to all users (programs)
+and all information objects (IOs) (e.g., files, directories, devices, windows, sockets) in the
+system. A user (Ui) can access an information object (IOj) if Ui has the proper sensitivity
+level against IOj; IOj should belong to the same category as Ui. The MAC model follows
+
+123
+
+718
+
+H.-J. Mun, S. Oh
+
+‘No Read Up (NRU)’ and ‘No Write Down (NWD)’ rules: a user’s read access is allowed
+when (sensitivity level of user) C (sensitivity level of object), and write access is allowed
+when (sensitivity level of user) B (sensitivity level of object).
+Encryption techniques are used to provide secure communication via encryption
+algorithms designed for e-mail, Internet banking, and on-line financial activities.
+Encrypted information can be accessed only by the party that has the decryption key
+[25]. Recently, personal information protection has been evaluated using the encryption
+technique [11, 26–29]. HP Labs [26] provided a system that could protect personal
+information using the encryption technique, but it had difficulty providing encryption
+keys to information users. Sessay et al. [27] encrypted only the confidential information
+appointed by a company and provided a protection model using the MAC technique.
+P2MS [28] encrypted all personal information, including identity data, and emphasized
+the personal privacy aspect.
+RBAC and MAC models support centralized authority management. In most cases, the
+subject of information (information provider) is a company or an organization. If the
+subject is an individual, the current RBAC and MAC models cannot be applied to the
+information systems because they are not sufficient to handle the subject’s various
+requirements, and a leak of information would shift damage to the individual. Encryption is
+a strong protection technique and can compensate for the weak points in access control
+policy. In the next section, we present the SpRBAC model and the SIMS design, based on
+the SpRBAC and SpMAC models.
+
+3 New Access Control Models Using Subject Policy
+3.1 SpRBAC:RBAC Model with Subject Policy
+The SpRBAC model is an advanced model that supports the security policy of both the
+organization and the individual. A user’s access rights follow organizational policy (OP),
+and accessing personal information is restricted by subject policy (SP). In the SpRBAC
+model, a subject has the following two rights:
+(1)
+(2)
+
+To establish subject policy—that is, restrict users’ access to his/her sensitive
+personal data;
+To designate which sensitive personal data are encrypted
+
+We assume that personal information is stored in a relational database. The granule of
+access control for a subject is information attributes, which correspond to columns (or
+fields) of tables in the database.
+Figure 2 summarizes the SpRBAC model. It is an expansion model of RBAC96 with
+subject and subject policy [29]. Subject (S) is personal information provider. A subject has
+authority (A) only for his/her personal data.
+Subject policy (SP) can be expressed by one of the following equations:
+SP ¼ S  P  U or
+SP ¼ S  P  R
+where S is the subject, P is permission, U is the user, and R is role (see Example 1).
+
+123
+
+Injecting Subject Policy into Access Control for Strengthening…
+
+719
+
+Fig. 2 SpRBAC model
+
+Example 1 Subject policy
+SP1 = [Jane, customer ({salary, age}, read), user1001]
+SP2 = [Tom, customer ({marriage_yn}, read), doctor]
+In Case SP1, the subject ‘Jane’ prohibits the user ‘user1001’ from reading the {salary,
+age} columns for ‘Jane’ in the customer table. In Case SP2, the subject ‘Tom’ prohibits
+users whose role is ‘doctor’ from reading the {marriage_yn} columns for ‘Tom’ in the
+customer table. In this example, {salary, age, marriage_yn} are the names of columns that
+contain personal data. If SP1 and SP2 are established, ‘user1001’ or users whose role is
+‘doctor’ cannot have access to the respective columns of ‘Jane’ and ‘Tom’ even if they are
+authorized as users by the organization.
+An authorization rule describes the condition for which given access is allowed.
+Definition 1 Authorization rule for SpRBAC
+A user request [Ui, Tablej{columnk}, operations, St] is allowed subject to:
+(Tablej{columnk}, operations) [ Pt ^
+(Pt, Ru) [ PA ^
+(Ui, Ru) [ UA ^
+: (St, Ui, Tablej{columnk}, operations) [ SP.
+where
+Ui:
+Tablej{columnk}:
+Operations:
+St:
+Pt:
+Ru:
+
+user i,
+requested sensitive data (Column k in table j)
+access operation s (one of read and write)
+subject t who provides Tablej{columnk} data
+permission t
+role u
+
+123
+
+720
+
+H.-J. Mun, S. Oh
+
+Fig. 3 Structure of SIMS
+
+PA:
+UA:
+SP:
+
+permission-role assignment
+user-role assignment
+subject policy
+
+The intuitive meaning of the authorization rule for SpRBAC is that if a user has proper
+authority for information object IOi and the subject, who is the provider of IOi, does not
+prohibit such access, then the user can access IOi.
+The personal sensitive information management system (SIMS) [12] plays the role of an
+access controller against users’ and subjects’ access requests. SIMS implements the SpRBAC
+model and supports data encryption and decryption key management. Subjects establish their
+security policies through SIMS, and users’ access requests are also processed by SIMS. A
+modified component of SIMS for the SpRBAC model is presented in Fig. 3. The Access
+Control Module manages the storage and modification of Subject‘s personal information in
+Info. Database. When Users query some information in Info. Database, the Access Control
+Module references Policy Repository and makes the decision to allow or deny. The Policy
+Repository implements the SpRBAC model. Every activity of the Access Control Module is
+recorded in the Audit Logs. Sensitive data are encrypted according to Subjects’ requests, and
+the allowed user can access sensitive data through the Dec. Module. For encryption/decryption
+work, SIMS uses the ‘key’ (Key Management Module), which is stored in the key database
+(Key DB). Three important components of this model—policy repository, information database, and information retrieval process in SIMS—will now be described in more detail.
+
+3.1.1 Policy Repository
+This repository stores policy information for maintaining the SpRBAC model. It contains
+two categories: organizational policy (OP) and subject policy (SP) (Fig. 4). OP consists of
+security information for the general RBAC model and includes user, role, permission (user
+authority for a given information object), user-role assignment (URA), permission-role
+assignment (PRA), and role hierarchy (RH). SP consists of sensitive column lists, subject,
+and restrictions for sensitive columns (see Example 1).
+
+123
+
+Injecting Subject Policy into Access Control for Strengthening…
+
+721
+
+Fig. 4 Structure of policy repository
+
+3.1.2 Info. Database
+This database stores collected personal information. Sensitive columns are encrypted, and
+others are stored as plain text. For example, Alice’s sensitive columns are encrypted using
+Alice’s keys according to Alice’s policy, and the key generated by the organization’s master
+key is managed by SIMS. Alice provides her attribute information (M = {M1,M2, M3,…,Mn})
+to SIMS, as shown in Fig. 5a. If the attributes M3, M5, and Mn are designated sensitive
+information by subject policy, they are encrypted using Alice’s key, as shown in Fig. 5b.
+Each subject should establish their personal policy in the Policy Repository. They can
+assign restrictions to a role category or a personal user. Assigning restrictions to several
+users is complicated and troublesome, and therefore SIMS allows the subject to assign
+restrictions to roles. A role’s authority is inherited from parent roles, as shown in Fig. 6.
+
+3.1.3 Information Retrieval Process in SIMS
+A user’s access request to personal information can be managed by both organizational
+policy and subject policy. For accessing sensitive information object SOi, users should own
+the appropriate access right (role and permission) for SOi, and also there can be no
+restriction by subject policy for SOi. When user ‘‘Bob’’ requests access to information of
+subject ‘‘Alice,’’ the retrieval process is as follows:
+
+Fig. 5 Process of storing personal information
+
+123
+
+722
+
+H.-J. Mun, S. Oh
+
+Fig. 6 Role hierarchy
+
+1.
+2.
+3.
+4.
+5.
+6.
+
+Bob ? SIMS: {IDBob, req(IDAlice, IL, read)}
+where req(IDAlice, IL, read): Requst of read to IL(information list) of Alice
+SIMS: auth(IDBob) ^ chk(access rights of IDBob)
+If (chk(access rights of IDBob) == false) terminate job;
+SIMS / Info. Database (RL) where RL is a retrieval result
+chk (SPAlice(req(IDAlice, IL, read))) where SPAlice() is a subject policy of Alice
+Set null RL(Ci) if column Ci is restricted by SPAlice(req(IDAlice, IL, read))
+Decrypt RL(Cj) if RL(Cj) is encrypted
+Bob / SIMS: RL
+
+In Step 1, Bob submits his ID and requests req(IDAlice, IL, read) to SIMS. req(IDAlice,
+IL, read) consists of Alice’s subject ID, IL (information list), and read operation. The
+information list is a set of columns in the target table.
+In Step 2, SIMS authenticates Bob and checks his access rights as assigned by organizational policy, which consists of checking role and permission for IL.
+If Bob has no access rights for IL, his request is rejected. An error message is returned,
+and the job is terminated.
+In Step 3, SIMS retrieves IL from Info. Database.
+SIMS stores the retrieval result in the RL (result list).
+In Step 4, SIMS checks restrictions on IL according to the subject policy of Alice.
+If Alice restricts access to column Ci of IL for Bob, SIMS sets a ‘null’ value to Ci of RL.
+In Step 5, If the non-restrict column Cj of RL is encrypted, SIMS decrypts Cj using the
+attribute key generated by Alice’s master key in the Key DB and resets Cj by plane value.
+In Step 6, SIMS returns RL to Bob.
+
+3.2 SpMAC: MAC Model with Subject Policy
+The SpMAC model follows the security principle of the normal MAC model. Plus it has
+one more requirement to user Ui who should satisfy subject policy established by provider
+of information object IOj. Subject policy (SP) in SpMAC can be expressed by:
+SP ¼ S  P  U or
+SP ¼ S  P  URC
+where S is the subject, P is permission, U is user, and URC is the user group whose
+sensitivity level is C.
+
+123
+
+Injecting Subject Policy into Access Control for Strengthening…
+
+723
+
+Fig. 7 MAC and SpMAC model
+
+Figure 7 compares the MAC and SpMAC models. The SpMAC model adopted principles of MAC such as NRU, NWD, and access prohibition to other categories. In addition
+to these principles, SpMAC supports the restriction of authorized access through subject
+policy (SP) (see Example 2).
+Example 2 gives a sample usage of SP in SpMAC
+Example 2 Subject policy in SpMAC
+SP3 = [Jane, customer({salary, age}, read), user01]
+SP4 = [Tom, customer({marriage_yn}, read), confidential]
+In the case of SP3, subject ‘Jane’ prohibits user ‘user01’ from trying to read the {salary,
+age} columns for ‘Jane’ in the customer table. In the case of SP4, subject ‘Tom’ prohibits
+users with the ‘confidential’ level of access from reading the {marriage_yn} column for
+‘Tom’ in the customer table.
+Definition 2 is the authorization rule for SpMAC model.
+Definition 2 Authorization rule for SpMAC.
+A user request [Ui(C,S), Tablej{columnk}, operations, St] is allowed subject to:
+Case 1
+operations = read
+CA(Tablej{columnk}) = C ^
+SL(Tablej{columnk}) B S ^
+: (St, Ui, Tablej{columnk}, read) [ SP.
+Case 2
+operations = write
+CA(Tablej{columnk}) = C ^
+SL(Tablej{columnk}) C S ^
+: (St, Ui, Tablej{columnk}, write) [ SP.
+
+123
+
+724
+
+H.-J. Mun, S. Oh
+
+where
+Ui(C,S):
+Tablej{columnk}:
+operations:
+St:
+CA(x):
+SL(x):
+SP:
+
+user i who’s category is C and sensitivity level is S
+requested sensitive data (Column k in table j)
+access operation (one of read and write)
+Subject t who provides Tablej{columnk} data
+Category of information object x
+sensitive level of object x
+Subject policy
+
+4 Discussion
+The main drawback of the information system that is currently used is that it cannot
+support individuals’ protection requests for their own sensitive data. If a person submits
+their personal information to an organization, the organization has complete authority to
+determine the security policy. Authorized users can therefore access all personal information, and individuals cannot participate in this access control process. The proposed
+SpRBAC and SpMAC models were developed to satisfy the privacy requirements of
+individuals and related laws, and each has unique characteristics and many advantages.
+
+4.1 Granule of Protection
+The SpRBAC model retains the convenience and efficiency of the RBAC model while at
+the same time supporting individual-based security policies. SpRBAC supports finergrained data protection as compared with basic RBAC models. Figure 8 compares the
+granule of protection between the RBAC and the SpRBAC models, in which The dark-gray
+squares represent the protected areas and the light-gray squares represent the allowed areas.
+Most commercial DBMS products adopt the RBAC model. The database administrator or
+security manager assigns access authority to users using GRANT instruction. For example,
+the security manager assigns SELECT, UPDATE authority for the gender and age columns
+of the userInfo table to user PGMR01. This kind of assignment relies on simple protection
+patterns, as shown in Fig. 8a. In contrast, the SpRBAC model supports flexible protection
+patterns, as shown in Fig. 8b, because subject policy allows individual protection for data
+columns that contain sensitive personal information. The SpMAC model also offers the
+same advantages as the SpRBAC model.
+
+4.2 Restriction Based Protection
+In the SpRBAC model, individuals (subjects) can establish their own security policy. Does
+it mean that they have all managing authority for their personal information? Is it possible
+for them to assign access rights to any users? If it is allowed, conflict may exist between
+organizational policy and subject policy. For example, if organizational policy does not
+allow user DOC001 to access the age and job information of subject S001, whereas S001
+does allow DOC001 access to age and job information, then a conflict can arise. If the
+subject’s policy took place prior to organizational policy, it may lead to additional dangerous disclosure of sensitive information. Therefore, in the SpRBAC model, the subject
+does not have the authority to assign rights to any users. Instead, subjects can ‘restrict’
+
+123
+
+Injecting Subject Policy into Access Control for Strengthening…
+
+725
+
+Fig. 8 Granule of protection. Dark-gray areas indicate protected access and light-gray areas indicate
+allowed access
+
+Fig. 9 Relationship between
+organizational policy and subject
+policy
+
+authorized users from having access to sensitive data. Therefore, organizational policy and
+subject policy are not equal; subject policy supplements a lack of organizational policy
+(Fig. 9). This principle is equally applied to the SpMAC model.
+
+4.3 Retrieved Information in SpRBAC/SpMAC Model
+Let’s suppose user U1 requests sensitive information such as income, job_position, and
+birthday of subject S1, and S1 restricts that U1 from reading income information. As we can
+see, U1 has access rights only for job_position and birthday. The access controller (AC)
+should return the retrieved information to U1, with three possible outcomes:
+(1)
+
+AC rejects all U1’s requests because U1 tried to access income, which was restricted.
+
+123
+
+726
+
+(2)
+(3)
+
+H.-J. Mun, S. Oh
+
+AC returns only the unrestricted data for job_position and birthday.
+AC returns data for income, job_position, and birthday data but income is null.
+
+The first case is too strict to apply in real information systems. U1 has legitimate access
+rights to job_position and birthday data, but access is restricted. The second case would
+seem to offer acceptable return data, but if U1 is a program, the program may cause
+problems because it expects three values to be returned; if only two values are returned,
+this may lead to a parameter error. The third case is suitable because AC protects sensitive
+data income by returning a null value, which does not cause problems for the information
+system. The ‘nullify strategy’ for sensitive data has one more advantage. In cases (1) and
+(2), user U1 may realize that the request contains some sensitive data, and the existence of
+sensitive data implies disclosure. In case (3), user U1 may think that subject S1 did not
+report income data. Therefore, case (3) is a safe form of security management.
+
+5 Conclusions
+The information age has led us to think carefully about the issues of security and privacy.
+A lot of organizations protect personal information using encryption techniques and access
+control, but the existing system does not satisfy the various demands of individuals. Access
+control is managed by an organization, so individuals cannot protect their information from
+unwanted access by authorized users. In this paper, we proposed two models—the
+SpRBAC and SpMAC models—that introduce subject policy into current access control
+systems and thus provide individuals with the opportunity to participate in the process of
+access control of their sensitive data. SIMS supports the encryption of sensitive information according to subject policy, so it protects personal information.
+The proposed models can be easily implemented in the current legacy systems and are
+expected to be applied in the fields of health care, banking, government, academia, and
+law. One problem with the SpRBAC and SpMAC models is that users cannot force
+companies to adopt them. Nevertheless, companies will increase their credibility if they
+agree to adopt these models. Recently, some privacy-enhancing technologies have been
+proposed, and new technologies will be introduced, such as limited disclosure technology,
+wallets of multiple virtual identities, anonymous credentials, and data transaction logs. If
+the SpRBAC and SpMAC models are combined with these privacy-enhancing technologies, users will be better able to protect their private information with greater safety.
+Acknowledgments The present research was conducted by the research fund of Dankook University in
+2014.
+
+References
+1. Garitano, I., Fayyad, S., & Josef, N. (2015). Multi-metrics approach for security, privacy and
+dependability in embedded systems. Wireless Personal Communications, 81(4), 1359–1376.
+2. Zhang, R., Giunchiglia, F., Crispo, B., & Song, L. (2010). Relation-based access control: An access
+control model for context-aware computing environment. Wireless Personal Communications, 55(1),
+5–17.
+3. Memon, I., Hussain, I., Akhtar, R., & Chen, G. (2015). Enhanced privacy and authentication: An
+efficient and secure anonymous communication for location based service using asymmetric cryptography scheme. Wireless Personal Communications, 84(2), 1487–1508.
+
+123
+
+Injecting Subject Policy into Access Control for Strengthening…
+
+727
+
+4. Zeadally, S., Pathan, A., Alcaraz, C., & Badra, M. (2013). Towards privacy protection in smart grid.
+Wireless Personal Communications, 73(1), 23–50.
+5. BBC News. (2014). S Korea credit card firms punished over data theft. BBC News Business. http://
+www.bbc.co.uk/news/business-26222283. Accessed August 15, 2015.
+6. Johnny, L. (2004). Google hacking for penetration testers (pp. 127–129). Rockland: Syngress Publishing Inc.
+7. Cavoukian, A. (2009). Privacy by design…take the challenge. Information and privacy commissioner of
+Ontario (Canada). http://www.ipc.on.ca/images/Resources/PrivacybyDesignBook.pdf. Accessed
+August 15, 2015.
+8. Mun, H. (2010). A study on privacy policy using role based access control of academic affairs information system. Journal of Korean Language Information Science, 12(2), 41–46.
+9. OECD. (2013). Guidelines on the protection of privacy and transborder flows of personal data. OECD,
+http://www.oecd.org/internet/ieconomy/oecdguidelinesonthe protectionofprivacyandtransborderflowsofpersonaldata.htm. Accessed August 15, 2015.
+10. WIKIPEDIA. (2015). General data protection regulation. https://en.wikipedia.org/wiki/General_Data_
+Protection_Regulation. Accessed August 15, 2015.
+11. Mun, H., Um, N., Sun, N., Li, Y., & Lee, S. (2007). Subject-wise policy based access control mechanism for protection of personal information. In International conference on convergence information
+tech (Iccit2007), Gyeongju, Korea, November 21–23, pp. 2242–2247.
+12. Mun, H., & Suh, J. (2008). Sensitive personal information model for RBAC system. Journal of computer information, 13(5), 103–110.
+13. Ferraiolo, D.F., & Kuhn, D.R. (1992). Role-based access controls. In Proceedings of 15th NIST-NCSC
+national computer security conference, Baltimore, USA, October 13–16, pp. 554–563.
+14. Sandhu, R. S., Coyne, E. J., Feinstein, H. L., & Youman, C. E. (1996). Role-based access control
+models. IEEE Computer, 29(2), 38–47.
+15. Ferraiolo, D. F., Barkley, J. F., & Kuhn, D. R. (1999). A role based access control model and reference
+implementation within a corporate intranet. ACM Transactions on Information and System Security
+(TISSEC), 2(1), 34–64.
+16. Park, J. S., Sandhu, R., & Ahn, G. J. (2001). Role-based access control on the web. ACM Transactions
+on Information and System Security (TISSEC), 4(1), 37–71.
+17. Sandhu, R., Bhamidipati, V., & Munawer, Q. (1999). The ARBAC97 model for role-based administration of roles. ACM Transactions Information and System Security (TISSEC), 2(1), 105–135.
+18. Sandhu, R., & Munawer, Q. (1999). The ARBAC99 Model for Administrative Roles. In IEEE 15th
+annual computer security applications conference, Phoenix, AZ, pp. 229–238.
+19. Crampton, J., & Loizou, G. (2003). Administrative scope: A foundation for role-based administrative
+models. ACM Transactions on Information and System Security (TISSEC), 6(2), 201–231.
+20. Oh, S., Byun, C., & Park, S. (2006). An organizational structure-based administration model for
+decentralized access control. Journal of information science and engineering, 22, 1465–1483.
+21. Zhu, Y., Ahn, G.J, Hu, H., & Wang, H. (2010). Cryptographic Role-based Security mechanisms based
+on role-key hierarchy. In Proceedings of the 5th ACM symposium on information, computer and
+communication. Security (ASIACCS ‘10), April 1–12.
+22. Wang, J., Yu, J., Li, D., & Jia, Z. (2006). Combining authentication with role-based access control
+based on IBS. In IEEE international conference on computational intelligence and security, 2,
+pp. 1475–1480.
+23. Russell, D., & Gangemi, G. T. (1991). Computer security basics (1st ed.). Sebastopol: O’Reilly &
+Associates Inc.
+24. Pfleeger, C. P., & Pfleeger, S. L. (1997). Security in computing (2nd ed., pp. 361–371). Upper Saddle
+River, NJ: Prentice-Hall.
+25. Stallings, W. (2003). Cryptography and network security. Upper Saddle River: Prentice Hall Inc.
+26. Mont, M.C., & Pearson, S. (2005). An adaptive privacy management system for data repositories, 2th
+trust, privacy, and security in digital business (TrustBus2005), Copenhagen, Denmark, LNCS 3592,
+August 22–26, pp. 236–245.
+27. Sessay, S., Yang, Z., Chen, J., & Xu, D. (2005). A secure database encryption scheme.In 2th IEEE
+consumer communications and networking conference (CCNC2005), Las, Nevada, January 3–6,
+pp. 49–53.
+28. Mun, H., Lee, K., & Lee, S. (2006). Person-Wise Privacy Level Access Control for Personal Information Directory Services. In international conference in embedded and ubiquitous computing
+(EUC2006), Seoul, Korea. Berlin, Heidelberg: Springer (LNCS 4096), August 1–4, pp. 89–98.
+29. Mun, H. (2008). A Role based personal sensitive information protection with subject policy, doctoral
+dissertation. Cheongju-si: Chungbuk University.
+
+123
+
+728
+
+H.-J. Mun, S. Oh
+
+Hyung-Jin Mun received his BS, and Master degree in Mathematics
+from Chungnam National University, Rep. of Korea in 1996 and 2002.
+He received Ph.D. degrees in Computer Science from Chungbuk
+National University in 2008. He was an associate professor in Yanbian
+University Science & Technology in China. He is currently lecture in
+Baekseok University in Korea. His research interests include personal
+privacy, access control, and network security.
+
+Sejong Oh received a Doctor, Master, and Bachelor degree in Computer Science from Sogang University, Korea, in 2001, 1991, and
+1989. From 2001 to 2003, he was a postdoctoral fellow in the laboratory for Information Security Technology at George Mason
+University, USA. Since 2003 he joined the Department of Computer
+Science at Dankook University, Korea, and is currently associate
+professor in WCU Research Center of NanoBioMedical Science. His
+main research interests are bioinformatics, information system, and
+information system security.
+
+123
+
+

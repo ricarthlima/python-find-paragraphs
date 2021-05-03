@@ -1,0 +1,714 @@
+J Supercomput (2020) 76:1468–1481
+https://doi.org/10.1007/s11227-018-2371-0
+
+pISRA: privacy considered information security risk
+assessment model
+Yu-Chih Wei1 · Wei-Chen Wu2 ·
+Gu-Hsin Lai3 · Ya-Chi Chu4
+
+Published online: 23 April 2018
+© Springer Science+Business Media, LLC, part of Springer Nature 2018
+
+Abstract The security threats related to personally identifiable information are
+increasing dramatically. In addition to government agencies, large international companies are potential victims. To comply with regulations such as the European Union
+General Data Protection Regulation, organizations are required to carry out a privacy
+impact assessment. However, the conventional information security risk assessment
+model does not provide a clear methodology for conducting privacy impact assessments. In this paper, we propose a privacy-considered information security risk
+assessment (pISRA) model, which can take both a privacy impact analysis and risk
+assessment into consideration. Our proposed model can help risk assessors achieve a
+comparable and reproducible approach for the entire risk assessment process. Additionally, pISRA can assist organizations to select high-risk items for further action.
+
+B
+
+Yu-Chih Wei
+vickrey@gmail.com; vickrey@nkust.edu.tw
+Wei-Chen Wu
+wwu@hsc.edu.tw
+Gu-Hsin Lai
+ghlai@cc.tpa.edu.tw
+Ya-Chi Chu
+gyh2211@cht.com.tw
+
+1
+
+Department of Finance and Information, National Kaohsiung University of Science and
+Technology, Kaohsiung, Taiwan, ROC
+
+2
+
+Computer Center, Hsin Sheng Junior College of Medical Care and Management, Taoyuan,
+Taiwan, ROC
+
+3
+
+Department of Technology Crime Investigation, Taiwan Police College, Taipei, Taiwan, ROC
+
+4
+
+Telecommunication Laboratories, Chunghwa Telecom Co., Ltd, Taoyuan, Taiwan, ROC
+
+123
+
+pISRA: privacy considered information security risk…
+
+1469
+
+Keywords Privacy · Risk · Security · Assessment · Impact
+
+1 Introduction
+Many corporations use machine learning technologies to discover the potential business opportunity for promoting their products and services. The data sources of these
+machine learning technologies are collected and analyzed from customer-provided
+or historical records, such as customer’s behavior, shopping detail, habit, social network [25], and hobby, which are considered as personally identifiable information
+(PII). Overlooking the protection of these PII could cause serious harm or even threaten
+the right of data principal. From the report of 2016 Data Breach Report of Identity
+Theft Resource Center (ITRC) [1], there are more than 980 cases of information leakage incidents, which exposed more than 35 million records of personal data. Many
+cases are large international companies and government agencies; these incidents
+could result in high amount of fine, litigation cost, etc.
+In ISO/IEC 27001:2013 [5], information security risk assessment (ISRA) is the
+basis of risk-based information security management system (ISMS). The objective
+of ISRA is to evaluate the security risk, which the organization may encounter, and
+then to carry out risk treatment to mitigate the risk into a tolerable or acceptable
+risk level, under an affordable budget. The main procedure of ISRA includes the following steps: (a) asset identification; (b) risk identification; (c) risk analysis; and (d)
+risk assessment. The guideline of ISO/IEC 27005:2011 [3] does not include the privacy impact assessment (PIA). In many privacy data protection standards, such as
+BS 10012:2017 [8], ISO/IEC 29151:2017 [9] and ISO/IEC 27018:2014 [6], the PIA
+is required in addition to the requirement of conducting risk assessment. In Taiwan,
+according to the Enforcement Rules of the Personal Information Protection Act, article
+12, data controller shall establish the mechanism of risk evaluation and management
+of personal information [17], which means that the ISRA and PIA are necessary for
+enforcing the protection of personal data. In European Union, the new General Data
+Protection Regulation (GDPR) (Regulation (EU) 2016/679) [13] replaces the Data
+Protection Directive 95/46/EC and was designed to harmonize data privacy laws.
+Recital 84 stated that the data controller shall carry out data protection impact assessments (DPIAs) to evaluate the origin, nature, particularity, and severity of the risk. In
+addition, the outcome should be taken into account when determining the appropriate
+measures to be taken in order to demonstrate that the processing of personal data complies with the regulation. Notably, the GDPR does not only apply to organizations that
+are established in the EU; it also applies to organizations outside the EU if they provide
+goods or services to EU data subjects or monitor their behavior. This means that all
+organizations with any EU interests must carry out DPIAs in order to ensure the compliance of GDPR. However, there is no clear methodology that can easily implement
+and integrate into risk assessment process [19]. Although ISO/IEC 29134:2017 [10]
+can provide a detailed guidance for conducting a privacy impact assessment, in the
+privacy risk analysis phase of [10], it merely describes the fundamental considerations for the impact analysis, which does not provide sufficient information for the
+risk assessor.
+
+123
+
+1470
+
+Y.-C. Wei et al.
+
+In this paper, we propose a model which can take both ISRA and PIA into consideration, called pISRA. It does not require a PIA to be conducted separately, and
+can comply with the original ISRA methodology, especially for enterprises that are
+already certified as being in compliance with ISO/IEC 27001:2013. Our proposed
+privacy considered risk assessment model contains four parts: (a) service and process
+identification, (b) asset and PII identification, (c) privacy impact analysis and (d) risk
+assessment. Furthermore, in privacy impact analysis, the proposed model can analyze the impact from the loss of confidentiality of PII systematically from influential
+factors.
+The remainder of this paper is organized as follows: Sect. 2 describes the relevant
+research on privacy impact assessment and risk assessment. Section 3 discusses the
+requirement and the guidance on PIA. Section 4 presents the proposed privacy impact
+assessment model and risk assessment model. Conclusions and future directions are
+given in Sect. 5.
+
+2 Related work
+In recent years, privacy protection has become an important issue. In order not to bring
+huge loss no matter on money or goodwill, government and commercial institutions
+spend a lot on protecting personal data. To identify privacy, it should encompass
+all aspects of the individual’s social needs. Clarke [12] has provided comprehensive
+interpretation of privacy. It contains four types of privacy: privacy of the person, privacy
+of personal behavior, privacy of personal communications and privacy of personal
+data. All types of privacy should be taken into account in a privacy impact assessment.
+Wright et al. [28] define PIA as a methodology for assessing the impacts on privacy
+of a project, technology, product, service, policy, program or other initiatives and, in
+consultation with stakeholders, for taking remedial actions necessary in order to avoid
+or minimize negative impacts. A good PIA must be a process more than a compliance
+check. It must be reviewed, updated and ongoing throughout the life of a project.
+Oetzel and Spiekermann [19] propose a systematic methodology for privacy impact
+assessment. The authors propose a seven-step methodology for the whole PIA process
+which includes characterization of system, definition of privacy target, evaluation of
+protection demand, identification of threats, identification and recommendation of
+controls, assessment and documentation of residual risk, and documentation of PIA
+process. In [14], De and Mtayer propose a methodology called privacy risk analysis
+methodology (PRIAM), which consists of two phases including information gathering
+phase and risk assessment phase. In their research, the complete description about how
+to compute the severity of PII is not well provided.
+In [27], the authors defined that privacy impact analysis is a methodology for assessing the impacts on privacy of a project, policy, program, service, product or other
+initiatives, which involves the processing of personal information and, in consultation
+with stakeholders, for taking remedial actions necessary in order to avoid or minimize
+negative impacts. In ISO/IEC 29100:2011 [4], a PIA is referred to under a privacy risk
+assessment, which deals with the overall process of risk identification, risk analysis,
+and risk evaluation regarding the processing of PII. However, ISO/IEC 29100:2011
+
+123
+
+pISRA: privacy considered information security risk…
+
+1471
+
+recognizes that PIA is the component of risk management that focuses on ensuring
+the compliance of privacy and data protection legislation requirements and assessing
+the privacy implications of new or substantially modified programs or activities. The
+difference between [27] and [4] is that [4] considered PIA is the extension of ISRA and
+merely focuses on the PII; however, [27] focuses on assessing the impact of privacy
+violations and taking actions to minimize negative impacts.
+In addition to the approaches mentioned above, the security risks for cloud computing and smartphone become a new issue. In cloud computing, Saripalli and Walters [21]
+propose two security metrics based on threats classification and quantify in economic
+terms the loss resulted in security breaches. Although these metrics calculate unambiguous values for each stakeholder in each security incident, the true cost of any
+incident may not be knowable. It is still difficult for users to measure the real impact
+of security breaches. Saripalli and Walters also provide a platform to assess the security
+risks associated with cloud computing, called QUIRC. It identifies six key security criteria for cloud computing and shows that most of the typical attack events can map one
+of them. But in the real cloud computing, other risks must also be considered during the
+decision-making process. In [24], a smartphone is viewed as a small-scale information
+system that has several assets: a) device, b) data, c) connectivity, and d) application. It
+assesses the impact type for each asset and the probability of a security incident occurring. Their proposed method does not analyze the presence of vulnerabilities and how
+to control them on a threat-by-threat basis; a more detailed threat assessment can be
+based on past incidents or statistics. To refine previous work, Mylonas et al. [18] focus
+on the security of personal data and propose a method for assessing the privacy risk
+of Android users. It considers the user’s usage profile and the personal information
+on the smartphone which is classified into nine data types. Then it evaluates threat
+likelihood based on the presence of specific permission combinations. Both Mylonas
+et al. [18] and Theoharidou et al. [24] do not consider the importance of each personal
+datum, but focus on the permission level each app can access. It is hardly used in
+other common privacy impact analyses. Tancock et al. [23] discuss the possibility of
+developing a PIA decision support system for a cloud environment in order to enhance
+end user trust by decreasing the risk of exposure of end user’s information.
+From the research mentioned above, we can see that there are several missing
+parts. First, the proposed models do not consider how to integrate previous ISRA
+outcomes with a new approach. As a result, organizations must maintain both PIA
+and ISRA results separately. Second, the quantitative privacy impact analysis on PII
+was still a work-in-progress in their research. Although the authors of [21] proposed a
+quantitative method, their study only focused on a traditional ISRA, and not on a PIA.
+
+3 Requirements and guidance on PIA
+Many countries, such as Canada, the UK, Australia, the USA and EU, require critical sector to carry out privacy impact assessment [19]. In the USA, according to the
+E-Government Act of 2002 [20] sec.208, it is required that all Federal government
+agencies conduct PIA when developing or procuring information technology that collects, maintains or disseminates information that is in an identifiable form, or when
+
+123
+
+1472
+
+Y.-C. Wei et al.
+
+initiating a new information technology which includes any information in an identifiable form permitting the physical or online contacting of a specific individual. The
+required content in E-Government Act of 2002 includes the following [20]:
+1.
+2.
+3.
+4.
+5.
+
+What information is to be collected
+Why the information is being collected
+The intended use of the agency of the information
+With whom the information will be shared
+What notice or opportunities for consent would be provided to individuals regarding what information is collected and how that information is shared
+6. How the information will be secured
+7. Whether a system of records is being created under section 552a of title 5, United
+States Code (commonly referred to as the “Privacy Act”).
+Details of consideration and guidance on how to meet the requirements of the EGovernment Act of 2002 are available in from the National Institute of Standards and
+Technology (NIST) SP800-122 [2] and NIST IR8062 [11].
+Although E-Government Act of 2002 mandates to conduct a PIA in regulation, the
+requirement of scope is limited to government agencies. In EU, the broader scope of
+the mandatory requirement has been published as GDPR [13]. In Art. 2 the material
+scope indicates that the regulation applies to the processing of PII wholly or partly
+by automated means. Furthermore, the processing other than by automated means of
+PII which form part of a filing system or are intended to form part of a filing system
+are also included in the material scope. In addition to the material scope, it also has
+the other applicable scopes. In Art. 3 the territorial scope describes that the regulation
+also applies to the processing of PII in the context of the activities of PII controller or
+processor in the EU, regardless of whether the processing takes place in the EU or not.
+Although the GDPR (which is a regulation with a broader scope) is mandatory for the
+PII controller or processor, it does not mandate every PII for conducting a PIA. In Art.
+35 of GDPR, it is stated that if processing in particular using new technologies is likely
+to result in a high risk to the rights and freedoms of natural persons, the PII controller
+shall carry out an assessment of the impact of the envisaged processing operations on
+the protection of PII prior to the processing. Notably, some cases in particular shall
+be required to carry out a PIA:
+1. a systematic and extensive evaluation of personal aspects relating to natural persons
+which is based on automated processing, and on which decisions are based that
+produce legal effects concerning the natural person, or similarly significantly affect
+the natural person
+2. processing on a large scale of special categories of data or of personal data relating
+to criminal convictions and offenses
+3. a systematic monitoring of a publicly accessible area on a large scale.
+Due to the complexity of requirement consideration on conducting PIA, the identification flow in Fig. 1 can simplify the overall complexity for identification PIA
+requirement.
+Nevertheless, Article 35(7) states that a PIA should contain:
+
+123
+
+pISRA: privacy considered information security risk…
+
+1473
+
+Fig. 1 The requirement of PIA identification flow of in GDPR
+
+1. a systematic description of the envisaged processing operations and the purposes
+of the processing, including, where applicable, the legitimate interest pursued by
+the controller
+2. an assessment of the necessity and proportionality of the processing operations in
+relation to the purposes
+3. an assessment of the risks to the rights and freedoms of data subjects
+4. the measures envisaged to address the risks, including safeguards, security measures and mechanisms to ensure the protection of personal data and to demonstrate
+compliance with this regulation taking into account the rights and legitimate interests of data subjects and the other persons concerned.
+The required content for PIA which is described in GDPR does not cover the
+whole process and considerable items. The missing part can be complemented by
+ISO/IEC 29134:2017 [10]. ISO/IEC 29134:2017 provides scalable guidelines that
+can be applied to many circumstances. In addition to the guidelines for conducting a
+PIA, ISO/IEC 29134:2017 also states that the required content should include a PIA
+report. However, the privacy risk analysis in [10] merely describes the fundamental
+considerations for the impact analysis, which is not sufficient for the risk assessor.
+
+4 Privacy considered information security risk assessment model
+In order to systematically embed privacy impact analysis into the ISRA model, we propose a privacy considered information security risk assessment model called pISRA.
+
+123
+
+1474
+
+Y.-C. Wei et al.
+
+The proposed pISRA model consists of the following activities: (1) service and process identification, (2) asset and PII identification, (3) privacy impact analysis and (4)
+risk assessment.
+4.1 Service and process identification
+At the first phase, the organization should identify its products and services individually. It is necessary for the organization to identify the users of each product and
+service. For different importances of users, the value of product and service may also
+different. For each product and service, the organization should conduct a processlevel identification to determine the interrelationships between internal processes and
+how they deliver products and services.
+In this phase, if the products and services are critical, or even the processes are
+critical, the prioritization of the products and services, and processes is required,
+which can assist the organization to carry out business impact assessment and develop
+a timetable for recovery across the organization [7]. The organization may develop a
+questionnaire for assessing the business impact while business interruption occurred.
+The considered business impact can include the organization’s revenue, customer
+rights and interests, laws and regulations of the violation, etc.
+If the user of the product or service is a PII principal, the detailed processes for
+supporting the should involve PII operations related to the user. In our proposed model,
+it is necessary to identify the purpose of PII processing in order to comply with the
+regulations and standards. For example, the “Personal Information Protection Act” [16]
+in Taiwan, in Article 5, mentioned, “The rights and interests of the Party should be
+respected in collecting, processing or using personal information and the information
+should be handled in accordance with the principle of bona fide. It should not go
+beyond the purpose of collection and should be reasonable and fair.” According to
+this statement, the identification of the purpose of PII processing is mandatory.
+4.2 Asset and PII identification
+After the processes or activities have been identified, the risk assessor can analyze
+the related assets for each process or activity. Information asset can be classified into
+different asset types, such as hardware, software, people [3]. In this paper, we classified
+the information assets into five asset types: hardware, software, people, information
+and service. The relation between IPO model and information assets is shown in Fig. 2.
+The information assets, such as a PII list stored in an excel file, may be required as the
+input on the data transformation process, and the output file after the transformation
+process can also be identified according to the IPO model.
+In order to assist the analysis of privacy impact, first of all, the PII-related assets
+should be discovered. In the asset identification process, if the information assets contain PII, those involved should brainstorm to identify the related assets. As presented in
+Fig. 3, information assets can be placed in the center of the model, and brainstorming
+can be used to determine the related assets. From the brainstorming process, each PII
+information asset may facilitate the identification of hardware assets for storing the
+
+123
+
+pISRA: privacy considered information security risk…
+
+1475
+
+Fig. 2 Using input–process–output flow for identifying information assets
+Fig. 3 Brainstorming for the
+asset identification based on
+information assets
+
+PII file. In addition, software for processing the PII file, the people using the PII, and
+some of the support services provided may also be identified.
+
+4.3 Privacy impact analysis
+From the asset and PII identification stage, the assets related to PII are all identified.
+At this stage, more detailed identification processes are required for each PII asset in
+order to clarify the confidentiality impact of the organization when PII is leaked or
+misused. Because the PII has several additional considerations other than the other
+assets such as regulation compliance, the PII confidentiality impact should take into
+account additional PII considerations and be used to determine whether additional
+protections should be implemented. For determining the impact from the loss of confidentiality of PII, several factors should be considered. NIST SP800-122 [2] states
+that the organizations should determine which factors should be used for determining
+PII impact levels, and should create and implement policy and procedures that support
+these impacts.
+In this paper, the factors provided by NIST SP800-122 have been taken into account
+and a PIA model has been proposed to analyze the impact from the loss of confidentiality of PII systematically. Each factor included in our PIA model is described below.
+
+123
+
+1476
+
+Y.-C. Wei et al.
+
+Table 1 Illustration of PII identifiability label, weight, threshold and upgrade label
+Name
+
+Label
+
+Weight
+
+Threshold
+
+Upgrade label
+
+Direct identifiable
+
+D
+
+1
+
+–
+
+–
+
+Indirect identifiable
+
+I
+
+0.8
+
+3
+
+D
+
+Partial identifiable
+
+P
+
+0.5
+
+5
+
+I
+
+Anonymized
+
+A
+
+0.3
+
+8
+
+I
+
+4.3.1 Identifiability
+The first considered important factor is the identifiability of PII; the risk assessor
+should evaluate how easily the stored PII can be used to identify specific PII principal.
+For example, the data may be composed of the PII principal’s name, social security
+number, birthday and gender. Some of the fields are uniquely and directly identifiable,
+such as name and social security number, and may have higher impact level than
+other PII not directly identifiable by itself. For the compliance with the privacy act
+in Taiwan, in this paper, we refer to “The specific purpose and the classification of
+personal information of the Personal Information Protection Act” [15] in Taiwan and
+select the PII related to the organization which each field has labeled according to their
+identifiability as shown in Table 2. The identifiability labels can be divided into direct
+identifiable (D), indirect identifiable (I), partial identifiable (P) and anonymized (A)
+based on the degree of the identifiability and given the appropriate weight as shown
+in Table 1. In addition, if the PII field is anonymized, the degree of identifiability will
+be much lower than the partial identification.
+When multiple partial identification is likely to make the data an indirect identification, it means that the higher the number of data fields, the higher the recognition
+of the individual, so this study is for different identification thresholds (T{i,p,a} ); when
+the count of identified fields exceeds the upgrade threshold, it will be upgraded to a
+higher label, for example: When Tp = 5, if the PII data have more than five partial
+identifiable fields, these three fields are upgraded to an indirect identifiable I.
+
+Table 2 Illustration of PII field
+identifiability and sensitivity
+
+123
+
+PII field
+
+Identifiability
+
+Sensitivity
+
+Name
+
+D
+
+0.6
+
+Birth
+
+P
+
+0.6
+
+Shopping detail
+
+P
+
+0.9
+
+Call detail
+
+P
+
+1.0
+
+Cell phone number
+
+I
+
+0.7
+
+Fax number
+
+P
+
+0.5
+
+Email address
+
+I
+
+0.5
+
+Address
+
+P
+
+0.7
+
+···
+
+···
+
+···
+
+pISRA: privacy considered information security risk…
+
+1477
+
+4.3.2 Field sensitivity
+In addition to the identifiability, the sensitivity of each PII data field is also an important
+factor. In this paper, as shown in Table 2, we give the sensitivity weight to individual
+PII fields according to their confidentiality and openness. For example, the personal
+medical record is highly sensitive than individual name and birthday. It is noted that
+the PII data may be composed of many data fields and the sensitivity of the PII data
+may increase according to the amount of PII data fields. In this paper, while carrying
+out a PIA, it is required to select the PII data fields that contained in the PII data. The
+field sensitivity of PII data, ws , is calculated by Eq. 1, where c is the selected PII field
+and Sc is the sensitivity of the selected PII field.
+
+ws = log2
+
+
+
+
+Sc .
+
+(1)
+
+c∈PII
+
+4.3.3 Quantity
+The quantity of PII stored in the organization is also an important factor while carrying
+out a PIA. Different amounts of PII data leakage may also result in different privacy
+impacts. The impact of this factor not only harm individuals, but also harm the reputation and the cost of the organization which is involved in the PII operations, such
+as fine or penalty for the PII controller in addressing the breach. For example, in Taiwan, according to “Personal Information Protection Act” [16] Article 28, “…The total
+amount of compensation for the damages referred to in the two preceding Paragraphs
+shall be no less than NT$500 but no more than NT$20,000 for each case of damages
+per person in the cases where the victims in the two preceding Paragraphs may not or
+cannot provide evidence for actual damage amount. With regard to damages caused to
+multi parties by the same cause and fact, the total amount of compensation should not
+exceed NT$200 million. …”. From the example, we can see that the fine is directly
+related to the leakage of the amount of PII records. Therefore, organizations may consider a higher impact level for particularly large PII datasets. The wn is calculated by
+Eq. 2, where N is the number of records stored in the storage, and in order to consider
+the issue of N = 0 for the PII data deleted immediately after processing, the N + 2
+approach is used to avoid the problem.
+wn = log10 (N + 2).
+
+(2)
+
+4.3.4 Context of use
+The context of use, also known as the purpose for PII operation, is defined as the purpose for which PII is collected, stored, used, processed, disclosed or disseminated [2].
+In ISO/IEC 29100:2011 [4], the purpose provides legitimacy and specification is provided to ensure that the purpose complies with regulations and relies on legal basis. It
+is noted that different contexts of use may cause the same PII have different privacy
+impacts. For example, an organization may have two PII files both containing the same
+
+123
+
+1478
+
+Y.-C. Wei et al.
+
+PII data fields: name and phone number. The first file is the organization members’
+contact list. The second file is the sales target list for any person with an annual salary
+more than US$ 200 million. The privacy impacts to the affected individuals and to the
+organization are significantly different for each of the two files. Apparently, the second
+file has a higher impact than the first file. In Taiwan, the specific purpose of PII a listed
+in “The specific purpose and the classification of personal information of the Personal
+Information Protection Act” [15], according to the Privacy Act [16], each of the PII
+operations–regardless of collection, processing, or use–should not exceed the specific
+purpose list. In this paper, we rank the specific purposes according to their context
+privacy impact (which are provided in [15]), and assign impact values to each of the
+specific purposes. The weight of context of use for the PII is calculated according to
+Eq. 3, where p is the specific purpose of the PII chosen by the risk assessor and vp
+means that the specific purpose is assigned according to the ranking.
+wu = max(vp ).
+p∈P
+
+(3)
+
+4.3.5 PII freshness
+Active PII data means that the data might be continuously updated with the latest
+information; therefore, if the PII data is leaked, the privacy impact may be greater
+than that of inactive PII data. For example, the call detail record (CDR) within 1 year
+has a higher impact than the CDR of more than 5 years. From the idea mentioned
+above, we propose the weight of freshness wf , as shown in Eq. 4, where Na is the
+average amount of data collected or added per month and Nu is the amount of monthly
+updates of the stored PII.
+Na + Nu
+.
+(4)
+wf = 1 +
+N
+As shown in Fig. 4, from the five weighting factors mentioned above, we can
+calculate the overall privacy impact Ipia by Eq. 5. Then, we can rank and compare
+which PII data have a higher impact and require putting more emphasis on.
+Ipia =
+
+
+
+wk .
+
+(5)
+
+k∈{u,i,s,n, f }
+
+4.4 Risk assessment
+After the completion of privacy impact analysis, in risk assessment, the risk assessor
+should identify the applicable threats and vulnerabilities that exist, the process called
+risk identification. It is noted that the risk identification process also includes identifying the existing controls and their effect on the risk, and determines the potential
+likelihood and impact.
+Risk assessment, both the process and associated techniques, offers an analytical
+and structured walk-through of the organization’s security state [22]. Risk identification is an important step in risk assessment, to determine what could cause a
+
+123
+
+pISRA: privacy considered information security risk…
+
+1479
+
+Fig. 4 The overall privacy impact value is calculated according to the five weighting factors
+
+potential loss, and to gain insight into how and why the loss might happen. Thus, if
+a corporation expects to carry out risk assessment successfully, finding the appropriate threat–vulnerability pair of each asset is a crucial step. However, in the
+process of identifying threat-vulnerability pairs, it is difficult for the risk assessor–
+especially one who lacks information security competence–to recognize the feasible
+combinations.
+By the assistance of our previous work [26], the risk assessor can select risk item
+efficiently and accurately by the use of risk recommendation system. We classify the
+risk into three aspects of impact including confidentiality, integrity and availability. In
+this paper, we put emphasis on identifying the risk of privacy and the privacy impact
+of the risk can be considered as a confidentiality risk. After selecting the threat that
+each asset may face and its own weaknesses, the risk assessor evaluates the likelihood
+of risk assessment (T ) after considering the existing control measures and the impact
+assessment after the risk (Iuser ). And then through Eq. 6, to calculate the overall risk
+Rpii , when Iuser is less than Ipia , it uses Ipia as the main impact in order to prevent
+underestimation of the risk impact.
+Rpii = T · max(Ipia , Iuser ).
+
+(6)
+
+Notably, unlike the requirement of a DPIA in GDPR, the proposed model requires
+the risk accessor to conduct a pISRA for every PII. According to Article 35 of the
+GDPR if the information processing uses new technologies that are likely to result
+in a high risk to the rights and freedoms of natural persons, the PII controller should
+conduct a DPIA. This means that the risk assessor should adopt pISRA to meet the
+GDPR requirement of a DPIA. In addition, additional processes of pISRA listed in
+Fig. 1 should be applied to ensure the pISRA model meets the requirements of the
+GDPR.
+
+123
+
+1480
+
+Y.-C. Wei et al.
+
+5 Conclusion and future work
+In this paper, we propose a systematic privacy impact analysis model which can calculate the privacy impact according to the PII data’s identifiability, context of use,
+quantity, sensitivity and freshness. Through the introduction of a privacy-considered
+information security risk assessment model called pISRA, an ISRA model can be
+established that considers privacy impacts for the overall risk assessment process.
+Our proposed model can help risk assessors complete a comparable and reproducible
+risk assessment process, which can assist organizations to select suitable targets for
+conducting risk management.
+In the future, we intend to implement the proposed model into current ISRA system.
+The system can be experimented in the selected organization in order to evaluate the
+proposed model in the real cases. In addition, the improvement in the PII identification
+process is also a research topic as a future work.
+
+References
+1. Data breach reports—identity theft resource center. http://www.idtheftcenter.org/images/breach/
+DataBreachReport_2016.pdf
+2. Guide to protecting the confidentiality of personally identifiable information (pii) (2010) NIST SP800122. http://csrc.nist.gov/publications/nistpubs/800-122/sp800-122.pdf
+3. Information technology—security techniques—information security risk management (2011) ISO/IEC
+27005:2011, pp 1–68
+4. Information technology—security techniques—privacy framework (2011) ISO/IEC 29100:2011, pp
+1–21
+5. Information technology—security techniques—information security management systems—
+requirements (2013) ISO/IEC 27001:2013, pp 1–23
+6. Information technology—security techniques—code of practice for protection of personally identifiable information (PII) in public clouds acting as PII processors (2014) ISO/IEC 27018:2014, pp
+1–23
+7. Societal security—Business continuity management systems—guidelines for business impact analysis
+(BIA) (2015) ISO/TS 22317:2015, pp 1–27
+8. Data protection specification for a personal information management system (2017) BS10012:2017.
+http://www.bsigroup.com/en-GB/BS-10012-Personal-information-management/
+9. Information technology—security techniques—code of practice for personally identifiable information
+protection (2017) ISO/IEC 29151:2017, pp 1–39
+10. Information technology—security techniques—guidelines for privacy impact assessment (2017)
+ISO/IEC 29134:2017, pp 1–43
+11. Brooks S, Garcia M, Lefkovitz N, Lightman S, Nadeau E (2017) Ir8062: an introduction to privacy
+engineering and risk management in federal systems, Technical report. https://doi.org/10.6028/nist.ir.
+8062
+12. Clarke R (1999) Introduction to dataveillance and information privacy, and definitions of terms.
+Roger Clarke’s Dataveillance and Information Privacy Pages. http://www.cse.unsw.edu.au/~cs4920/
+resources/Roger-Clarke-Intro.pdf
+13. Council of the European Union: General data protection regulation (2016). http://data.consilium.
+europa.eu/doc/document/ST-5419-2016-INIT/en/pdf
+14. De SJ, Le Métayer D (2016) PRIAM: a privacy risk analysis methodology. In: Livraga G, Torra V,
+Aldini A, Martinelli F, Suri N (eds) Data privacy management and security assurance. Springer, Cham,
+pp 221–229
+15. Ministry of Justice (2012) The specific purpose and the classification of personal information of the
+personal information protection act. http://mojlaw.moj.gov.tw/LawContentE.aspx?id=FL010631
+16. Ministry of Justice (2015) Personal information protection act. http://law.moj.gov.tw/Eng/LawClass/
+LawAll.aspx?PCode=I0050021
+
+123
+
+pISRA: privacy considered information security risk…
+
+1481
+
+17. Ministry of Justice (2016) Enforcement rules of the personal information protection act. http://law.
+moj.gov.tw/LawClass/LawAll.aspx?PCode=I0050022
+18. Mylonas A, Theoharidou M, Gritzalis D (2014) Assessing privacy risks in android: a user-centric
+approach. Springer International Publishing, Cham, pp 21–37. https://doi.org/10.1007/978-3-31907076-6_2
+19. Oetzel MC, Spiekermann S (2014) Systematic methodology for privacy impact assessments. Eur J Inf
+Syst 23(2):126–150. https://doi.org/10.1057/ejis.2013.18
+20. Public Law 107-347 (2002) E-government act of 2002. U.S. Government Printing Office. http://www.
+gpo.gov/fdsys/pkg/PLAW-107publ347
+21. Saripalli P, Walters B (2010) Quirc: a quantitative impact and risk assessment framework for cloud
+security. In: 2010 IEEE 3rd International Conference on Cloud Computing, pp 280–288. https://doi.
+org/10.1109/CLOUD.2010.22
+22. Shamala P, Ahmad R, Yusoff M (2013) A conceptual framework of info structure for information
+security risk assessment (ISRA). J Inf Secur Appl 18(1):45–52. https://doi.org/10.1016/j.jisa.2013.07.
+002
+23. Tancock D, Pearson S, Charlesworth A (2013) A privacy impact assessment tool for cloud computing.
+Springer, London, pp 73–123. https://doi.org/10.1007/978-1-4471-4189-1_3
+24. Theoharidou M, Mylonas A, Gritzalis D (2012) A risk assessment method for smartphones. Springer,
+Berlin, pp 443–456. https://doi.org/10.1007/978-3-642-30436-1_36
+25. Trattner C, Kappe F (2013) Social stream marketing on Facebook: a case study. Int J Soc Humanist
+Comput 2(1/2):86. https://doi.org/10.1504/ijshc.2013.053268
+26. Wei YC, Wu WC, Chu YC (2016) Performance evaluation of information security risk identification.
+In: The 5th International Conference on Frontier Computing, Tokyo, Japan
+27. Wright D, De Hert P (2012) Introduction to privacy impact assessment. Springer, Dordrecht, pp 3–32.
+https://doi.org/10.1007/978-94-007-2543-0_1
+28. Wright D, Finn R, Rodrigues R (2013) A comparative analysis of privacy impact assessment in six
+countries. J Contemp Eur Res 9(1):160–180
+
+123
+
+

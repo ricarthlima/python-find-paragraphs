@@ -1,0 +1,1137 @@
+The current issue and full text archive of this journal is available on Emerald Insight at:
+www.emeraldinsight.com/0264-0473.htm
+
+A comprehensive concept map
+for adequate protection and
+effective management of
+personal information in
+networked Chinese services
+Xiaomi An
+
+Information in
+networked
+Chinese
+services
+1047
+Received 3 April 2014
+Revised 10 September 2014
+30 October 2014
+Accepted 1 December 2014
+
+Key Laboratory of Data Engineering and Knowledge Engineering of the
+Ministry of Education, and School of Information Resources Management,
+Renmin University of China, Beijing, China
+
+Wenlin Bai
+School of Information Resources Management,
+Renmin University of China, Beijing, China
+
+Hepu Deng
+School of Information Resources Management, Renmin University of
+China, Beijing, China, and School of Business Information Technology and
+Logistics, RMIT University, Melbourne, Australia
+
+Shuyang Sun, Yu Dong and Wenrui Zhong
+School of Information Resources Management,
+Renmin University of China, Beijing, China, and
+
+Jufang Hu
+University Library, Renmin University of China, Beijing, China
+Abstract
+Purpose – This paper aims to develop a comprehensive concept map to guide adequate protection and
+effective management of personal information in the provision of networked services in China through
+comprehensively considering the multi-disciplinary perspective of personal information protection and
+management with respect to their multi-dimensional applications, multi-directional controls and
+multi-contextual analysis in today’s networked environments. There are different perspectives on what
+personal information protection and management is about, why and how personal information should
+be protected and managed in the literature. Little, however, is known about the relationships between
+
+This research is financially supported by The National Social Science Foundation of China Major
+Program (Project number: 13 &ZD 184), the Fundamental Research Funds for the Central
+Universities, and the Research Funds of Renmin University of China (No. 15XNLQ08) and the
+Beijing National Social Science Foundation (Project number: 13&ZHB103). The authors wish to
+thank Sha Liu, Yongni Yu, Li Zheng and Hao Chen for collecting data of online survey to help this
+study.
+
+The Electronic Library
+Vol. 33 No. 6, 2015
+pp. 1047-1064
+© Emerald Group Publishing Limited
+0264-0473
+DOI 10.1108/EL-04-2014-0059
+
+EL
+33,6
+
+1048
+
+these multiple perspectives and their implications to personal information protection and management
+in the real-world practice.
+Design/methodology/approach – A multi-methods approach is adopted in the study, including a
+comprehensive review of the related literature, a content analysis of the relevant laws, polices,
+standards, a multi-cases study of the relevant network services providers and an online survey of the
+Chinese citizens who are the end-users of the networked services to adequately achieve the objective of
+this study. The concept map building technique is used as a tool for conducting the meta-synthesis of
+the findings from multiple data resources in the development of a comprehensive concept map for
+personal information protection and management.
+Findings – This study rationalizes the importance of the identification of personal information for
+adequate protection and effective management. It identifies five perspectives on personal information
+protection and management, namely, law, economics, sociology, information technology and
+information resources management for their applications at the organizational level. Five types of
+personal information are identified in the study for protection and management, namely, identifiable
+personal information, personal identity information, personal moral right information, personal civil
+right and interest information and personal business and transaction information. An integrated
+approach consisting of risk control, security control and users control is proposed for personal
+information protection and management in the provision of networked services in China. The study
+shows that not enough attention has been paid to the personal information protection and management
+from multi-disciplinary perspectives with respect to their multi-dimensional applications,
+multi-directional controls and multi-contextual analysis in the literature. There is a lack of
+understanding of what, why and how personal information is protected and managed in real-world
+practices in China.
+Practical implications – The investigation of the issues of personal information protection and
+management with respect to the relevant laws, polices, standards, networked services and
+organizations can lead to a better understanding of what, why and how personal information is
+protected and managed in real-world practices in China. The development of a comprehensive concept
+map for personal information protection and management can be used as an effective guideline for the
+formulation and implementation of appropriate strategies and policies in individual organizations for
+providing their stakeholders with quality-networked services in today’s highly connected network
+environment in China.
+Originality/value – The paper is the first step of a comprehensive study on the protection and
+management of personal information for the provision of networked services in China. It provides a
+solid foundation for further research with respect to the personal information protection and
+management. It is the first of this kind of studies to answer the questions of what types of personal
+information needed to be protected, why and how they should be protected in conformity with laws,
+regulations, polices, standards and the needs of networked services and business activities of
+organizations.
+Keywords China, Information resources management, Personal information protection,
+Networked services
+Paper type Research paper
+
+1. Introduction
+With the rapid development of e-government and e-business in China (Molla and Deng,
+2009), an increasing amount of personal information is collected, processed, shared and
+stored while providing networked services to support business collaborations and
+innovations (An et al., 2014) within and across organizations. This leads to numerous
+problems in handling personal information, including excessive collection of personal
+information, publishing personal information without consent and illegal selling of
+
+personal information (Li, 2009; Mu et al., 2013; Sun, 2014). As a result, adequately
+protecting and effectively managing personal information is becoming critical for the
+sustainable development of the information economy in China (Byrne et al., 2005).
+Protecting and managing personal information for information security in
+organizations is necessary for building a secured, trusted and well-organized
+information consumption market in China, according to the State Council’s Opinions on
+Promotion Information Consumption of China (State Council, 2013). Numerous laws
+and regulations have been developed in China and various strategies and policies have
+been formulated for facilitating the integration and sharing of personal information to
+provide citizens with one-stop networked services in the National Development Reform
+Committee (2014). There are, however, few actions plans and management mechanisms
+for protecting and managing personal information in networked services throughout
+their entire life in organizations.
+Much research has been done in China on personal information protection and
+management, leading to the development of various perspectives on what personal
+information protection and management is about, as well as why and how personal
+information should be protected and managed (Hong, 2010; Jiang, 2008; Kong, 2009;
+Lang et al., 2008; Sun, 2014; Yao, 2012; Zhang, 2006). Little, however, is known about the
+relationship between different perspectives on personal information protection and
+management and their implications to real-world practice. Few studies have been
+conducted to identify the requirements for personal information protection and
+management with respect to existing laws (An et al., 2011; Zhang, 2006). Furthermore,
+existing studies have been limited to the identification of various personal information
+protection and management problems that may affect people’s lives (Li, 2009; Sun,
+2014). There has been little research performed to understand what types of personal
+information exist that need adequate protection and effective management (Mu et al.,
+2013).
+This paper develops a comprehensive concept map for guiding adequate protection
+and effective management of personal information in providing networked services in
+China. A multi-methods approach is adopted in the study, including a comprehensive
+review of the related literature, a content analysis of the relevant laws, policies and
+standards, a multi-cases study of the network service providers and an online survey of
+citizens who are the end-users of the networked services. The concept map building
+technique is used for the meta-synthesis of the research findings from multiple data
+sources. This leads to the identification of the different types of personal information
+and the development of a comprehensive concept map for adequate protection and
+effective management of personal information in the provision of networked services in
+China.
+The paper is structured as follows. Section 2 presents a review of the related literature
+on personal information protection and management from a discipline-based
+perspective. Section 3 investigates the classification of personal information for
+protection and management with respect to existing Chinese laws and regulations. This
+paves the way for the identification of the types of personal information for protection
+and management in the provision of networked services in China in Section 4. Section 5
+presents the result of the online survey, leading to the development of a comprehensive
+concept map for personal information protection and management in a networked
+service environment in China.
+
+Information in
+networked
+Chinese
+services
+1049
+
+EL
+33,6
+
+1050
+
+2. Discipline-based personal information protection and management
+Personal information protection and management is about the protection of individuals
+with respect to the processing and management of personal information (Mu et al., 2013;
+Sun, 2014). This involves obtaining, recording and holding personal information and
+carrying out operations on the information, such as collecting, organizing, adapting,
+altering, disclosing, sharing, disseminating, aligning, combining, blocking, erasing and
+destroying personal information during various activities.
+There is an increasing need for personal information protection and management in
+the world due to the concern of individuals about how their personal data are collected,
+used and shared (Bélanger and Crossler, 2011). With the rapid advance of information
+and communication technologies (Tian et al., 2008), the fast development of electronic
+government (Deng, 2008; Karunasena and Deng, 2012) and the increasing collection and
+sharing of personal information through the provision of various networked services
+(Sun, 2014), adequate protection and effective management of personal information is
+becoming increasingly critical for every organization in today’s networked
+environment.
+The importance of protecting and managing personal information in a networked
+environment stimulates much research in this area (Bélanger and Crossler, 2011; Beldad
+et al., 2011; Bulgurcu, 2012). A review of the related research in China revealed that five
+disciplines were present in this area, including law (Yao, 2012; Zhang, 2006), economics
+(Hildebrandt et al., 2013; Murphy, 1995), sociology (Beldad et al., 2011; Bulgurcu, 2012),
+information technology (Bélanger and Crossler, 2011; Xia et al., 2007) and information
+resources management (An et al., 2011; Sun, 2014). In each discipline, there were
+different concerns and focuses on why and how personal information should be
+protected and managed.
+The law-oriented personal information protection and management focuses on the
+preservation of an individual’s privacy and the respect for personal and human dignity
+(Jiang, 2008; Kong, 2009; Zhang, 2006). With the consideration of this perspective for
+personal information protection and management, specific legislations and regulations
+are developed and implemented for the protection and management of the right to
+privacy, the right to be informed and tort. Such protection and management is often
+carried out at the national level with an emphasis on the security of personal information
+and their authorized use in the process of providing citizens with networked services
+(Yao, 2012).
+The economics-based personal information protection and management encourages
+a fair use of personal information in a networked society (Hildebrandt et al., 2013;
+Murphy, 1995; Nam et al., 2006; Zwick and Dholakia, 2001). With such a view, personal
+information is treated as information assets for businesses and individuals. The
+adequate protection and effective management of these information assets can be
+achieved by balancing the property right and the civil right in a specific society. Usually,
+the development of the code of conduct is commonly used for this purpose. Such
+protection is at the professional level with a focus on a consent access and a secured use
+of personal information.
+The sociology-based personal information protection and management aims at
+maintaining social order to protect human dignity and civil rights and to minimize
+the negative impact of personal information use on the society (Beldad et al., 2011;
+Bulgurcu, 2012; Wilkinson and Thelwall, 2011). This is realized through developing
+
+the awareness of citizens on their obligations for personal information protection
+and management. Such protection is at the societal level with a focus on good
+behaviours at information collecting, storage and access in conformity with the
+moral rights, ethical norms and the code of conduct in a society.
+The information technology-based personal information protection and
+management strives to provide secured services in today’s dynamic environment
+(Ackerman, 2004; Bélanger and Crossler, 2011; Shilton et al., 2009; Xia et al., 2007). To
+effectively protect and manage personal information, numerous information security
+management techniques, including protocols, password and authentication are widely
+used (Alkalbani et al., 2014). Such protection is at the system level with a focus on the
+security of individual systems in organizations.
+The information resources management-oriented personal information protection
+and management tries to avoid leaks and violations of personal information (An et al.,
+2011; Barber, 2006; Mu et al., 2013; Sillitoe, 1998; Wu, 2014). This is because such leaks
+and violations bring harms to the interest of individuals and public administration
+which may affect the national security in some circumstances. To adequately protect
+and manage personal information from this perspective, the entire life of personal
+information throughout their collection, storage and access needs to be effectively
+managed. Such protection is at the service level with a focus on the provision of secured
+services.
+There are multi-dimensional views on personal information protection and
+management from the national, professional, societal, system and service perspectives
+(An et al., 2011). An investigation of the relationship between different perspectives
+leads to the development of a discipline-based concept map for personal information
+protection and management as shown in Figure 1. The concept map shows that personal
+information protection is the major focus of all the personal information studies. There
+is only one disciplinary area referred to as information resources management that pays
+attention to personal information management. From this perspective, personal
+information should be managed as organizational resources and protected as business
+assets (An et al., 2011; Mu et al., 2013). With this in mind, an integrated approach has to
+be developed for the protection and management of personal information along the life
+of personal information in the provision of networked services.
+Developing an integrated approach for personal information protection and
+management requires a comprehensive understanding of existing laws and regulations
+in this area (An et al., 2011; Mu et al., 2013). An investigation of the laws and regulations
+on personal information protection and management in the most comprehensive
+Chinese legal database (pkulaw.cn) shows that there are 29 relevant laws in China. A
+
+Information in
+networked
+Chinese
+services
+1051
+
+Perspectives on
+personal information for protection and management
+
+Information
+technology
+(system)
+
+Sociology
+(society)
+
+Science of law
+(national)
+
+protection
+
+Economics
+(professional)
+
+Information
+resources
+management
+(process)
+
+management
+
+Figure 1.
+A discipline-based
+concept map for
+personal information
+protection and
+management
+
+EL
+33,6
+
+1052
+
+critical analysis of these laws shows that there is no clear definition on what personal
+information is about in these laws. There are five types of personal information for
+protection and management, which are as follows:
+(1) identifiable information;
+(2) identity information;
+(3) business and transaction information;
+(4) moral right information; and
+(5) civil right and interest information.
+Identifiable information consists of names, addresses, working units, photos, images,
+correspondence letters, dairy, e-mail messages and other materials that can be used to
+identify individuals. There are three laws in China, including the Law of the People’s
+Republic of China on Prevention of Juvenile Delinquency (2012), the Law of the People’s
+Republic of China on the Protection of Minors (2012) and the Criminal Procedure Law of
+the People’s Republic of China (2012), that directly define what identifiable personal
+information is about.
+Identity information refers to identity cards, passports and customer identity
+materials. These materials have rich personal information that can be used to uniquely
+identify individuals in any circumstances. Three laws were introduced in China for
+protecting personal identity information, including the Passport Law of the People’s
+Republic of China (2006), the Anti-Money Laundering Law of the People’s Republic of
+China (2006) and the Law of the People’s Republic of China on Resident Identity Cards
+(2011).
+Business and transaction information includes finance transaction records, medical
+records and mail. Three laws are relevant for the appropriate definition of such personal
+information and their effective protection, including the Anti-Money Laundering Law of
+the People’s Republic of China (2006), the Tort Law of the People’s Republic of China
+(2009) and the Postal Law of the People’s Republic of China (2012).
+Moral right information refers to women’s pictures relevant to reputation, honour,
+privacy, portrait and other personality right information. Due to the importance and
+sensitivity of such personal information, the Law of the People’s Republic of China on the
+Protection of Women’s Rights and Interests (2005) was introduced for adequately
+protecting and effectively managing such type of personal information.
+Civil right and interest information refers to the data about personal liberties related
+to the right to life, the right to health, the right to reputation, the right to honour, the right
+to portrait, privacy right, the right to free choice of marriage, guardianship and
+ownership, real right for usufruct, real rights granted by way of security and copyright,
+patent right, exclusive right to use trademarks, the right of discovery, stock right, right
+of succession and property right and interests. The Tort Law of the People’s Republic of
+China (2009) was introduced for protecting such personal information in Chinese
+society.
+Figure 2 shows the relationship between the types of personal information for
+protection and management based on existing Chinese laws. Based on this relationship,
+an adequate control of the identifiable personal information is a key to personal
+information protection and management (Sun, 2014).
+
+3. Classification of personal information for networked services
+Much personal information is collected, processed and shared across various platforms
+and organizations in the provision of networked services in China (Ministry of Industry
+and Information Technology of the People’s Republic of China, 2013a; Standing
+Committee of the National People’s Congress, 2012). An investigation of the relevant
+laws, regulations and standards with respect to the provision of networked services in
+China shows that there are no laws existent on personal information protection and
+management for networked services. There are only five policies (Ministry of Industry
+and Information Technology of the People’s Republic of China, 2013b, 2013c;
+Standardization Administration of the People’s Republic of China, 2012; Standing
+Committee of the National People’s Congress, 2012; State Administration for Industry
+and Commerce, 2014) that have specific concerns about personal information protection
+and management. These policies define personal information as identifiable information
+which can be classified into different categories for different concerns according to
+different regulatory and authority documents. Figure 3 shows a concept map for
+personal information protection and management with respect to networked services in
+conformity with the Chinese regulations, policies and standards.
+Personal information can be classified into personal general information and
+personal sensitive information for protection and management (Standardization
+Administration of the People’s Republic of China, 2012). Personal general information is
+referring to information that is not sensitive. Personal sensitive information is
+information that can bring negative impacts to identifiable information subjects once it
+is leaked or revised, such as an individual’s identification card number, telephone
+number, nationality, political attitude, religion, DNA and fingerprint. Such a
+classification can be used for personal information protection and management based
+on the professional and industry recommendations with respect to the provision of
+
+Information in
+networked
+Chinese
+services
+1053
+
+Personal information
+
+identity
+
+private business
+and transanction
+
+moral right
+
+civil right and
+interests
+
+Figure 2.
+A law-based concept
+map for personal
+information
+protection and
+management
+
+Privacy
+
+Sensitive
+information
+
+Figure 3.
+A concept map for
+personal information
+protection and
+management in
+networked services
+
+Identifiable
+information
+
+Personal information
+
+General
+information
+
+Identity
+
+Identifiable
+information
+
+EL
+33,6
+
+1054
+
+networked services. It provides a guideline for the authorized use of personal
+information through the process of collecting, processing and sharing of personal
+information (Standardization Administration of the People’s Republic of China, 2012).
+Personal general information is the electronic personal identity information and
+electronic personal privacy information collected and used in the provision of network
+services (General Administration of Quality Supervision, Inspection and Quarantine of
+the People’s Republic of China and Standardization Administration of the People’s
+Republic of China, 2012). Such information has to be protected. The application of the
+law above is mandatory for network service providers, relevant enterprises and
+individuals. The legitimate, proper and necessary collecting and adequate use of
+personal information in conformity with the laws and regulations is required (Standing
+Committee of the National People’s Congress, 2012).
+Personal sensitive information refers to user information, such as a user’s name, birth
+date, ID card number, address, telephone number, account, password and relevant
+information (General Administration of Quality Supervision, Inspection and Quarantine
+of the People’s Republic of China and Standardization Administration of the People’s
+Republic of China, 2012). Such information can be used to identify the user and the time
+and place he or she used networked services. The protection and management of such
+information is mandatory for network service providers and other stakeholders
+(Ministry of Industry and Information Technology of the People’s Republic of China,
+2013b, 2013c; State Administration for Industry and Commerce, 2014).
+The discussion above shows that there are multi-disciplinary perspectives for
+personal information protection and management with respect to the multi-dimensional
+nature of the personal information. Different types of personal information that need to
+be protected based on the law in China are shown in Figure 2. The types of personal
+information shown in Figure 3 have to be protected in networked services with respect
+to regulations, policies and standards. To adequately protect and manage personal
+information, an integrated concept map is developed (Figure 4). Such a concept map
+shows that protection and management of personal information is not only required to
+be in conformity with legal requirements, social obligations, economic benefits and
+quality systems but also for the provision of quality networked services. To achieve this,
+an appropriate classification of personal information with respect to multi-disciplinary
+concerns and their multi-dimensional applications is desirable, as such a classification
+provides all the stakeholders in personal information protection and management with
+opportunities for their adequate protection and effective management in a networked
+service environment.
+4. Research methodology
+To understand how people who use networked services think about personal
+information protection and management and to identify how personal information is
+protected and managed in their work practices, a multi-cases study is conducted. The
+multi-cases study involves conducting interviews, document analysis and visiting
+websites of the selected cases. The cases selected from six cities in China consist of three
+public information resources service providers (A1, A2 and A3), six provincial and
+municipal archives repositories (B1, B2, B3, B4, B5 and B6), five urban development
+specialist archives repositories (C1, C2, C3, C4 and C5) and two network information
+
+Protection as
+requirements
+(legal perspective
+national-dimension)
+Identifiable
+information
+
+Protection and
+management as services
+(IRM perspective
+process-dimension)
+
+Protection as ethics
+(sociology perspective
+society-dimension)
+
+Protection as benefits
+(economic perspective
+professional-dimension)
+
+Protection as properties
+(information technology
+perspective
+system-dimension)
+
+Perspective of protection
+
+Personal identity
+Private business
+Civil rights
+
+Information in
+networked
+Chinese
+services
+
+Personal indentity
+
+privacy
+
+1055
+
+Personal general information
+
+Personal sensitive information
+Userÿ
+s personal information
+
+Userÿ
+s identifiable information
+
+Types of personal
+information
+
+service providers (D1 and D2). The criteria for case selection are the relevancy,
+reputation of network service providers and accessibility.
+A semi-structured interview of more than one hour is conducted with the senior
+manager of the case organization. The interview process is recorded with the consent of
+the interviewees. Document analysis and website visits are conducted to prepare the
+interview to understand why and how personal information is protected and managed
+based on the organizational policies, standards and guidelines. Ground theory is used
+for guiding the data analysis. Individual concepts and classifications are reviewed for
+ensuring the reliability and consistency of the research findings. The research findings
+from interview, document analysis and website visits are summarized below.
+5. Results and discussion
+Public information resources service providers The study shows that A1 and A3
+provide the public with networked services. A2, however, only provides special
+networked services to urban planning authorities. All the interviewees agreed that
+personal information is collected, processed, deleted and used in their business activities
+to satisfy their business objectives. There are specific security control mechanisms
+existing for personal information protection and management within their information
+security management systems. No independent and separated personal information
+protection statements, however, can be identified within each organization.
+Provincial and municipal archives repositories The six public archival information
+services institutions investigated have provided one-stop service platforms for sharing
+various types of Minsheng archival resources within their regions. Minshen archival
+resources refers to the records relevant to an individual’s daily life, such as real estate
+archives, marriage archives, family planning/birth control archives and education
+archives. These archival resources are important evidence of a person’s identity and
+activities within a community or organization. There are three types of users who can
+
+Figure 4.
+Integrated concept
+map for personal
+information
+protection and
+management in
+network services
+
+EL
+33,6
+
+1056
+
+access such archives, including the creators of the archives, the creating agencies and
+others who have legitimate and appropriate rights to use the archives. All users have to
+provide valid documents, such as an ID card, household register, and similar, for
+accessing the archives. The six public archives service providers agreed that they have
+well-organized user-control mechanisms for sharing and reusing personal information
+in their care. There are, however, no independent and separated personal information
+protection and management statements within each organization as in the case above.
+Urban development archives specialist repositories The five specialist repositories
+provide networked services to their professional administrative authorities as part of
+e-government services to support open access to government information and to ensure
+the accountability of their services in urban planning and construction project
+supervision. Their networked services, however, are not open to the public. Their
+organizations are concerned more about serving the government. As a result, they have
+not paid much attention to personal information protection and management.
+Business networked information services providers The two business information
+resources providers agreed that they provide networked services for enterprise-wide
+use. Their services are not designed for the public. As a result, personal information
+protection and management is not specifically stressed in their organizations.
+A majority of the organizations investigated have specific control mechanisms for
+personal information protection and management in their operations. Few of them,
+however, are fully aware of the specific laws, regulations, polices and standards
+available to guide their work for personal information protection and management. All
+the organizations visited agreed that there is an increasing demand for personal
+information protection and management in conformity with the laws, regulations and
+policies available in China.
+Different types of networked services have different concerns about personal
+information protection and management. The networked public services, for example,
+have the strongest demand due to the increasing expectation of the public for the
+delivery of public services and the accountability for public organizations to perform
+with respect to their missions. The networked information service providers, on the
+other hand, have the weakest demand due to the nature of their operations. This
+suggests that there is an increasing demand for promoting the awareness of the need for
+personal information protection and management in today’s networked society (Adaem
+and Amnuay, 2013; Bulgurcu, 2012). To facilitate the protection and management of
+personal information, a practice-oriented concept map for personal information
+protection and management with respect to the provision of networked services is
+developed and shown in Figure 5.
+The motivation for personal information protection and management is to facilitate
+the provision of better networked services and ensure the accountability of individual
+organizations (Standing Committee of the National People’s Congress, 2012). The legal
+requirements, however, are still unknown due to the existence of separate laws for
+personal information protection and management. As a result, an integrated approach,
+as shown in Figure 6, is required for effective personal information protection and
+management in China. Such an approach consists of security control and user control
+based on the classification of personal information for protection and management in
+practices.
+
+6. A comprehensive concept map for personal information protection and
+management
+To understand whether people think about the personal information as general
+information or sensitive information, whether individual organizations have
+personal information and whether these organizations have measures for their
+protection and management, an online survey was conducted between June-August
+2014 in Beijing, China. The survey instrument was developed based on the review of
+the related literature and the findings from the multi-cases study above. The
+questions in the survey instrument are organized into five sections, namely,
+identifiable information, identity information, business and transaction
+information, moral right information and civil right and interest information. A pilot
+study was carried out for ensuring the validity and reliability of the research
+findings from the survey.
+In all, 314 valid questionnaires were received. business enterprises constituted 54
+per cent, 33 per cent from government agencies and 13 per cent from other types of
+organizations. The sample represents common understandings of personal
+information protection and management in different organizations. Among the
+respondents, 43 per cent of respondents were from the business department, 22 per
+cent were from the general office, 16 per cent were from the information technology
+
+Information in
+networked
+Chinese
+services
+1057
+
+Personal information
+
+Personal general
+information
+
+Personal sensitive
+information
+Personal identifiable information
+Private business and transactions information
+
+Personal indentity
+information
+
+Personal civil right and interest information
+
+Personal information
+protection approach
+
+Methods of control
+
+Networked services
+
+Security control
+
+Government information
+resources services providers
+
+Risk control
+
+Public networked services
+
+User control
+
+Provincial and municipal
+archives repositories
+
+Figure 5.
+A practice-oriented
+concept map for
+personal information
+protection and
+management in
+networked services
+
+Figure 6.
+An integrated
+approach for
+personal information
+protection and
+management in
+networked services
+
+EL
+33,6
+
+1058
+
+department, 17 per cent were from the personnel and finance division and 11 per cent
+were from other departments. This shows that the sample represents various
+perspectives of different disciplinary fields and their concerns about personal
+information protection and management in different business activities. Table I
+presents the survey results.
+Identifiable personal information. There are different views on what identifiable
+personal information is about based on the survey. Table I shows that over 50 per
+cent of respondents choose name, gender, political status, colour, birth place and
+education background as general information. More than 50 per cent of respondents
+selected birthday, fingerprints, physical traits, blood type, DNA, residential
+address, working unit, information with personal pictures or images and personal
+signature as sensitive information. A number of respondents (40 per cent) have their
+personal information like name, gender, birth date and political status recorded in
+their organizations. Nearly a third (30 per cent) of respondents have their personal
+information, including residential address, education background, working unit,
+Category of
+personal
+information
+Identifiable
+information
+
+Identity
+information
+
+Business and
+transaction
+information
+
+Table I.
+Types of personal
+information for
+protection from
+surveys
+
+Moral right
+information
+Civil rights and
+interests
+information
+
+Sensitive information (over
+50% agreement)
+
+General information
+(over 50% agreement)
+
+Birthday, fingerprints, physical
+traits, type of blood, DNA,
+residential address, working
+unit, personal pictures or
+images and personal signature
+Identification card and relevant
+evidential documents, passport
+information, household
+register, driver’s license and
+records, social security number,
+customer identity information
+and member of professional
+societies
+Bank accounts, personal
+income, tax information, real
+estate information, work
+transferring information,
+telephone record, e-mail
+address, correspondence, diary,
+e-mail, IP address, passwords,
+questions and answers for
+passwords, message accounts,
+social media accounts and
+messages
+0
+
+Name, gender, political
+status, birth place and
+education
+
+Marriage, social security,
+children and care groups
+information, donations,
+pensions, sexual life, health and
+birth status
+
+Personal preferences
+and interests
+
+0
+
+Occupational
+information and work
+experience
+
+0
+
+Personal information in
+organizations (over 20%
+of organizations)
+Name, gender, birth date,
+political status,
+residential address,
+education, working unit,
+pictures and signature
+Identification card,
+evidential documents,
+passport information,
+household register,
+driver’s license, social
+security number,
+customer identity and
+member details
+Finance affairs
+information, personal
+income, tax information,
+real estate information,
+occupational
+information, work
+experience information,
+work transferring
+information, e-mail
+address and IP address
+0
+Marriage, social security
+and giving birth status
+information
+
+information with personal pictures and personal signature, listed with their
+organizations. Fewer than 14 per cent of the respondents have their personal
+information like fingerprints, physical traits, blood type, colour and DNA in their
+organizations. Even fewer (under 20 per cent) of the respondents have adequate
+measures for their protection.
+Personal sensitive information. There is a convergent view on what personal
+sensitive information is about based on the survey. Table I indicates that over 53 per
+cent of the respondents choose all the listed personal identity information as
+personal sensitive information, including the identification card and relevant
+evidential documents, passport information, household register, driver’s license and
+records, social security number, customer identity information and membership in
+professional societies. Over 20 per cent of the organizations have all the above types
+of personal information. However, less than 23 per cent of the organizations have
+specific mechanisms for the protection and management of personal sensitive
+information.
+Personal business and transaction information. There is increasing attention on
+safeguarding of personal financial information in today’s networked society
+(Sprague and Ciocchetti, 2009). Table I shows that over 50 per cent of the
+respondents choose personal finance information such as bank accounts, personal
+income, tax information, real estate information, work transferring information,
+telephone record, e-mail address, correspondence letter, diary, e-mail, IP address,
+passwords, questions and answers for passwords, instant message accounts, social
+media accounts and content of messages as sensitive information. More than 50 per
+cent of respondents choose occupational information and work experience as
+general information. Over 20 per cent of the organizations have access to the
+personal information listed above. It is notable that less than 18 per cent of the
+respondents have specific mechanisms for the protection and management of
+sensitive information.
+Personal moral right information. This type of personal information refers to the
+sensitive information that can cause conflicts and negative impacts on individuals as
+well as organizations. It includes criminal records, court orders, political attitude, family
+history information and religion (Lior, 2011; Watley and May, 2004). There is no
+response to all the questions from the respondents on this question. It seems that such
+personal information is not relevant to the respondents and their organizations with
+respect to their protection and management.
+Personal civil rights and interest information. There is an increasing amount of
+attention being paid to protect and manage personal civil right and interest information
+(Zwick and Dholakia, 2001). Table I shows that over 55 per cent of the respondents
+choose information, including marriage, social security, information about children and
+adults groups who need special care, donation of remains, pension planning, sexual life,
+health and medical care and giving birth status, as sensitive information. A fairly larger
+majority (68 per cent) of the respondents choose personal preferences and interests as
+general information. Over 20 per cent of the organizations have marriage, social security
+and giving birth status information. Less than 14 per cent of the organizations have
+specific mechanisms for the protection and management of this type of sensitive
+information.
+
+Information in
+networked
+Chinese
+services
+1059
+
+EL
+33,6
+
+1060
+
+The study notes that personal moral right information is not regarded in real-world
+practices as relevant to organizations. Results show that personal identity information
+is all regarded as the sensitive information which needs special security controls
+(Sprague and Ciocchetti, 2009). Personal business and transaction information, personal
+identifiable information and personal civil right information are complex. This is
+because these types of personal information include both general information and
+sensitive information. As a result, they need to be identified with respect to the different
+concerns of the stakeholders in specific situations for the provision of secure services in
+a networked environment.
+The study shows that not enough effort has been taken for the development of
+appropriate mechanisms with respect to personal information protection and
+management in the process of providing stakeholders with networked services in
+China. A meta-synthesis of the research findings from multiple data sources as
+above was conducted. This led to the development of a comprehensive concept map
+for personal information protection and management in China (Figure 7).
+7. Conclusions
+The paper fills in gaps in the literature by investigating the types of personal
+information for protection and management with respect to the relevant laws,
+policies, standards, networked services and organizations. It develops a
+comprehensive concept map for the adequate protection and effective management
+of personal information in the provision of networked services in China along the
+entire life of personal information and throughout the entire management process.
+The investigation of the issues of personal information protection and management
+with respect to the relevant laws, policies, standards, networked services and
+organizations can lead to a better understanding of what, why and how personal
+information is protected and managed in real-world practices in China. The
+development of a comprehensive concept map for personal information protection
+Concept map building for
+Personal Information for Protection and
+Management
+Perspectives and
+perceptions
+
+Effective and Adequate Controls
+
+From books and
+journals
+
+Multi-disciplinary perspectives-laws,
+economics, sociology, IT, IRM, etc.
+
+From laws
+
+Multi-dimensional applications-national,
+society, professional, system, process
+
+Requirements
+
+From policies
+
+Figure 7.
+A comprehensive
+concept map for
+personal information
+protection and
+management
+
+Guidelines
+
+From standards
+
+From investigations
+and surveys
+
+Multi-directional
+controlsrisk control,
+security control and
+user control, etc.
+
+Multiple aspects
+concernsidentification of
+types of personal
+information in
+practice for
+classified controls
+
+and management can be used as an effective guideline for the formulation and
+implementation of appropriate strategies and policies in individual organizations
+for providing their stakeholders with quality networked services in today’s highly
+connected network environment in China.
+The paper is the first step of a comprehensive study on the protection and
+management of personal information for the provision of networked services in
+China. It is the first of this kind of study to answer the questions of what types of
+personal information need to be protected, as well as why and how they should be
+protected in conformity with laws, regulations, policies, standards and needs of
+networked services and business activities of organizations. It provides a solid
+foundation for further research with respect to personal information protection and
+management.
+References
+Ackerman, M.S. (2004), “Privacy in pervasive environments: next generation labeling protocols”,
+Personal and Ubiquitous Computing, Vol. 8 No. 6, pp. 430-439.
+Adaem, K. and Amnuay, Y. (2013), “Assessing privacy protection in alumni service”,
+International Journal of Computer and Electrical Engineering, Vol. 5 No. 4, pp. 424-429.
+Alkalbani, A., Deng, H. and Kam, B. (2014), “A conceptual framework for information security in
+public organizations for e-government development”, Proceedings of the 25th Australasian
+Conference on Information Systems, 8-10 December, ACIS, Auckland.
+An, X., Deng, H., Chao, L. and Bai, W. (2014), “Knowledge management in support of collaborative
+innovation community capacity building”, Journal of Knowledge Management, Vol. 18
+No. 3, pp. 574-590.
+An, X., Mu, Y., Wang, W., Liu, J.J., Wang, W. and Ye, L.Q. (2011), “Analysis of current legal and
+regulatory requirements for personal information protection and management in China”,
+Beijing Archives, No. 5, pp. 19-21.
+Barber, G. (2006), “Personal information in government records: protecting the public interest in
+privacy”, Saint Louis University Public Law Review, Vol. 25 No. 1, pp. 63-121.
+Bélanger, F. and Crossler, R.E. (2011), “Privacy in the digital age: a review of information privacy
+research in information systems”, MIS Quarterly, Vol. 35 No. 4, pp. 1017-1042.
+Beldad, A., Jong, M. and Steehouder, M. (2011), “A comprehensive theoretical framework for
+personal information-related behaviors on the Internet”, The Information Society, Vol. 27
+No. 4, pp. 220-232.
+Bulgurcu, B. (2012), “Understanding the information privacy-related perceptions and behaviors of
+an online social network user”, Doctoral Dissertation, University of British Columbia.
+Byrne, J., Martin, B., Deng, H. and Halpin, E. (2005), “The movement to an information society: a
+comparison of Australia and other leading information society countries”, Proceedings of
+the 5th European Conference on E-Government, pp. 85-92.
+Deng, H. (2008), “Towards objective benchmarking of e-government: an inter-country analysis”,
+International Journal of Transformational Government: People, Process and Policy, Vol. 3
+No. 4, pp. 162-176.
+General Administration of Quality Supervision, Inspection and Quarantine of the People’s
+Republic of China and Standardization Administration of the People’s Republic of
+China (2012), Personal Information Protection Guidelines for Public and Commercial
+Service Information System of Information Security Technology, China Standards
+Press, Beijing.
+
+Information in
+networked
+Chinese
+services
+1061
+
+EL
+33,6
+
+1062
+
+Hildebrandt, M., O’Hara, K. and Waidner, M. (Eds.) (2013), Digital Enlightenment Yearbook 2013:
+The Value of Personal Data, IOS Press, Amsterdam.
+Hong, H. (2010), Personal Information Civil Law Protection, Law Press, Beijing.
+Jiang, P. (2008), Personal Data Information Protection by Laws, Chinese University of Political
+Science and Law University Press, Beijing.
+Karunasena, K. and Deng, H. (2012), “Critical factors for evaluating the public value of
+e-Government in Sri Lanka”, Government Information Quarterly, Vol. 29 No. 1, pp. 76-84.
+Kong, L. (2009), Privacy Protection of Personal Data, Wuhan University Press, Wuhan.
+Lang, Q.B., Sun, Y. and Yang, L. (2008), Introduction to Personal Information Protection, People’s
+Press, Beijing.
+Li, L. (2009), Development Report about Rule of Law in China No. 7, Social Science Documentation
+Press, Beijing.
+Lior, Z. (2011), “Moral rights: limited edition”, Boston University Law Review, Vol. 91,
+pp. 1519-1568.
+Ministry of Industry and Information Technology of the People’s Republic of China (2013a),
+“Regulations of personal information protection of telecommunications and internet users”,
+available at: www.miit.gov.cn/n11293472/n11294912/n11296542/15514014.html.
+Regulations (accessed 7 September 2014).
+Ministry of Industry and Information Technology of the People’s Republic of China (2013b),
+“Provisions on protecting the personal information of telecommunications and internet
+users”, available at: www.miit.gov.cn/n11293472/n11293832/n12843926/n13917072/
+15514067.html (accessed 22 March 2014).
+Ministry of Industry and Information Technology of the People’s Republic of China (2013c),
+“Notice of the ministry of industry and information technology on strengthening the
+network access management of mobile intelligent terminals”, available at: http://
+opinion.news.chengdu.cn/topic/2013-10/31/content_1305121.htm?node⫽12022 (accessed 27
+August 2014).
+Molla, A. and Deng, H. (2009), “Business participation in third party controlled e-marketplace: an
+exploratory model”, International Journal of e-Business Management, Vol. 3 No. 1,
+pp. 20-34.
+Mu, Y., Wang, W. and An, X. (2013), “Development of personal information protection system for
+government agencies”, Informatization Construction, No. 1, pp. 22-25.
+Murphy, R.S. (1995), “Property rights in personal information: an economic defense of privacy”,
+Georgetown Law Journal, No. 84, pp. 2381-2417.
+Nam, C., Song, C., Lee, E. and Park, C.I. (2006), “Consumers’ privacy concerns and willingness to
+provide marketing-related personal information online”, Advances in Consumer Research,
+Vol. 33 No. 1, pp. 212-217.
+National Development Reform Committee (2014), “The state commission office of public sectors
+reform, ministry of industry and information technology, etc.”, Notice of Work Relevant to
+Fostering Implementation of Information Services Project Benefit to People, available at:
+www.mof.gov.cn/zhengwuxinxi/zhengcefabu/201401/t20140116_1036140.htm (accessed
+27 August 2014).
+Shilton, K., Burke, J.A., Estrin, D., Govindan, R., Hansen, M., Kang, J. and Mun, M. (2009),
+“Designing the personal data stream: enabling participatory privacy in mobile personal
+sensing”, available at: http://ssrn.com/abstract⫽1999839 (accessed 22 March 2014).
+Sillitoe, P.J. (1998), “Privacy in a public place: managing public access to personal information
+controlled by archives services”, Journal of the Society of Archivists, Vol. 19 No. 1, pp. 5-15.
+
+Sprague, R. and Ciocchetti, C. (2009), “Preserving identities: protecting personal identifying
+information through enhanced privacy policies and laws”, Albany Law Journal of Science
+and Technology, Vol. 19 No. 1, pp. 91-142.
+Standardization Administration of the People’s Republic of China (2012), GB/Z28828-2012
+Personal Information Protection Guidelines for Public and Commercial Service Information
+System of Information Security Technology, China Standards Press, Beijing.
+Standing Committee of the National People’s Congress (2012), “Decision on the standing
+committee of the national people’s congress on strengthening information protection on
+networks”, available at: http://news.hexun.com/2012-12-28/149603728.html (accessed 27
+August 2014).
+State Administration for Industry and Commerce (2014), “Administrative measures for on line
+trading”, available at: www.law-lib.com/law/law_view.asp?id⫽443546 (accessed 27
+August 2014).
+State Council (2013), “Opinions on promotion information consumption of China”, available
+at: www.js.xinhuanet.com/2013-08/15/c_116951133.htm (accessed 27 August 2014).
+Sun, S. (2014), “A study about the relationship between personal information utilization and
+protection in internet environment”, Master’s Dissertation, Renmin University of China,
+Beijing.
+Tian, X., Martin, B. and Deng, H. (2008), “The impact of digitization on business models for
+publishing: some indicators from a research project”, Journal of Systems and Information
+Technology, Vol. 10 No. 3, pp. 232-250.
+Watley, L. and May, D. (2004), “Enhancing moral intensity: the role of personal and consequential
+information in ethical decision making”, Journal of Business Ethics, Vol. 50 No. 2,
+pp. 105-126.
+Wilkinson, D. and Thelwall, M. (2011), “Researching personal information on the public web:
+methods and ethics”, Social Science Computer Review, Vol. 29 No. 4, pp. 387-401.
+Wu, Y. (2014), “Protecting personal data in e-government: a cross-country study”, Government
+Information Quarterly, Vol. 31 No. 1, pp. 150-159.
+Xia, P., Wang, J. and Zhou, W. (2007), IT Development and Personal Information Protection,
+Economic Daily Press, Beijing.
+Yao, Y. (2012), Personal Information Protection from the Constitutional Perspective, Law Press,
+Beijing.
+Zhang, H. (2006), Research Front of Personal Information Protection, Legal, Press, Beijing.
+Zwick, D. and Dholakia, N. (2001), “Contrasting European and American approaches to privacy in
+electronic markets: property right versus civil right”, Electronic Markets, Vol. 11 No. 2,
+pp. 116-120.
+Further reading
+British Standard Institute (2009), BS10012:2009 Data Protection-Specification for a Personal
+Information Management System, British Standard Institute, London.
+Copeland, A.J. and Barreau, D. (2011), “Helping people to manage and share their digital
+information: a role for public libraries”, Library Trends, Vol. 59 No. 4, pp. 637-649.
+International Organization for Standardization (2009), ISO 704: 2009 Terminology Work –
+Principles and Methods, Geneva.
+About the authors
+Xiaomi An is a Professor and Doctoral Supervisor at Renmin University of China.
+
+Information in
+networked
+Chinese
+services
+1063
+
+EL
+33,6
+
+1064
+
+Wenlin Bai is a post doctor at Business School of Nankai University. Wenlin Bai is the
+corresponding author and can be contacted at: baiwenlin@nankai.edu.cn.
+Hepu Deng is a Chair Professor at Renmin University of China and RMIT University in
+Australia.
+Shuyang Sun is a PhD candidate at Renmin University of China.
+Yu Dong is a PhD candidate at Renmin University of China.
+Wenrui Zhong is a PhD candidate at Renmin University of China.
+Jufang Hu is a Librarian of Renmin University of China.
+
+For instructions on how to order reprints of this article, please visit our website:
+www.emeraldgrouppublishing.com/licensing/reprints.htm
+Or contact us for further details: permissions@emeraldinsight.com
+
+

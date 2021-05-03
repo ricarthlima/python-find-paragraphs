@@ -1,0 +1,1554 @@
+Future Generation Computer Systems 43–44 (2015) 74–86
+
+Contents lists available at ScienceDirect
+
+Future Generation Computer Systems
+journal homepage: www.elsevier.com/locate/fgcs
+
+A hybrid solution for privacy preserving medical data sharing in the
+cloud environment
+Ji-Jiang Yang a,b,∗ , Jian-Qiang Li c , Yu Niu b
+a
+
+Tsinghua National Laboratory for Information Science and Technology, Tsinghua University, 100084, PR China
+
+b
+
+Research Institute of Information Technology, Tsinghua University, 100084, PR China
+
+c
+
+School of Software Engineering, Beijing University of Technology, 100022, PR China
+
+highlights
+• Proposed a hybrid solution for privacy preserving data sharing in cloud environment.
+• Different methods are innovatively combined to support multiple paradigms of medical data sharing with different privacy strengths.
+• The experimental evaluations are reported based on the implementation of four basic components and a real world case study.
+
+article
+
+info
+
+Article history:
+Received 1 January 2014
+Received in revised form
+25 March 2014
+Accepted 1 June 2014
+Available online 10 June 2014
+Keywords:
+Privacy protection
+Cloud storage
+Integrity check
+Medical data sharing
+
+abstract
+Storing and sharing of medical data in the cloud environment, where computing resources including
+storage is provided by a third party service provider, raise serious concern of individual privacy for the
+adoption of cloud computing technologies. Existing privacy protection researches can be classified into
+three categories, i.e., privacy by policy, privacy by statistics, and privacy by cryptography. However, the
+privacy concerns and data utilization requirements on different parts of the medical data may be quite
+different. The solution for medical dataset sharing in the cloud should support multiple data accessing
+paradigms with different privacy strengths. The statistics or cryptography technology alone cannot
+enforce the multiple privacy demands, which blocks their application in the real-world cloud. This paper
+proposes a practical solution for privacy preserving medical record sharing for cloud computing. Based
+on the classification of the attributes of medical records, we use vertical partition of medical dataset to
+achieve the consideration of different parts of medical data with different privacy concerns. It mainly
+includes four components, i.e., (1) vertical data partition for medical data publishing, (2) data merging for
+medical dataset accessing, (3) integrity checking, and (4) hybrid search across plaintext and ciphertext,
+where the statistical analysis and cryptography are innovatively combined together to provide multiple
+paradigms of balance between medical data utilization and privacy protection. A prototype system for the
+large scale medical data access and sharing is implemented. Extensive experiments show the effectiveness
+of our proposed solution.
+© 2014 Elsevier B.V. All rights reserved.
+
+1. Introduction
+Healthcare covers complex processes of the diagnosis, treatment, and prevention of disease, injury, and other physical and
+mental impairments in humans. The patients’ consumption of
+products and services provided by hospitals and other institutions
+
+∗ Corresponding author at: Tsinghua National Laboratory for Information Science
+and Technology, Tsinghua University, 100084, PR China. Tel.: +86 1062788788 13.
+E-mail addresses: yangjijiang@tsinghua.org.cn, cemon_yang@163.com
+(J.-J. Yang), lijianqiang@tsinghua.org.cn (J.-Q. Li).
+http://dx.doi.org/10.1016/j.future.2014.06.004
+0167-739X/© 2014 Elsevier B.V. All rights reserved.
+
+forms the healthcare industry, which is one of the largest and
+fastest-growing part of a country’s economy. It is widely accepted
+that the high quality healthcare services lie in the effectiveness and
+efficiency of health problem detection, innovative solution identification, and medical resource allocation [1,2], which in turn depend heavily on the proper collection, management and utilization
+of health information [3]. Considering the fact that the health information collection and utilization may be distributed in multiple
+organizations, the medical data sharing plays the critical role in enabling the medical information flow across these organizations and
+then improving the quality of healthcare services.
+
+J.-J. Yang et al. / Future Generation Computer Systems 43–44 (2015) 74–86
+
+75
+
+Fig. 1. The usage scenario of remote data storage for sharing.
+
+With the emergence of cloud computing technologies, the
+connectivity allowed by the Internet is exploited to make
+users have the ability to utilize scalable, distributed computing
+environments. In the cloud, computing resources including storage
+is provided by a third party service provider [4,5]. Since data in
+the cloud typically resides in a shared environment, users will
+know neither the exact location of their data nor the other sources
+of the data collectively stored with theirs [6–8]. Therefore, in
+this Internet-based computing paradigm, users are universally
+required to accept the underlying premise of trust [7,2].
+With healthcare providers looking at automating processes of
+health information manipulation at lower cost and higher gains,
+cloud computing has been viewed as an appropriate platform to
+deploy standard medical information systems for its scalable and
+cost-effective services delivered by cloud service providers [1,2].
+However, despite the increased use of cloud-based data sharing
+platforms, the privacy related problems have prevented their
+adoption in the healthcare domain [6,7].
+The diverse security and privacy concerns surrounding medical
+data has been studied widely over the last few years. Many
+organizations have published their reports [9–11] on the security
+and privacy issues for the manipulation of medical data in the
+networked systems. According to [12], the most widely used
+regulations are the Health Insurance Portability and Accountability
+Act (HIPAA) and the European Data Protection Directive 95/46/EC.
+In these regulations, there are two fundamental issues for the
+privacy of medical data sharing, i.e., privacy protection during
+transmission and privacy protection of the stored data. The former
+has been studied widely and addressed by the Secure Socket
+Layer protocol (SSL) [13] and Transport Layer Security (TSL)
+protocol [14]. The latter is less studied and of greater relevance to
+storage as a service [7] in the cloud computing paradigm, where the
+outsourced data is stored on the site of the cloud service provider.
+As a typical usage scenario shown in Fig. 1, the privacy
+protection of the stored data involves three spheres [15], i.e., user
+sphere, joint sphere, and recipient sphere. Here, a hospital
+outsources the storage of the shared medical records to the cloud
+service provider and publishes these datasets to a medical research
+center. In this example, the hospital serves as the data owner, the
+medical research center is the data recipient, and the joint sphere
+encompasses the hardware and software in the site of cloud service
+provider to supply the outsourced storage service of the shared
+medical records.
+This paper considers privacy protection problem of the stored
+medical data in the joined sphere and proposes a practical solution
+to the storage service provider for preserving the privacy of the
+user data.
+In the research literature on privacy protection, there are three
+fields of work with seemingly very different goals. The first field is
+about privacy by policy [16–22,15], by assuming policies and regulations are generally enforceable and the role of technology is to aid
+enforcement, these researches aims at protecting user data from
+accidental disclosure or misuse and facilitating informed choice
+options. Since the proposed solutions cannot guarantee the enforcement of the policies, they only provide limited capabilities of
+the privacy protection [23–26]. For example, in the case of medical data sharing in the cloud environment, the employees in the
+cloud service provider can easily obtain the assignment of a specific
+role with the authorization to access the medical data beyond their
+privileges. The second field is about privacy by statistics. The researchers in this field are adopting analytical/statistical technologies to construct finely tuned information disclosure mechanisms.
+
+The proposed solutions generally assume one or several specific
+attacked models and limited data mining behaviors and has strong
+guarantee only regarding to the assumed attack model (it is vulnerable for a practical solution, since the adversary could have public
+information and background knowledge). The third field is about
+privacy by cryptography [27–34]. Under the assumption that sophisticated adversaries will not be deterred by policies or regulations, which might be only theoretically doable, the researchers in
+this field aimed at developing cryptographic privacy protections
+and systems with provable privacy guarantees. Through wisely applied combinations of cryptography and data security protocols,
+the proposed solution can provide strong guarantee on privacy
+protection, but achieving this goal generally undermines usability
+of the target data and then of the solutions [15].
+In this paper, we describe a hybrid solution for privacy preserving medical data sharing in the cloud, where the technologies of statistical analysis and cryptography are innovatively
+combined together to support multiple paradigms of medical data
+sharing with multiple levels of privacy strength. More specially,
+multiple enforceable mechanisms are supplied to prevent the adversary from attacking the privacy of the shared medical dataset
+when role-based access models are breached. Considering the fact
+that the privacy concerns and data utilization requirements on different parts of the medical data may be quite different, the attributes of medical records are classified into multiple categories.
+Accordingly, the original medical dataset is vertically partitioned
+into three parts for the remote storage in the cloud. The part that
+can be used for patient identification is stored in ciphertext. The
+other parts that will be used for medical analysis is stored in plaintext. The functionalities of data merging and integrity checking are
+provided for the user to retrieve the medical dataset and correctness verification, respectively. In addition, a hybrid approach to
+search across the ciphertext and plaintext is given to support the
+record-level utilization of the medical data. The integration of multiple technologies on privacy protection and cloud data manipulation makes the proposed solution applicable in real-world cloud
+for the better balance of the information utilization and privacy
+protection.
+The contribution of this paper can be summarized as follows:
+(1) a pilot study is described for the privacy preserving medical
+data sharing in the cloud environment, where the advantages of
+statistics and cryptography technologies are combined together
+for the better balance between information utilization and privacy
+protection. (2) By borrowing the ideas of existing technologies,
+three novel approaches, respectively on vertical data partition
+handling anonymization of EMR data with text-type sensitive
+attributes, probabilistic remote integrity checking with high
+efficiency, and the query processing across both plaintext and
+ciphertext EMR data, are proposed. (3) The empirical experiments
+of privacy preserving medical data sharing on a real world
+regional healthcare collaboration platform are reported, which
+demonstrate the effectiveness of the proposed approaches. We
+believe that this pilot study can serve as an important reference
+for the development of similar real world systems.
+The rest of the paper is organized as follows. Section 2 discusses
+the related work. Section 3 describes first the high level framework
+of the proposed practical solution for privacy preserving medical
+data sharing, and then the technical details of the four basic
+components on vertical data partition, data merging, integrity
+checking, and hybrid search, respectively. In Section 4, a case
+study on the implementation and performance evaluation of the
+proposed solution on a real-world cloud of regional healthcare
+collaboration platform is reported. Section 5 concludes the paper.
+
+76
+
+J.-J. Yang et al. / Future Generation Computer Systems 43–44 (2015) 74–86
+
+2. Related work
+The research literature on general privacy protection technologies can be roughly classified into three categories, i.e., privacy by
+policy, privacy by statistical analysis, privacy by cryptography.
+The research on using policy to protect privacy is derived from
+the conventional access models, such as mandatory access control
+(MAC) and role-based access control (RBAC) [17]. Due to the lack
+of basic components required by privacy regulations, these models
+barely meet privacy protection requirements [19]. To address
+such limitations, [16] proposed a comprehensive framework
+supporting the authoring and the management of privacy-aware
+access control policies. Driven by requirements from digital rights
+management (DRM), UCON models [35], focus not only on the
+initial access control but also on a continuous usage control by
+adding the native supports of conditions and obligations. The
+platform for privacy preference policy (P3P) [20] standardized by
+W3C is a technology that enables websites to express their privacy
+practices in a machine-readable format that can be automatically
+retrieved and interpreted by user agents, which can compare P3P
+policies of the service providers with the user’s privacy preferences
+and decide whether to use the service or not. Similarly, The
+EPAL [22] was using a logic program (LP) model to indicate the data
+usage purposes for a particular role under certain conditions. To
+provide an application independent policy language, XACML [36]
+is a well-known access control policy language encoded in XML,
+which enables the use of arbitrary attributes in different types
+of policies, including privacy policies. He [21] has proposed a
+role-based access control model to enforce privacy policies within
+an organization that combines the framework [37] and privacy
+enforcement and management ideas [22]. Obviously, the research
+on privacy by policy aimed at protecting consumer data from
+accidental disclosure or misuse and facilitating informed choice
+options. They assume that policies and regulations are generally
+enforceable and that the role of technology is to aid enforcement,
+but not necessarily to guarantee it [15].
+By far the most extensive treatment of disclosure limitation is
+in the statistics community. Suppose a trusted and trustworthy
+data collector gathers sensitive information from a large number of
+individuals, with the goal of learning (and releasing to the public)
+statistical facts about the underlying population. The problem is
+to release statistical information to the data recipient without
+compromising the privacy of the individual respondents. There
+are two settings: in the interactive setting, the data collector does
+not release the entire dataset to the data recipient but answers
+aggregate queries submitted by the data recipient. To ensure that
+the data recipient cannot infer sensitive information about the
+individuals, one can use the query auditing [23,24,38] to deny
+the queries which may cause sensitive data disclosure. Output
+perturbation [25,23,39] can also be adopted to deliver a perturbed
+answer to the data recipient. These techniques focus on privacy
+protection while the data mining results are released. They require
+the data collectors know in advance that how the data recipient
+might analyze the data, and the data recipient needs to formulate
+their queries into specific patterns. In the interactive setting the
+data collector releases the entire database of collected individual
+data to a data recipient. The privacy protection techniques in this
+scenario emphasize data anonymization [40,26] before the data
+publishing to hide the identity and/or the sensitive data of record
+owners. Since these techniques allow data collector to publish
+data records instead of publishing data mining results, the data
+recipient have greater flexibility to perform required analysis and
+data exploration. Based on the assumed one or several specific
+attacked models and data mining behaviors, these researches
+adopt statistical models to construct finely tuned information
+disclosure mechanisms. The proposed technologies have strong
+
+guarantee only regarding to the limited attack model, which is
+vulnerable for a practical solution, since the adversary could have
+a large volume of public information and background knowledge.
+Privacy enhanced technologies were also widely studied in
+the security community. (1) Security Multiparty Computing (SMC)
+deals with a setting where a set of parties with private inputs
+wish to jointly compute some function of their private inputs. This
+joint computation should have the property that the parties learn
+the correct output and nothing else, even if some of the parties
+maliciously collude to obtain more information. The building
+blocks used to achieve Secure Multiparty Computation consist
+of: Oblivious Transfer [41,42], Homomorphic Encryption [43], and
+Oblivious Polynomial Evaluation [42]. Clearly, a protocol that provides this guarantee can be used to solve privacy-preserving
+data processing. (2) A private information retrieval (PIR) protocol
+allows a user to retrieve an item from a server in possession
+of a database without revealing which item he/she is retrieving [27]. (3) Searching on encrypted data is a helpful technique
+that treats encrypted data as documents and allows a user to
+securely search over it to retrieve documents of interest. From
+the search capability point of view, encryption with keyword
+search has been considered for single keyword search (SKS)
+[44,28,29] and conjunctive keyword search (CKS) [31,45–47]. SKS
+is first studied in the symmetric key setting [44], and improvements and advanced security definitions are given in [28,29].
+The first searchable encryption construction is presented in [30]
+for the public key setting. The proposed technologies in the public key setting (PEKS) [45–47] are those that can achieve conjunctive keyword search (CKS) with domain-specific keywords (DSK)
+on blinded forward index table (BFT). Instead of returning undifferentiated results the work [48] solves secure ranked keyword search
+which utilizes keyword frequency to rank results, which is extended in [49] to support multi-keyword ranking. (4) In Attributebased Encryption (ABE) system, users’ keys and/or ciphertext are
+labeled with sets of descriptive attributes and a particular key can
+decrypt a particular ciphertext only if they are matched. Key-policy
+ABE (KP-ABE) [32] and ciphertext-policy ABE (CP-ABE) [41] are two
+popular methods for high-end access control mechanisms. Even
+though these technologies can provide strong guarantee on privacy
+protection, they are generally impractical due to performance limitations and high acquisition costs.
+Through the application of the general privacy technologies
+in the healthcare domain, many researches on privacy protection
+of healthcare data are reported [12]. For example, the privacy
+policy is adopted in [50–53] for the privacy protection in the
+healthcare system. An optimal method of k-anonymization is
+provided in [50] for de-identification of personal health data. The
+combinations of cryptography and data security protocols [54–59]
+are employed to handle the security and privacy issues for the
+development of secure healthcare systems. In particular, the
+attribute-based cryptography [55] is used to construct a secure
+and privacy-preserving EHR system that enables patients to share
+their data in the cloud. The studies [54–56,52,58] deal with the
+problem of record-level privacy protection (i.e., addressing the
+privacy concern in the process of access and utilization of each
+individual medical record). Their solutions focus on the patient
+centric control of the medical data access. The medical data
+exchanging between organization is addressed in [50,51,53,59].
+Their resulting solutions concentrate on the dataset-level privacy
+protection (i.e., addressing the privacy concern in the process of
+access and utilization of a whole set of medical records). Our
+work can be classified into the dataset-level privacy protection,
+especially as it focuses on the privacy issues of medical data sharing
+in the cloud environment. However, our proposed solution is
+different from the existing works. Through innovative integration
+of the statistical and cryptography approaches, the advantages
+
+J.-J. Yang et al. / Future Generation Computer Systems 43–44 (2015) 74–86
+
+77
+
+Table 1
+The comparison of this research against the related works.
+Approaches
+
+Characteristics
+Attacker assumption
+
+Linkability of data to individual
+identifiers
+
+Privacy strength
+
+Information utility
+
+Privacy by policy
+
+Honest;
+Comply with policies;
+
+Linkable
+
+Low;
+No guarantee;
+
+High;
+No limitation under the policy;
+
+Privacy by
+statistics
+
+Curious;
+With limited or unlimited
+auxiliary information;
+
+Linkable with reasonable effort or
+unlinkable under a specific data
+access pattern;
+
+Moderate or
+Strong under a specific data
+access pattern;
+Limited guarantee;
+
+Moderate;
+Limited information access
+pattern;
+
+Privacy by
+cryptography
+
+Malicious;
+Sophisticated;
+With unlimited auxiliary
+information;
+
+Unlinkable;
+
+Strong;
+with theoretical guarantee;
+
+Low;
+Limited information access
+pattern;
+
+Our hybrid
+solution
+
+Curious or malicious;
+Sophisticated;
+With unlimited auxiliary
+information;
+
+Multiple choices from linkable with
+reasonable effort to unlinkable;
+
+Multiple strength choices from
+moderate to strong;
+
+High;
+Multiple data access patterns;
+
+Fig. 2. The framework of the privacy preserving data storage and sharing.
+
+of these two technologies are combined together to achieve a
+better balance of privacy protection and information utilization.
+We summary the comparison of the research in this paper against
+the related works in Table 1.
+3. The hybrid solution for privacy preserving medical data
+sharing
+According to Health Information and Management System
+Society (HIMSS) Analytics [60] and ISO/TS 18308 standards [61],
+the medical records of a patient may refer to Personal Health
+Record (PHR), Electronic Medical Record (EMR) and Electronic
+Health Record (EHR).
+EMR is created and controlled by a healthcare institution, e.g., a
+hospital. It is the legal record of what happened to a patient across
+inpatient and outpatient environments in the institution.
+EHR is generated and maintained within an institution or community. It is a record in digital format that is theoretically capable
+of being shared across multiple institutions within a community,
+region, or state [11]. EMRs can serve as a data source for the EHRs.
+Once the EMR data are shared with other institution, they become
+EHRs.
+EPR is typically a health record that is initiated and maintained
+by an individual. It provides a complete and accurate summary of
+the health and medical history of an individual by gathering data
+from many sources, including EMRs and EHRs
+Each hospital typically has its own database for EMRs, which
+are the sources of EHRs and EPRs. In most cases, EMRs serve as the
+original dataset to be shared across multiple organizations. In this
+paper, we use EMRs as the example of medical dataset to illustrate
+the privacy preserving medical data sharing.
+
+3.1. Attack model
+As illustrated in Fig. 2, the typical usage scenario of our
+proposed solution involves three different parties: (1) the data
+owner has a large amount of medical data to be shared and stored
+in the cloud; (2) the cloud service provider has significant storage
+space and computation resources to provide data storage service;
+(3) the data recipient accesses and utilizes the shared medical data
+with the authorization from the data owner.
+This paper assumes that the privacy protection during transmission among these three parties is well addressed by the SSL [13]
+and TSL and focuses on the privacy protection of stored data in the
+cloud service provider.
+We consider the cloud service provider to be honest but
+curious [39,35], which means that the cloud service provider will
+honestly follow the data access policy but might try to find out as
+much secret information as possible in the stored medical data.
+Actually, the employees in the cloud service provider might collude
+with the potential attacker to access the medical data beyond their
+privileges. The goal of our research is to prevent the adversary
+from attacking the privacy of an individual patient in the shared
+medical dataset when conventional policy-based access models do
+not work or are breached.
+3.2. The overview of the framework
+We first describe the practical solution at a high level, before
+describing the sequence of detailed implementations more concretely. Fig. 2 illustrates the conceptual framework for the privacy
+preserved medical data sharing in the cloud environment.
+
+78
+
+J.-J. Yang et al. / Future Generation Computer Systems 43–44 (2015) 74–86
+
+• Vertical data partition: The data owner uses this component
+to realize the privacy preserved data publishing. It partitions
+the original EMR table T into three tables, i.e., a plaintext table
+Tp with the attributes of medical information, an anonymized
+table Ta with the attributes of quasi-identifiers, and an
+encrypted table Te with the attributes of explicit identifiers and
+quasi-identifiers. After this step, these three tables are stored
+separately in the cloud.
+• Data merging: This component is utilized by the data recipient
+to achieve the dataset-level medical data access. With the
+authorization of the data owner, the data recipient can (1)
+access Tp directly for medical data search or analysis. When
+the plaintext table Tp cannot fulfill the information needs of
+data recipients, this component is used to merge Tp with Ta and
+Te respectively, by which two additional paradigms of medical
+dataset accessing is provided, i.e., (2) accessing the anonymized
+medical dataset; (3) accessing the full-version medical dataset
+(the original EMR table T ).
+• Integrity checking: The data owner and data recipient utilize
+this component to ensure that the stored data in the cloud
+is the same as it was when originally recorded. Due to the
+different requirements of the data owners and data recipients,
+two integrity checking schemes are provided.
+• Hybrid search: The data recipient utilizes this component to
+realize the record-level medical data access, i.e., to find one
+or multiple interested EMRs in the shared medical dataset.
+A hybrid search approach is given to combine the encrypted
+and plaintext search methods for the implementation of the
+information retrieval over the remote medical data storage.
+3.3. Technical details
+In this section, we present the technical details on each of the
+four components.
+3.3.1. Vertical data partition
+According to the Health Level 7(HL7) CDA [62,63], the EMR
+conceptual model has three parts: (1) patient data, i.e., the basic
+information of a patient, such as name, address, date of birth, etc.;
+(2) patient profile, i.e., the summary of the medical history of a
+patient’s family, such as if the family members have cancer or high
+blood pressure, as well as the lifestyle of a patient, such as if he
+or she smokes, drinks, and exercises; (3) clinical data including
+symptoms, diagnosis, and treatments during each hospital visit by
+a patient. In general, the patient data is structured and the patient
+profile and clinical data are semi-structured data with a lot of fields
+in free-text.
+Assuming that the EMR data is stored in a table T , from the
+privacy protection perspective [64,65], the attributes in T can
+be classified into three disjoint categories: (1) Explicit Identifiers
+(EID), i.e., the attributes to be used to clearly identify individual
+records, e.g., name, social security number, or phone number;
+(2) Quasi-Identifiers (QID), i.e., the attributes whose values when
+considered together can potentially identify an individual record;
+(3) Medical Information (MI), attributes that contain medical
+history and clinical data about individuals. Note that the attributes
+in the first two categories are structured data. The attributes in MI
+may be a structured or semi-structured data.
+By assuming that the values of the MI attributes contain sensitive information, which should be retained for data analysis, we use
+the vertical partition, i.e., different subsets have different attributes
+of the same sets of EMRs, to hide the identity of the individual who
+own the sensitive data. More specially, the original EMR table T is
+rewritten into three vertical partitioned tables Tp , Ta and Te . Table
+Tp stores only the attribute values of MI. Table Te contains the attributes of the explicit identifiers and quasi-identifiers. Their exact
+
+values are stored in ciphertext. Table Ta includes the attributes of
+the quasi-identifiers and medical information. Data anonymization
+is conducted on the set of quasi-identifiers in this table for privacy
+protection.
+Let A denotes the set of all attributes {A1 , A2 , . . . , Am } and
+t [Ai ] denotes the value of attribute Ai for tuple t. The attributes
+in A are classified into three categories, i.e., EID, QID, and MI,
+where EID = {A1 , A2 , . . . , A|EID| }, QID = {A1 , A2 , . . . , A|QID| }, and
+MI = {A1 , A2 , . . . , A|MI| }. The pseudo code of our proposed vertical
+segmentation is given as below:
+Vertical partition algorithm
+Input: T = {t1 , t2 , . . . , tn } with the attributes of EID, QID, MI
+Output: plaintext table Tp = {tp1 , tp2 , . . . , tpn } with the attributes
+of MI, anonymized table Ta = {ta1 , ta2 , . . . , tan } with the attributes
+of QID, and encrypted table Te = {te1 , te2 , . . . , ten } with the
+attributes of EID and QID
+1: Init: Ta = φ, Te = φ ;
+3: For (i = 1; i ≤ n; i++)
+4:
+For each Aj ∈ ID ∪ QID
+5:
+tei (Aj ) = E [ti (Aj )]
+6:
+For each Aj ∈ MI
+7:
+tpi (Aj ) = ti (Aj )
+8: For (i = 1; i ≤ n; i++)
+9:
+mt i = Σ ti [Aj ], Aj ∈ MI
+10: Clustering {mt i |1 ≤ i ≤ n} into x groups with labels cj ,
+1≤j≤x
+11: Find a k-anonymization partition
+P (T ) = {E1 , E2 , . . . , En } w. r. t. QID by considering
+t-closeness w. r. t. the x labels {cj |1 ≤ j ≤ x} derived from
+the combined attribute mt i .
+12: For (i = 1; i ≤ n; i++)
+13:
+For each Aj ∈ QID
+14:
+tai (Aj ) = Range(Ek ), ti ∈ Ek
+15: Output Tp , Ta , Te
+In Lines 4 and 5, the encryption operation E [·] is conducted
+on the attribute values of EID and QID, and the result of which
+is stored in Te . Since symmetric encryption algorithms are more
+efficient than asymmetric algorithms, in our implementation, a
+combination of both is being used. The data is encrypted using
+efficient symmetric key cryptography. This key is in turn encrypted
+with the recipient’s public-key so that it can only be used by the
+authorized users by the data owner. This way the advantages of
+both algorithms can be used. Lines 6 and 7 extract the medical
+information from the original table T and construct the plaintext
+table Tp .
+For each ti ∈ T , Lines 8 and 9 concatenate all the free-text
+attribute values in MI as the value of a combined attribute mt i .
+Based on the semantic distance calculation among mt i (1 ≤ i ≤ n),
+Line 8 clusters all the tuples in T into x group. A label cj is assigned
+for each group and then all its contained tuples. Since the existing
+t-closeness [64] measurement can only handle the numerical
+and categorical attributes, the free-text attribute values make the
+proposed one in [64] not applicable. The operations in Lines 8 and
+9 transform the free-text attributes into a combined attribute mt i .
+The resulting cj (1 ≤ j ≤ x) can be seen as the categorical sensitive
+attribute values, which will be used for the t-closeness calculation.
+With respect to QID, Line 11 find a k-anonymization partition
+P (T ) = {E1 , E2 , . . . , En } with minimum information loss, where
+the t-closeness [64] is taken into account as a privacy measure by
+using cj as the sensitive attribute values. Here, the top-down approximate data anonymization approach TD_Approx [65] is used,
+which is the best choice for the k-anonymity problem when both
+the data utility and runtime need to be considered (the medical
+dataset stored in the cloud may be very large).
+
+J.-J. Yang et al. / Future Generation Computer Systems 43–44 (2015) 74–86
+
+Lines 12–14 generate table Ta with data anonymization. In Lines
+13 and 14, for the records in each Ei , the value of the pseudoidentifier attribute Aj is generalized using Range(Ek ), i.e., the range
+of Aj ’s values of the records in Ek . The resulting Ta guarantees that
+no records can be uniquely distinguished from at least other k − 1
+records.
+The resulting tables Tp , Ta , and Te are stored in the cloud
+platform. If Tp can fulfill the information needs, the data recipient
+can access Tp directly under the given access control mechanism.
+In such case, even though the cloud service provider is curious
+and might use its administrator role to check the medical data
+in Tp , there is no chance for the privacy breach since the identity
+information of the individual who own the medical data is hidden
+by Ta and Te .
+However, there are many cases that the medical data analysis
+needs to consider both the attribute values of MI and the identity
+information in Ta and Te . To meet such requirements, the data
+segments in multiple tables need to be merged together to be
+accessed by the data recipient.
+3.3.2. Data merging
+This component provides two paradigms of dataset-level
+medical data accessing to the data recipient.
+(1) Accessing the anonymized dataset
+This data accessing paradigm combines the tables Tp and Ta
+together to make the anonymized dataset Ts available to the
+potential consumers. Ts contains the attributes of QID and MI. The
+pseudo code of the medical data merging algorithm is given as
+below:
+Data merging algorithm for accessing the anonymized dataset
+Input: plaintext table Tp = {tp1 , t p 2 , . . . , tpn } with the attributes
+of MI, anonymized table Ta = {t a1 , t a2 , . . . , tan } with the attributes
+of QID
+Output: Ts = {t s1 , t s2 , . . . , tsn } with all of attributes in QID and
+MI
+1: Init: T = φ ;
+3: For (i = 1; i ≤ n; i++)
+4:
+For each Aj ∈ QID
+5:
+tsi (Aj ) = tai (Aj )
+6:
+For each Aj ∈ MI
+7:
+tsi (Aj ) = tpi (Aj )
+8: Output Ts
+This data merging algorithm combines the identity information
+in Ta and the medical information in Tp together as a dataset
+Ts . For tai (Aj ), Aj ∈ QID, it is the generalized value by the data
+anonymization operation, which guarantees that in the resulting
+Ts , no records can be uniquely distinguished from at least other
+k − 1 records. Since the linking between the identify information
+with the medical information is made ambiguous, the reidentification attack can be prevented. The privacy strength of
+privacy protection depends on the selection of k, which actually
+is the tradeoff between the information utilization and privacy
+protection.
+(2) Accessing the original dataset
+For this data accessing paradigm, the tables Tp and Te are
+combined together as T to be shared to the data recipient. T
+contains all the attributes in EID, QID and MI. The pseudo code of
+the medical data merging algorithm is given as below:
+Data merging algorithm for accessing the original dataset
+Input: plaintext table Tp = {tp1 , tp2 , . . . , tpn } with the attributes
+of MI and encrypted table Te = {te1 , te2 , . . . , ten } with the attributes of EID and QID
+
+79
+
+Output: T = {t1 , t2 , . . . , tn } with all of attributes in EID, QID,
+and MI
+1: Init: T = φ ;
+3: For (i = 1; i ≤ n; i++)
+4:
+For each Aj ∈ EID ∪ QID
+5:
+ti (Aj ) = P [tei (Aj )]
+6:
+For each Aj ∈ MI
+7:
+ti (Aj ) = tpi (Aj )
+8: Output T
+In Lines 3–5, the operation P[·] is adopted to transform the
+encrypted values of attributes in QID and EID into plaintext
+(the execution of this functionality needs the availability of the
+symmetric key). Lines 6 and 7 merge the corresponding attributes
+with medical information. Line 8 outputs the final T .
+In this data accessing paradigm, data recipient utilizes the
+obtained key (through authorization negotiation with data owner)
+to decrypt the medical data for data merging and accessing. Since
+the key is not available to unauthorized person, even though the
+medical dataset is held in the cloud storage, the cloud service
+provider cannot make sense of it.
+Through the vertical partition and data mering for medical data
+sharing, three paradigms of dataset-level medical data accessing,
+i.e., (1) accessing only Tp ; (2) accessing the anonymized medical
+dataset Ts = Tp + Ta ; (3) accessing the full-version medical dataset
+T = Tp + Te , are provided to meet the different privacy concerns
+of the data owner and data utilization requirements of the data
+recipients.
+3.3.3. Integrity assurance
+This component enables a user to ensure that the shared
+medical data in the cloud has not been destroyed or changed
+in an unauthorized manner. Considering that the data integrity
+requirements of the data owner and data recipient might be
+different, we provide two integrity checking approaches for them
+respectively.
+(1) Local integrity checking for the data recipient
+The data recipient concerns the data integrity only after they
+have obtained the anonymized dataset Ta or the original dataset T
+by accessing the data merging component with the authorization
+of the data owner. By assuming that the medical dataset has
+been completely downloaded to the user sphere, the integrity
+checking approach for the data recipient is given as below: a special
+checksum is added as the header column rh for each EMR record.
+We compute rh as rh = H (tid ⊕ A1 ⊕ A2 ⊕ ::: ⊕ An ), where H
+is a one way function, which takes a variable length input string
+x and converts it into a fixed length binary sequence v = H (x).
+Given a value v , it is computationally infeasible for an attacker to
+find an x such that H (x) = v . Therefore any insertion of foreign
+records or modification to the original record will not pass header
+verification.
+(2) Remote integrity checking for the data owner
+For the data owner, since it ought to be possible to run the
+verification an unlimited number of times, downloading large
+amounts of data just for checking data integrity is a waste of
+communication bandwidth [66]. The data integrity verification
+should be conducted in a remote manner. Since the medical
+dataset stored in the cloud might be very large, we extended the
+scheme [67] to allow the server to prove possession of select blocks
+of file F so as to guarantee the integrity of the whole file with some
+probabilistic, through which to achieve the high efficient remote
+integrity checking.
+Assume that server S deletes t blocks out of the n-block file F .
+According to Ref. [67], the probability of C detects the misbehavior
+after asking for proof for c blocks is located in the domain of:
+
+
+1−
+
+n−t
+n
+
+c
+
+
+≤P≤
+
+n−c+1−t
+n−c+1
+
+c
+
+.
+
+(1)
+
+80
+
+J.-J. Yang et al. / Future Generation Computer Systems 43–44 (2015) 74–86
+
+Once given the block delete ratio and expected detection
+probability, the least checking blocks number can be deduced from
+the above Eq. (1). Our proposed scheme for probabilistic remote
+integrity checking with public verifiability includes following
+steps:
+Setup (1k ) → (pk, sk). Let N = pq be one publicly know RSA
+modulus, in which p = 2q′ + 1, q = 2p′ + 1 are two large primes.
+p′ and q′ are also primes. In addition, all the quadratic residues
+modulo N form a multiplicative cycle group, which we denote by
+QRN . Denote the generator of QRN by g. Since the order of QRN is
+p′ q′ the order of g is also p′ q′ . Let pk = (N , g ) and sk = (p, q).
+TagGen (pk, sk, m) → Dm . For each file block mi i ∈ [1, n], the
+client computes the block tag as:
+Di = (g mi )mod N .
+Let Dm = D1 , D2 , . . . , Dn . After finishing all the block tags, the client
+sends the file m to the remote server, and releases Dm to be publicly
+known to everyone.
+Challenge (pk, Dm ) → chal. The verifier first generates two
+random numbers: c ≤ n is the number of distinct blocks that will
+be checked; and r ∈ [1, 2k − 1] is the key of the pseudo-random
+function (PRF) f :
+f : {0, 1}k × {0, 1}log2 (n) → {0, 1}l .
+In the following steps, fk (x) is used to denote f keyed with key
+k applied on input x. Meanwhile the verifier generates a random
+group element s ∈ ZN \{0}, and it computes gs = g s mod N. The
+verifier then sends chal = ⟨c , r , gs ⟩ to the server. The message
+‘‘chal’’ specifies the numbers and positions of the blocks to be
+checked in this challenge phase.
+GenProof (pk, Dm , m, chal) → R. When the server receives
+chal, it generates c numbers of block indexes v1 , v2 , . . . , vc by
+calling fr (i) for i ∈ [1, n] iteratively. Then the server computes
+c
+
+R = (gs )
+
+i=1 vi mi
+
+mod N
+
+and sends R to the verifier.
+CheckProof (pk, Dm , chal, R) → ‘‘success’’, ‘‘failure’’. When the
+verifier receiver R from the server, she computes {vi }i=1,2,...,c as the
+server does in the GenProof step. The verifier computes P and R′
+as follows:
+P =
+
+c
+
+
+v
+
+(Di i mod N )mod N
+
+i=1
+
+R′ = P s mod N .
+After that the verifier checks whether R′ = R. If R′ = R, output
+is‘‘success’’. Otherwise the verification fails and the verifier outputs
+‘‘failure’’.
+Since the proposed scheme for remote integrity checking is only
+an extended version of the protocol [66] by using the probabilistic
+framework [67], its correctness can be guaranteed naturally by the
+proof given in [67,66].
+Even though the remote integrating checking approach is
+designed for the data owner, it can also be deployed and used by
+the data recipient for integrity checking.
+3.3.4. Hybrid search
+Through medical query processing, this component provides
+the record-level medical data accessing functionality to the data
+recipients, i.e., to find one or multiple interested EMRs in the
+shared medical dataset.
+Since the keyword query is a simple and user-friendly search
+model, it is prevailing in many practical search systems. Our
+research adopts a keyword-based interface for the users to express
+their information needs and returns a list of relevant EMRs as the
+output.
+
+Since the query processing covers both the plaintext and
+ciphertext, we need to combine the plaintext search and encrypted
+search technologies to realize the information retrieval over the
+remote medical data storage.
+The state of the art in information retrieval field has solved
+full-plaintext-based keyword search issues very well. However,
+supporting full-ciphertext-based search in a secure remote storage
+scenario is difficult. To address this problem, various forms
+of single keyword searchable encryptions [68,69] and Boolean
+keyword searchable encryptions [70,45] have been proposed. To
+enrich search functionalities, the approach on multi-keyword
+ranked search over encrypted cloud data is reported [49].
+Unfortunately, when the number of EMRs is very large, the query
+processing time of these approaches is intolerable due to the
+underlying forward index technologies. To solve this problem, an
+inverted-index-based encrypted search method [71] is given. Since
+its query processing time is very close to the plaintext search, we
+use it for the implementation of the ciphertext search.
+Given a query containing m keywords, i.e., Q = {k1 , k2 , . . . , km },
+our hybrid search approach includes the following steps:
+Step 1. Ciphertext search: m single keyword sub-queries are
+constructed and sent to the encrypted index for EMR search and
+there are m hit lists, l1 , l2 , . . . , lm . Each list li contains a set of EMRs
+matched with the keyword ki , i.e., li = {emr 1 , emr 2 , . . . , emr |li| }.
+Note that each emr in li just means that this EMR mentioned
+keyword ki . An emr i might exist in multiple hit lists li , i ≤ m. There
+is no ranking score of the similarity between the emr and ki .
+Step 2. Plaintext search: the query Q = {k1 , k2 , . . . , km } is
+also sent to the plaintext index for EMR search. The similarity
+between queries and EMRs is calculated based on the BM25 or
+TFIDF formulas [72]. Given an EMR, the medical information in
+multiple fields is merged to be used for relevance calculation. We
+can find a set of EMRs RL = {emr 1 , emr 2 , . . . , emr n } with ranking
+scores R = {r1 , r2 , . . . , rn }.
+Step 3. Search result combination: after m lists li = {emr 1 ,
+emr 2 , . . . , emr |li| } 1 ≤ i ≤ m and RL and R are obtained, we can
+combine them to obtain the similarity score between query Q and
+each EMR.
+(3.1) Re-grouping the returning results from the encrypted
+search: we split all the EMRs in li = {emr 1 , emr 2 , . . . , emr |li| },
+1 ≤ i ≤ m into m groups G1 , G2 , . . . , Gm , an emr i in Gk means
+that it is contained in k different hit lists.
+(3.2) Re-ranking the returning results from the plain-text
+search: for each emr i ∈ RL, if emr i ∈ Gk , ri is updated as k × ri .
+Note that we implement a light-weight version of [71] as our
+encrypted search approach: (1) for encrypted index creation, all
+the keywords in the attribute values of EID and QID are assigned
+as searchable keywords. For each keyword, there is only one
+keyword encryption key; (2) for encrypted index search, the data
+owner authorizes a data recipient to query all the keywords in the
+encrypted index.
+4. A real-world case study
+In this section, the implementation and deployment of the
+proposed privacy preserving medical data sharing solution on a
+real-world cloud of regional healthcare collaboration platform is
+introduced. The empirical experiments and the evaluation results
+are reported.
+The case study of privacy-preserving medical data sharing
+involves three parties, i.e., (A) community hospitals or senior
+people nursing centers with general medical practitioners, who
+have particular skills and practice a holistic approach for treating
+people with multiple health issues; (B) regional medical center or
+class A hospitals with domain specific medical doctors, who are
+experts of one or several diseases; (C) cloud service providers with
+
+J.-J. Yang et al. / Future Generation Computer Systems 43–44 (2015) 74–86
+
+81
+
+Fig. 3. The computing time for the encryption of different number of attributes.
+
+the Regional Healthcare Collaboration Platform (RHCP) enabling
+the provision of collaborative medical care to the outpatients or
+inpatients of organizations (A) and (C). As a typical usage scenario,
+hospital A stores and shares the collected medical records of the
+patients on the RHCP, where the medical data storage is provided
+by a third party cloud provider. The shared medical data will be
+consumed by the general medical practitioner in hospital B. Here,
+A is the data owner, the RHCP serves the role of the cloud service
+of medical data storage, and B is the data recipient.
+4.1. System implementation
+The implementation of our pilot system covers two phases,
+i.e., the build-time and run-time phases. In the former, four basic
+components are developed to realize the functionalities of vertical
+segmentation of EMR dataset, data merging, integrity checking,
+and privacy preserving query processing, respectively. Two clients
+to access these cloud services are implemented for the data owner
+and data recipient. We report several important points of detailed
+design that can serve as references for the development of similar
+platforms.
+(1) Attribute classification of EMR: The categorization of the
+EMR attributes is determined based on the discussions with
+an IT staff member (who concerns the privacy of the shared
+medical data) in hospital A and a general medical practitioner
+(who concerns the utility of the shared medical data). There are
+52 attributes in the EMR from hospital A. There are 6 explicit
+identifiers, i.e., EID = (name, phone number, email, Social ID
+number, affiliation, home address), 14 quasi-identifiers, and 32
+attributes as specification of the medical information.
+(2) Storage of the EMR data: NoSQL databases generally process
+data faster than relational databases, which provide the ability to
+have distributed tables across thousands of machines to provide
+a highly available and scalable storage system. The HDFS and
+HBase in Hadoop platform is employed for the EMR storage in
+the RHCP. When EMR table size reaches a threshold, Region split
+will be automatically triggered and data will be automatically
+stored in DataNodes evenly by the load balancing of HMaster and
+HRegionServer, User entirely need not care about how data is
+stored, meanwhile, because read and write of HBase are based on
+the column family, data increase has little effect on the read and
+write performance of HBase. The storage capacity of the model will
+be increased as long as new DataNode server is added in, and the
+read and write throughput of the model will be increased as long
+as new HRegionServer is added in.
+(3) Redundant indexing to reduce the response time of the
+query processing: To reduce the response time of the query process, multiple copies of the encrypted index are stored in the cloud
+
+server. When given a query Q = {k1 , k2 , . . . , km }, the constructed
+m encrypted single keyword queries could be processed in a parallel way. Actually, this implementation is a tradeoff between the
+computing time and the storage space.
+In the run-time phase, two stages are involved: (1) EMR data
+sharing: with the pre-defined EMR attribute classification EID, QID,
+and MI, the data owner access the vertical segmentation service
+provided by the RHCP to split the original table T into two vertical
+partitioned tables Te and Ta , which are then stored in the RHCP
+for data sharing. During the whole lifecycle of the medical data
+storage, the data owner can employ the remote integrity checking
+service to verify that the server possesses the datasets Ta and
+Te without retrieving them. (2) EMR data utilization: the data
+recipient can access only the Ta for medical data analysis. With
+the authorization of the data owner, the data recipient can also
+obtain the original table T by accessing the data merging service
+and checking the integrity of the resulting dataset. By providing the
+hybrid search across both the plaintext and ciphertext EMR data,
+the system supports the users to query the shared medical data and
+check the integrity of each returned EMR.
+4.2. Performance evaluation
+There are about 0.5 million EMRs from hospital A to be shared to
+hospital B. We use this real-world dataset for the evaluation of the
+proposed solution. In our experimental setting, two PCs are used
+as client and server, respectively, which has an i5-2600, 3.4 G CPU,
+8 GB memory, and Microsoft Windows 7 as the operating system.
+The server Visual C++ version 6.0 is employed as the development
+platform.
+Vertical partition of the medical data: Through the classification
+of the EMR attributes, only the attribute values in EID and QID are
+encrypted as ciphertext. Since there is only part of the EMR data
+stored in the cloud as encrypted data, a large amount of computing
+for the data encryption/decryption could be saved. With different
+sizes of the medical datasets (50k EMRs, 100k EMRs, 200k EMRs,
+500k EMRs, and 1 million EMRs), we conduct the experiments
+to evaluate the computing time for the encryption/decryption of
+different number of EMR attributes. Note that we have only 0.5
+million real-world EMRs. To construct the dataset of 1 million
+EMRs, we exchange the attribute values of the available EMRs and
+0.5 million fake ones are generated automatically.
+The experimental results on medical data encryption are shown
+in Fig. 3, where the horizontal axis denotes the number of EMR
+attributes to be encrypted for the storage in the cloud, and the
+vertical axis is the computing time of encryption operation. As
+mentioned above, in our real-world case study of medical data
+
+82
+
+J.-J. Yang et al. / Future Generation Computer Systems 43–44 (2015) 74–86
+
+Fig. 4. Information loss of TD_Approx with different k.
+
+Fig. 5. Running time of TD_Approx with different k.
+
+sharing from A to B, there are 6 EID attributes and 12 QID attributes.
+Fig. 3 demonstrates that when there are 0.5 million EMRs and each
+EMR has 50 attributes, through the attribute classification and data
+anonymization, more than two-thirds of the computing cost for the
+data encryption can be reduced.
+For the experiment on the data anonymization, we use the normalized version of information loss measure Normalized Certainty
+Penalty NCP(P (T )) [73], i.e., Global Certainty Penalty (GCP)
+ [74], to
+measure the quality of the anonymization. GCP (P (T )) =
+E ∈P (T ) α
+NCP (E), where α = |E |/|T |. Since the value of GCP is between 0
+and 1 (where 0 means no information loss, and 1 signifies that one
+equivalence class covering all records in the table T ), it can make
+the experimental results easily understandable.
+Due to our very large medical dataset, in the implementation
+of the top-down approximate data anonymization approach
+TD_Approx [65], we first cluster the 0.5 million EMRs into 25
+clusters, then the algorithm TD_Approx is executed on each cluster
+(small dataset of 20k EMRs). Fig. 4 illustrates the information loss
+for the data anonymization operation on the medical dataset. The
+vertical axis denotes the information loss measured by GCP, and
+the horizontal axis denotes the different k values. From Fig. 4, we
+can find that the information loss of TD_Approx increases with
+the increase in k. This result is similar to the experimental results
+in [65].
+The running time for the data anonymization are illustrated in
+Fig. 5. The vertical axis denotes the information loss measured by
+GCP, and the horizontal axis denotes the different k values. Fig. 5
+shows that the execution time for TD_Approx grows gradually with
+the increase in k. This phenomenon validates again the computing
+complexity analysis in [65] that the increase in k will increase the
+
+difficulty to decide whether an edge should be removed and then
+make the algorithm’s running time grow.
+Through the negotiation between the IT staff member in hospital A and the general medical practitioner in hospital B, k is set to 25
+in the final deployment of the medical data sharing service in the
+RHCP, i.e., 25-anonymized tables can be published independently
+for the consumption for multiple data recipients.
+By comparing Figs. 3 and 5, we can find that in the case of
+the vertical data partition process, the data anonymization operation spends almost 6 times of computing cost than that of the encryption operation. Therefore, for the proposed hybrid solution for
+medical data sharing, the computing time for the medical data publishing is dominated by the data anonymization operation.
+Data merging for medical data accessing: Through the vertical
+partition of medical dataset and the data merging for medical
+dataset accessing, there are three paradigms of medical data
+sharing: (1) accessing table Tp with the values of attributes in
+MI, where there is no individual information is available to the
+data recipient; (2) accessing table Ts with the values of attributes
+in QID and MI, where there is anonymized individual information
+is available to the data recipient; (3) accessing the original table
+T with the values of attributes in EID, QID, and MI, where no
+individual information is hidden to the data recipient.
+From the privacy protection perspective, the data sharing
+paradigms (1) and (2) are immune to the curious information
+checking of the cloud service provider. When the access control
+policy is breached, since the identity information of the individual
+patients is not contained in Tp and anonymized in Ts , the reidentification attack is thwarted by hiding the linking in data
+sharing paradigm (1) and making the linking ambiguous in data
+
+J.-J. Yang et al. / Future Generation Computer Systems 43–44 (2015) 74–86
+
+83
+
+Fig. 6. Running time of data merging for accessing the full-version medical dataset.
+
+Fig. 7. Computing costs of the server and the client with different block size.
+
+sharing paradigm (2). For data sharing paradigm (3), the data
+owner supplies the key, and the cloud service providers provides
+the encryption function. Only those data recipients who have
+obtained the key from the data owner can decrypt the data
+using the decryption algorithm. Since the key is not stored at the
+site of the storage service provider, unauthorized persons even
+employees of the cloud service provider, who may get hold of disk
+files under the access control policy, cannot access the encryption
+key then the original table T . Therefore, the data sharing paradigm
+(3) is less vulnerable to the curious information finding of the cloud
+service provider.
+From the computing cost angle, for data sharing paradigms (1)
+and (2), the data recipient can directly access the medical dataset
+with the authorization of data owner. Even though the paradigm
+(2) needs the data merging operation, our experiment shows that
+its time consumption is very limited. For data sharing paradigm
+(3), the decryption operation is a time consuming task for the data
+recipient to access the full-version medical dataset. Fig. 6 illustrates
+the running time of data merging for the data sharing paradigm (4).
+By comparing Figs. 3 and 6, we can find that the computing time of
+the decryption for data merging is very similar to the encryption
+operation in the data partition component. It means that for each
+time a data recipient accesses the medical dataset, two-thirds of
+the computing cost for data decryption is saved.
+Through the vertical partition of EMR data by considering the
+different parts of medical data with different privacy concerns,
+the multiple levels of medical dataset sharing is achieved. The
+strength of the privacy protection increases along the sequence
+of data sharing levels (1), (2) and (3), which enable the flexible
+balance of data utility and privacy protection, i.e., the more critical
+information release, the stronger privacy enforcement mechanism.
+
+Table 2
+Experimental setup for the hybrid search across ciphertext and plaintext.
+Encryption method
+Hash method
+EMR average size
+Total EMRs size
+
+AES, OFB 128 bit
+SHA-1
+32k
+0.5 million/17.1 GB
+
+Table 3
+Comparison of the single keyword ciphertext and plaintext search on the EMR data
+in Te .
+
+Creating index
+Index size
+Searching in the index
+Hit number
+
+Ciphertext
+
+Plaintext
+
+399.2 s
+820 MB
+0.021 s
+345
+
+267.3 s
+211 MB
+0.018 s
+345
+
+Remote integrity checking: Since the medical dataset in our case
+study is very large, the adopted remote integrity checking is the
+probabilistic version of the scheme proposed in [66], where the
+computation cost at the server does not change a lot when the data
+size increases. But the client computing time depends heavily on
+the data size as well as the block size. Before the implementation
+of the protocol for A’s remote integrity checking, we conduct
+experiments to measure the computation costs at the client and
+the server when the file length is fixed (we set it as the 17.1 GB,
+which is the size of the shared medical dataset of A) and the block
+size is changed. Fig. 7 shows the experimental results, where the
+horizontal axis denotes the different block size settings, and the
+vertical axis is the running time of the remote integrity checking
+with regard to different settings.
+
+84
+
+J.-J. Yang et al. / Future Generation Computer Systems 43–44 (2015) 74–86
+
+Table 4
+Comparison of the hybrid search HS-T across Ta and Te and TFIDF over the original table T .
+Creating index
+
+TFIDF
+HS-T
+
+375.2 s
+492.8 s
+
+Index size
+
+4.1 G
+4.81 G
+
+Searching in the index
+
+0.110 s
+0.356 s
+
+Hit number
+
+EMR ranking
+P@5 (%)
+
+P@10 (%)
+
+2617
+2617
+
+83.88
+81.02
+
+81.76
+79.23
+
+Hit number
+
+EMR ranking
+
+Table 5
+Comparison of the hybrid search HS-B across Ta and Te and BM25 over the original table T .
+Creating index
+
+BM25
+HS-B
+
+375.2 s
+492.8 s
+
+Index size
+
+4.1 G
+4.81 G
+
+Searching in the index
+
+0.120 s
+0.401 s
+
+From Fig. 7, we can find that, the computing time in the server
+side grows rapidly with the increase in the block size, while the
+computing time in the client side decreases gradually with the increasing block size. When the block size is set to 512 k–1 MB, the
+remote integrity checking protocol achieves the best balance between the computing costs occurs in the client and the server. In
+the implementation of our integrity checking protocol, we select
+the block size as 512k. We run the service 10 times for probabilistic
+data possession verification in the RHCP and the average computing time is about 30 s in both the client and the server sides.
+Query processing: We conduct the experiments for the performance evaluation of the hybrid search across ciphertext and plaintext. The experimental environment is introduced in Table 2.
+For a comparative study of the performance of our proposed
+hybrid search approach, following two pairs of approaches are
+implemented in our experiments:
+TFIDF: The similarities between queries and EMRs are computed
+by summing the product of the term frequency and inverse
+document frequency for each query term [72], which is one of the
+simplest ranking functions for relevance ranking between queries
+and documents.
+Hybrid Search based on TFIDF(HS-T): It is the implementation
+of our proposed hybrid search approach, which combines the
+ciphertext search and TFIDF based plaintext search for the EMR
+retrieval.
+BM25: The relevances between queries and EMRs are calculated
+based on the BM25 formula [70], which is a widely adopted
+keyword-based approach.
+Hybrid Search based on BM25 (HS-B): It denotes the implementation of the hybrid search by combining the ciphertext search and
+BM25 based plaintext search for the EMR retrieval.
+P@5 (P@10) is employed as the evaluation criteria, which denotes
+the proportion of relevant EMRs (whether an EMR is relevant to
+the query is determined by a human) in the top 5(10) EMRs in the
+returned list of the query.
+For the single keyword ciphertext search on the encrypted
+EMR data in Te , we also evaluate its plaintext search version for
+comparing their indexing and search operations. The experimental
+results are illustrated in Table 3. Basically, their performance
+difference is very slight, except that the index size of the ciphertext
+indexing is 4 times of the plaintext one. It is in compliance with the
+observation in [71] that the performance of the ciphertext search
+is very close to the plaintext search.
+To evaluate our hybrid search across ciphertext and plaintext
+data, we need to construct the sample query set. First, 100 most
+frequent symptom descriptions from the medical records are selected as candidate queries (each description is dictated by patients
+stating their situations); then, ambiguity of these candidate queries
+were estimated using an entropy-based measure [19]; finally, 30
+
+2617
+2617
+
+P@5 (%)
+
+P@10 (%)
+
+83.48
+82.89
+
+79.87
+78.18
+
+queries with the highest ambiguity were chosen as the target ones.
+For each query, two or three keywords in the attribute values of
+EID or QID are generated and added as the keywords in the sample
+query for the testing of the ciphertext search.
+The experimental results of the hybrid search approach HS-T
+across Ta and Te and TFIDF over the original table T are illustrated
+in Table 4. Comparing the two approaches, i.e., TFIDF and HS-T,
+from Table 4 we can find that, the hybrid search HS-T approach can
+achieve almost similar performance to its counterpart of plaintext
+search approach in terms of accuracy, which demonstrates the
+effectiveness of its real-world application. In Table 4, the searching
+time of HS-T is more than 3 times as that of the TFIDF. This is due
+to the fact that, in the hybrid search process, the given query is
+divided into m single keyword sub-queries, its response time is
+roughly m times as that of the plaintext search. In the given query
+set, each original query includes three keywords on an average.
+Table 5 illustrates the performance comparisons of the hybrid
+search approach HS-B across Ta and Te and BM25 over T . Since both
+TFIDF and BM25 are keyword based relevance ranking approaches,
+in our experiments, they use the same implementation of the index
+construction. By comparing Tables 4 and 5, their performances
+of the search effectiveness and efficiency are also similar to each
+other. These results validate again that the proposed hybrid search
+approach across ciphertext and plaintext can achieve similar
+performance to the pure plaintext search approach.
+5. Conclusions
+With the emergence of cloud computing technologies, various
+organizations have the desire to leverage the Internet-based
+paradigm to optimize the utility of computing resources. Despite
+the increased use of cloud-based platforms in diverse business
+areas, the privacy and security requirements have prevented their
+adoption in the healthcare domain. Considering the fact that
+the privacy concerns (data utilization requirements) of different
+data providers (consumers) may be quite different, this paper
+proposed a hybrid solution for privacy preserving medical data
+sharing in the cloud environment, where the statistical analysis
+and cryptography are innovatively combined together to provide
+flexible medical data accessing with different consideration about
+the information utilization and privacy protection. The detailed
+implementation of the four basic components, i.e., vertical data
+partition, data merging, integrity assurance, and privacy preserved
+query processing, is described.
+This paper gives the basic concept of our pilot study and shows
+that the synergy of different privacy preserving technologies can
+provide a better balance between the information utilization and
+privacy protection. It represents a beginning to investigate the
+hybrid solution for an innovative integration of different privacy
+protection technologies. The current experiments of the reported
+case study are mainly designed to verify the effectiveness of the
+
+J.-J. Yang et al. / Future Generation Computer Systems 43–44 (2015) 74–86
+
+proposed schemes when each algorithm is running exclusively in
+the server/client. In the future work, we will investigate how the
+performance behaviors change when there are multiple clients
+accessing the cloud service simultaneously and how to make
+our solution applicable in the cloud with a large amount of
+concurrences of medical data sharing and accessing. In addition,
+we will integrate the query integrity checking for the remote cloud
+data query to make our solution a full-fledged one.
+Acknowledgments
+This research was supported by National Fundamental Research
+Program of China (973 Program) (Grant no. 2011CB302505) and
+Beijing Chaoyang Science & Technology Commission.
+References
+[1] A. Mu-Hsing Kuo, Opportunities and challenges of cloud computing to improve
+health care services, J. Med. Internet Res. (2011).
+[2] Syed A. Ahson, Mohammad Ilyas, Cloud Computing and Software Services
+Theory and Techniques, CRC Press, 2010.
+[3] S. Stansfield, Structuring information and incentives to improve health, Bull.
+World Health Org. 83 (8) (2005) 562.
+[4] L. Wang, D. Chen, Y. Hu, Y. Ma, J. Wang, Towards enabling cyberinfrastructure
+as a service in clouds, Comput. Electr. Eng. 39 (1) (2013) 3–14.
+[5] L. Wang, G. Laszewski, A.J. Younge, X. He, M. Kunze, J. Tao, C. Fu, Cloud
+computing: a perspective study, New Gener. Comput. 28 (2) (2010) 137–146.
+[6] L.M. Kaufman, Data security in the world of cloud computing, IEEE Secur. Priv.
+7 (4) (2009) 61–64.
+[7] D. Zissis, D. Lekkas, Addressing cloud computing security issues, Future Gener.
+Comput. Syst. (2012) 583–592.
+[8] J. Zhao, L. Wang, J. Tao, J. Chen, W. Sun, R. Ranjan, J. Kolodziej, A. Streit,
+D. Georgakopoulos, A security framework in G-Hadoop for big data computing
+across distributed cloud data centres, J. Comput. Syst. Sci. 80 (5) (2014)
+994–1007.
+[9] ANSI, ISO/TS 18308 Health Informatics—Requirements for an Electronic Health
+Record Architecture, ISO 2003.
+[10] R. Bakker, B. Barber, R. Tervo-Pellikka, A.T reacher, (Eds.), Communicating
+health information in an insecure world, in: Proceedings of the Helsinki
+Working Conference. 43:1, 1995. 2.
+[11] B. Barber, D. Garwood, P. Skerman, Security in Hospital Information Systems,
+Security and Data Protection programme presented at the IMIA WH10
+Working Conference, Durham, 1994.
+[12] J.L. Fernández-Alemán, I.C. Señor, P.Á. Lozoya, A. Toval, Security and privacy in
+electronic health records: a systematic literature review, J Biomed. Inf. 46 (3)
+(2013) 541–562.
+[13] P. Karlton, A. Freier, P. Kocher, The SSL protocol v3.0. Internet Draft, Nov., 1996.
+[14] T. Dierks, C. Allen, The TSL protocol. Internet Draft, Nov., 1997.
+[15] S. Spiekermann, L.F. Cranor, Engineering privacy, IEEE Trans. Softw. Eng. 35 (1)
+(2009).
+[16] Q. Ni, E. Bertino, C. Brodie, C.M. Karat, J. Karat, J. Lobo, A. Trombetta, Privacyaware role-based access control, ACM Trans. Inf. Syst. Secur. (TISSEC) 13 (3)
+(2010) 35–43.
+[17] D.F. Ferraiolo, R. Sanhu, et al., Proposed standard for role-based access control,
+ACM Trans. Inf. Syst. Secur. 4 (3) (2000) 224–274.
+[18] R.S. Sandhu, E.J. Coyne, et al., Role-based access control models, IEEE Comput.
+29 (2) (1996) 38–47.
+[19] S. Fischer-Hubner, IT-Security and Privacy: Design and Use of PrivacyEnhancing Security Mechanisms, Springer-Verlag, Berlin, 2001.
+[20] L. Cranor, et al. The platform for privacy preferences (P3P) 1.0 (p3p 1.0)
+specification, 2002. http://www.w3.org/P3P/.
+[21] Q. He, 2003,Privacy enforcement with an extended role-based access control
+model. Tech. rep. TR-2003-09, Department of Computer Science, North
+Carolina State University.
+[22] G. Karjoth, M. Schunter, A privacy policy model for enterprises, in: Proceedings
+of the 15th Computer Security Foundations Workshop, IEEE, Los Alamitos, CA,
+2002, pp. 271–281.
+[23] I. Dinur, K. Nissim, Revealing information while preserving privacy, in:
+Proceedings of the 22nd ACM SIGMOD-SIGACT-SIGART Symposium on
+Principles of Database Systems, 2003, pp. 202–210.
+[24] J. Kleinberg, C. Papadimitriou, P. Raghavan, Auditing Boolean attributes,
+J. Comput. System Sci. 6 (2003) 244–253.
+[25] C. Dwork, K. Nissim, Privacy-preserving data mining on vertically partitioned
+databases, Advances in Cryptology: Proceedings of Crypto (2004) 528–544.
+[26] R. Agrawal, R. Srikant, Privacy-preserving data mining, in: Proceedings of the
+ACM SIGMOD International Conference on Management of Data, May 2000,
+pp. 439–450.
+[27] W. Gasarch, A Survey on Private Information Retrieval, available at:
+http://www.cs.umd.edu/~gasarch/pir/mysurvey.ps,2004.
+[28] Y.-C. Chang, M. Mitzenmacher, Privacy preserving keyword searches on
+remote encrypted data, in: Proc. of ACNS, 2005.
+
+85
+
+[29] R. Curtmola, J.A. Garay, S. Kamara, R. Ostrovsky, Searchable symmetric
+encryption: improved definitions and efficient constructions, in: Proc. of ACM
+CCS, 2006.
+[30] D. Boneh, G.D. Crescenzo, R. Ostrovsky, G. Persiano, Public key encryption with
+keyword search, in: Proc. of EUROCRYPT, 2004.
+[31] D. Boneh, E. Kushilevitz, R. Ostrovsky, W. Skeith, Public key encryption that
+allows pir queries, in: Proc. of CRYPTO, 2007.
+[32] J. Li, K. Ren, K. Kim, Accountable Attribute-Based Encryption for Abuse Free
+Access Control, available at: http://eprint.iacr.org/2009/118.pdf.
+[33] A. Harrington, C. Jensen, Cryptographic access control in a distributed file
+system, in: Proceedings of the Eighth ACM Symposium on Access Control
+Models and Technologies, 2003, pp. 158–165.
+[34] C. Liu, R. Ranjan, C. Yang, X. Zhang, L. Wang, J. Chen, MuR-DPA: top-down
+levelled multi-replica merkle hash tree based secure public auditing for
+dynamic big data storage on cloud, IACR Cryptology ePrint Archive 2014, 391.
+[35] J. Park, R.S. Sandhu, The uconabc usage control model, ACM Trans. Inf. Syst.
+Secur. 7 (1) (2004) 128–174.
+[36] OASIS. 2005. eXtensible Access Control Markup Language (XACML) 2.0.
+http://www.oasis-open.org/.
+[37] R. Chandramouli, A framework for multiple authorization types in a healthcare
+application system, in: Proceedings of the 17th Annual Computer Security
+Applications Conference, IEEE, Los Alamitos, CA, 2001, p. 137.
+[38] K. Kenthapadi, N. Mishra, K. Nissim, Simulatable auditing, in: Proceedings of
+the 24th ACM SIGMOD-SIGACT-SIGART Symposium on Principles of Database
+Systems, June 2005, pp. 118–127.
+[39] C. Dwork, Differential privacy: a survey of results, in: M. Agrawal, D.-Z. Du,
+Z. Duan, A. Li (Eds.), Theory and Applications of Models of Computation,
+5th International Conference, TAMC 2008, Xi’an, China, April 25–29, 2008.
+Proceedings, in: Lecture Notes in Computer Science, vol. 4978, Springer, 2008,
+pp. 1–19.
+[40] A. Evfimievski, J. Gehrke, R. Srikant, Limiting privacy breaches in privacy
+preserving data mining, in: Proceedings of the 22nd ACM SIGMOD-SIGACTSIGART Symposium on Principles of Database Systems, June 2003, pp.
+211–222.
+[41] R. Ostrovsky, A. Sahai, B. Waters, Attribute-based Encryption with NonMonotonic Access Structures, CCS’07, ACM, 2007, pp. 195–203.
+[42] Caroline Fontaine and Fabien Galand, a survey of homomorphic encryption for
+nonspecialists, EURASIP J. Inf. Sec. (2007).
+[43] Y. Lindell, B. Pinkas, Secure multiparty computation for privacy-preserving
+data mining, 2008.
+[44] D. Song, D. Wagner, A. Perrig, Practical techniques for searches on encrypted
+data, in: Proc. of S&P, 2000.
+[45] L. Ballard, S. Kamara, F. Monrose, Achieving efficient conjunctive keyword
+searches over encrypted data, in: Proc. of ICICS, 2005.
+[46] D. Boneh, B. Waters, Conjunctive, subset, and range queries on encrypted data,
+in: Proc. of TCC, 2007, pp. 535–554.
+[47] Y. Hwang, P. Lee, Public key encryption with conjunctive keyword search and
+its extension to a multi-user system, in: Pairing, 2007.
+[48] C. Wang, N. Cao, J. Li, K. Ren, W. Lou, Secure ranked keyword search over
+encrypted cloud data, in: Proc. of ICDCS’10, 2010.
+[49] N. Cao, C. Wang, M. Li, K. Ren, W. Lou, Privacy-preserving multi-keyword
+ranked search over encrypted cloud data, INFOCOM (2011) 829–837.
+[50] R. Agrawal, C. Johnson, Securing electronic health records without impeding
+the flow of information, Int. J. Med. Inf. 76 (5–6) (2007) 471–479.
+[51] B.S. Elger, J. Iavindrasana, L. Lo Iacono, H. Müller, N. Roduit, P. Summers, et al.,
+Strategies for health data exchange for secondary, cross-institutional clinical
+research, Comput. Methods Programs Biomed. 99 (3) (2010) 230–251.
+[52] C.A. Ardagna, S.D.C. di Vimercati, S. Foresti, T. Grandison, S. Jajodia, P. Samarati,
+Access control for smarter healthcare using policy spaces, Comput. Secur. 29
+(8) (2010) 848–858.
+[53] M. Jafari, R. Safavi-Naini, C. Saunders, N.P. Sheppard, Using digital rights
+management for securing data in a medical research environment, in: Proc.
+Digital Rights Management Workshop, 2010, pp. 55–60.
+[54] K.T. Win, W. Susilo, Y. Mu, Personal health record systems and their security
+protection, J. Med. Syst. 30 (4) (2006) 309–315.
+[55] S. Narayan, M. Gagné, R. Safavi-Naini, Privacy preserving EHR system using
+attribute-based infrastructure, in: Proc. ACM Workshop on Cloud Computing
+Security, 2010, pp. 47–52.
+[56] J. Benaloh, M. Chase, E. Horvitz, K. Lauter, Patient controlled encryption:
+ensuring privacy of electronic medical records, in: Proc ACM Workshop on
+Cloud Computing Security, 2009, pp. 103–114.
+[57] C. Quantin, D.O. Jaquet-Chiffelle, G. Coatrieux, E. Benzenine, F.A. Allaert,
+Medical record search engines, using pseudonymised patient identity: an
+alternative to centralised medical records, Int. J. Med. Inf. 80 (2) (2011) e6–e11.
+[58] J. Jin, G.J. Ahn, H. Hu, M.J. Covington, X. Zhang, Patient-centric authorization
+framework for electronic healthcare services, Comput. Secur. 30 (2–3) (2011)
+116–127.
+[59] J. Hu, H.H. Chen, T.W. Hou, A hybrid public key infrastructure solution (HPKI)
+for HIPAA privacy/security regulations, Comput. Stand. Interfaces 32 (5–6)
+(2010) 274–280.
+[60] D. Garets, M. Davis, A HIMSS Analytics White Paper. Electronic Medical Records
+vs. Electronic Health Records: Yes, There Is a Difference. January 26, 2006.
+[61] ANSI, ISO/TS 18308 Health Informatics—Requirements for an Electronic Health
+Record Architecture, ISO 2003.
+[62] H.D. Robert, A. Liora, B. Sandy, HL7 clinical document architecture, J. Am. Med.
+Inf. Assc. 13 (1) (2006) 30–39.
+[63] R.H. Dolin, L. Aschuler, S. Boyer, et al. HL7 Clinical Document Architecure.
+http://www.hl7.org/v3ballot/html/welcome/environment/index.htm.
+
+86
+
+J.-J. Yang et al. / Future Generation Computer Systems 43–44 (2015) 74–86
+
+[64] N. Li, T. Li, S. Venkatasubramanian, T-closeness: privacy beyond k-anonymity
+and l-diversity, ICDE (2007) 106–115.
+[65] J. Li, J.-J. Yang, B. Liu, A Top-down approach for approximate data
+anonymization, Enterprise Inf. Syst. (2012).
+[66] Z. Hao, S. Zhong, N. Yu, A privacy-preserving remote data integrity checking
+protocol with data dynamics and public verifiability, IEEE Trans. Knowl. Data
+Eng. 23 (9) (2011) 1432–1437.
+[67] G. Ateniese, R. Burns, R. Curtmola, J. Herring, L. Kissner, Z. Peterson, D. Song,
+Provable data possession at untrusted stores, in: CCS07, ACM, Alexandria,
+Virginia, USA, 2007, pp. 598–610. Oct, Nov.
+[68] M. Bellare, A. Boldyreva, A. ONeill, Deterministic and efficiently searchable
+encryption, in: Proc. of CRYPTO, 2007.
+[69] M. Abdalla, M. Bellare, D. Catalano, E. Kiltz, T. Kohno, T. Lange,
+J. Malone-Lee, G. Neven, P. Paillier, H. Shi, Searchable encryption revisited: consistency properties, relation to anonymous ibe, and extensions, J.
+Cryptol. 21 (3) (2008) 350–391.
+[70] P. Golle, J. Staddon, B. Waters, Secure conjunctive keyword search over
+encrypted data, in: Proc. of ACNS, 2004, pp. 31–45.
+[71] Y. Tian, H. Lei, L. Wang, K. Zeng, A fast search method for encrypted medical
+data, IEEE Int. Conf. Commun. (2009).
+[72] S.E. Robertson, S. Walker, M. Hancock-Beaulieu, A. Gull, M. Lau, Okapi at TREC.
+Text Retrieval Conference, 1992.
+[73] J. Xu, W. Wang, J. Pei, X. Wang, B. Shi, A. Fu, Utility-based anonymization using
+local recoding, in: Proc. of SIGKDD, 2006, pp. 785–790.
+[74] G. Ghinita, P. Karras, P. Kalnis, N. Mamoulis, Fast data anonymization with low
+information loss, in: Proc. of VLDB, 2007, pp. 758–769.
+
+Union. From 2009, his main focus is on e-health and medical service. He has undertaken a few projects in the National Science & Technology Supporting Program
+about Digital Medical Service model and key technologies. He is also collaborating
+with a lot of medical institutions and hospitals. He is the member of Expert Committee of IoT (Internet of Things) in Health at Chinese Electronic Association and
+Expert Committee of Remote medicine and Cloud computing at Chinese Medicine
+Informatics Association. He has published more than 60 papers in professional journals and conferences.
+
+Ji-Jiang Yang got his B.S. and M.S. degrees from Tsinghua University, and Ph.D. from National University
+of Ireland (Galway). His research areas involve e-health,
+e-government/e-commerce, privacy preserving, information resource management, data mining, and cloud computing. Now he is an associate professor of Tsinghua
+University. He worked for CIMS/ERC (Computer Integrated
+Manufacturing System/Engineering Research Center) of
+Tsinghua University from 1995 to 1999. He had joined or
+been in charge of different projects funded by the State HiTech program (863 program), NSF (China), and European
+
+Yu Niu received her Ph.D. in Computer Engineering from
+the University of Kyunghee (South Korea) in 2011. She received her M.S. and B.S. degrees in 2005, 2003 respectively
+in China. Now she is doing her postdoc research in the Research Institute of Information Technology, Tsinghua University. Her research field includes wireless sensor network, e-healthcare system and multimedia information
+processing, etc.
+
+Jianqiang Li got his Ph.D. from Tsinghua University in
+2004. From March 2004 to March 2005, he worked as
+a full time researcher in Digital Enterprise Research Institute, National University of Ireland, Galway. Then he
+joined NEC Labs., China. From September 2009 to May
+2010, he worked as a visiting scholar in the Department
+of Computer Science, Stanford University. At present he
+is a professor of Beijing University of Technology. His research areas involve business process analysis and optimization, workflow, data mining, information retrieval,
+semantic web, privacy protection, recommendation, semantic computing, machine learning, medical data analysis, data center optimization, time series analysis, cloud computing, and big data analysis.
+
+

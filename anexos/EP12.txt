@@ -1,0 +1,1406 @@
+Discrete Applied Mathematics 241 (2018) 67–77
+
+Contents lists available at ScienceDirect
+
+Discrete Applied Mathematics
+journal homepage: www.elsevier.com/locate/dam
+
+Mathematical model-based security management framework
+for future ICT outsourcing project
+Jewook Moon a , Chanwoo Lee b , Sangho Park b , Yanghoon Kim c ,
+Hangbae Chang d,∗
+a
+
+Markany, Republic of Korea
+
+b
+
+Department of Security Convergence, Graduate School, Chung-Ang University, Republic of Korea
+
+c
+
+Department of Cyber Security, Far East University, Republic of Korea
+
+d
+
+Department of Industrial Security, College of Business and Economics, Chung-Ang University, Republic of Korea
+
+article
+
+info
+
+Article history:
+Received 16 April 2015
+Received in revised form 31 December 2015
+Accepted 19 March 2016
+Available online 19 April 2016
+Keywords:
+Mathematical model
+ICT outsourcing
+Security management
+Security management framework
+
+abstract
+The information communication technology (ICT) outsourcing market is growing larger
+every year from the increasing number of companies that utilize ICT outsourcing, as industry scale increases and industrial specialization intensifies. However, the current circumstance is that security accidents related to ICT outsourcing are continuously occurring
+at an increasing scale. There is a lack of studies measuring the level of security management
+of organizational ICT outsourcing, which is the first step in performing security management of ICT outsourcing. In addition, most studies focus on general organizational security management. Accordingly, this paper aimed to design a model to measure the level of
+security management of companies utilizing ICT outsourcing. Specifically, this paper analyzed security vulnerabilities that could occur in ICT outsourcing that may be mapped with
+the accorded security measures as solutions to deduce items for ICT outsourcing security
+inspections. Next, this paper developed an ICT outsourcing security level quantification
+model by verifying the validity of the security inspection items deduced and by estimating
+item-specific weighted points. Additionally, the applicability of the ICT outsourcing security level quantification model developed was verified by applying it to actual companies.
+© 2016 Elsevier B.V. All rights reserved.
+
+1. Background of the study
+The effort to gain a competitive advantage in various industries from rapid advancements of industrial technologies is
+increasing. As a main tool for competitive advantages, a combination of industry and information communication technology
+(ICT) is becoming an essential operating factor of industrial advancement.
+To establish and continue ICT operations, organizations require significant professional labor and technological prowess.
+However, ICT is not the main business of most organizations and the significant cost needed to obtain significant professional
+labor and technological prowess is an issue. Additionally, developing and operating ICT with a company’s own labor and
+technological prowess alone is difficult. Accordingly, ‘‘ICT outsourcing’’ is utilized in most cases. Recently, the number
+of cases of companies that concentrate on their core competencies while entrusting an ICT resource that is not a core
+
+∗
+
+Corresponding author.
+E-mail addresses: paulmoon721@naver.com (J. Moon), chanlee@gmail.com (C. Lee), indsec2015@gmail.com (S. Park), yhkim@kdu.ac.kr (Y. Kim),
+hbchang@cau.ac.kr (H. Chang).
+http://dx.doi.org/10.1016/j.dam.2016.03.013
+0166-218X/© 2016 Elsevier B.V. All rights reserved.
+
+68
+
+J. Moon et al. / Discrete Applied Mathematics 241 (2018) 67–77
+
+competency by breaking away from simply improving internal operational efficiency is increasing [9]. Accordingly, the
+perception of ICT outsourcing is changing given the effort to gain industrial competitiveness. The ICT outsourcing market is
+continuously growing as a result of the increasing and expanding scope of ICT outsourcing.
+Utilizing outsourcing for ICT development and operations results in reducing a company’s ICT investment and
+maintenance costs [1,5]. The issue of increasing security vulnerability exists – in contrast to when internal labor is utilized
+for ICT development and operations – because such vulnerabilities increase from bringing in and taking out unauthorized
+equipment and increasing the number of people that can access information. In this regard, security accidents from ICT
+outsourcing have been increasing recently, which calls for extensive security management of outsourcing. Accordingly,
+this paper aims to design a model to measure the level of security management for companies utilizing ICT outsourcing.
+Specifically, this paper analyzes security vulnerabilities that could exist in ICT outsourcing that may be mapped with the
+accorded security measures to design a system for ICT outsourcing security management.
+2. Previous studies
+Karabulut, Kerschbaum, Massacci, Robinson and Yautsiukhin [7] focus on the problem of guaranteeing appropriate
+security when storing data on a contractor’s server. They introduce several important definitions and identify a number
+of challenges and issues. They argue that external metrics are more meaningful for a client and propose some that can be
+used for PLA. In their article, they focus more on the technical side of the agreement. One problem that they omit is the issue
+of enforcement, which must be considered before applying PLA as a contract.
+Hamlen and Thuraisingham [3] discuss various security challenges for outsourcing both data management and software
+development activities. In particular, their paper discusses security issues pertaining to the data-as-a-service and softwareas-a-service models, and supply chain security issues. They also present relevant standards for data outsourcing. Their goal
+is for the composite system to be secure even if the individual components developed by multiple organizations might
+be compromised. They argue that data production has numerous similarities to developing a product in the supply chain
+process, and data must be shared securely in the outsourcing process. In addition, security concerns for mobile code in
+service-oriented architectures motivate the realization of security itself as a service.
+Sherwood [14] examines the main issues concerning the security of business information in outsourced systems and
+networks. He reviews the strategy that management should follow to ensure that its business information is adequately
+secured under such conditions during pre-contract negotiations and that must be integral to the outsourcing agreement.
+Khalfan [4] presents an overview of a national case study that explores the information security considerations in
+information systems/information technology (IS/IT) outsourcing projects in the public and private sectors of Kuwait, where
+the data collection for this study was carried out. The author states that organizations need to exercise caution when
+selecting a partner (i.e., vendor). Additionally, organizations must properly and adequately address their security concerns
+as they establish and develop their security policies, which should be concise, effective, and cover all security layers.
+Outsourcing contracts should include robust provisions for information security, particularly in drafting the SLA. This study
+may provide good input to IT policy makers and managers in different sectors in Kuwait. The findings also provide insights
+into how, as an information system strategy, outsourcing practices are managed in the context of Kuwait.
+Oladapo, Zavarsky, Ruhl, Lindskog, and Igonor [12] review and extract IT security risk elements that culminated in a
+flowchart to aid decision making with respect to IT security outsourcing. This research, which reviews the NIST overview
+approaches on IT security services acquisition and management, contributes to this area by conducting a more detailed
+study on the initiation phase of the information security services life cycle and by introducing a decision-making flowchart
+to complete this first phase of acquiring IT security services. This research will assist managers who need to make decisions
+around IT security outsourcing. Although this research is an initial attempt at analyzing this topic, it represents an interesting
+avenue for further studies in the expansion of other phases of the SDLC of outsourcing projects.
+Zulkarnaen Khidzir, Mohamed, and Arshad [10] focus on conducting an empirical study on the relationship between the
+difficulties and practices of information security risk management (ISRM) in ICT outsourcing. The findings of their study
+show that the ISRM process difficulties influence the ICT outsourcing practices. These findings assisted in discovering the
+influence of the strength between the difficulties and practices of the information security risk management approach in ICT
+outsourcing projects. The findings reveal that risk treatment plan implementation and risk monitoring process difficulties
+could not influence the practices of private and government agencies with respect to their ICT outsourcing project implementations. Furthermore, the findings could encourage additional research to improve process adaptability by improving
+the usability and flexibility of the processes suitable for the ICT outsourcing environment. As a result, managing information
+security risks in ICT outsourcing becomes more effective through dedicated processes designed for information security risk
+management in ICT outsourcing.
+Zhang, Borisov, and Yurcik [17] analyze the logs used for security analysis with a concern for privacy and propose
+constraints on the anonymization of security monitor logs. They believe that if the anonymization solution fulfills the
+constraints, managed security services providers (MSSPs) can efficiently detect attacks and simultaneously protect privacy.
+They propose a new architecture for outsourced security monitoring, in which anonymized logs are sent to a monitoring
+provider to protect the security and privacy of an organization. The new architecture can remove an important barrier to
+the use of MSSPs. Their studies show that our proposed architecture represents a promising approach for future security
+
+J. Moon et al. / Discrete Applied Mathematics 241 (2018) 67–77
+
+69
+
+monitoring. Therefore, they define three areas of future research, explore different types of attacks and analyses different
+types of logs, and correlate logs across multiple organizations. They believe that such research will assist in deploying
+outsourced MSSPs that become both more widespread and more effective.
+Kandias, Mylonas, Theoharidou, and Gritzalis [6] attempt to mitigate the ICT outsourcing problem by applying an auctioning scheme. By adopting the scheme, the involved organization selects one or more potential outsourced service
+providers through an auction similar to the FCC spectrum auctions. The ultimate goal is to achieve upgraded security while
+keeping costs at a reasonable level and meeting adequate security requirements. The authors present a model for more
+security-aware project allocation in outsourcing environments and show its applicability using a case study. The model
+decides on the best provider and offers the maximum possible security outcome. In this direction, their model provokes competition and motivates providers to place superior bids, in terms of security, while providing flexibility to the
+organization.
+Khidzir, Mohamed, and Arshad [11] discuss the determination of information security risk factors consisting of threats
+and vulnerabilities, and consider their criticalness in Malaysian ICT outsourcing projects. The findings of the research show
+that the most critical threats are system errors and ICT failures, and that the most critical vulnerability is insufficient
+attention to the human factors in system design and implementation. Meanwhile, the critical risk factors related to information security vulnerability provide insufficient attention to the human factors in system design and ICT implementation. Furthermore, these findings could assist ICT security professionals in strategically preparing an appropriate mitigation
+plan for their ICT outsourcing project and, thus, enable organizations to gain optimal benefit from their ICT outsourcing
+activities.
+Ying [16] notes that risk matrix methods are used to assess the information security risks of IT services outsourcing. By
+constructing an expert two-dimensional matrix and using Borda sequencing and the AHP analytic hierarchy process method,
+the qualitative process is quantified and the objectivity of the assessment is further enhanced. The assessment result is in
+accordance with the company’s actual IT service outsourcing information security situation. Therefore, the company should
+pay attention to the following aspect of work in subsequent work performance to strengthen information safety control
+measures, to formulate risk transfer plans, and to improve IT service outsourcing’s information security index. This theory
+and case demonstrate that the matrix analysis method, which is based on an asset-threat and vulnerability assessment
+index, is a simple and flexible information security risk assessment method. This method is feasible for use in assessing the
+information security risk related to IT service outsourcing.
+Endorf [2] discusses the need for outsourcing security, determining the risks, choosing a provider, and managing the
+process. The premise is that an organization can successfully use outsourcing as a tool to save money by allowing outside
+providers to perform non-core competencies. They state that what should be outsourced can be decided through a risk
+analysis to identify the threats that one’s organization faces and should mitigate against. Then, using outsourcing analysis,
+what is best to outsource to another service provider is determined. Many services can be outsourced and, once determined,
+one needs to select the provider that meets the criteria and manage the process using industry best practices: general
+explanation of outsourcing security.
+Wei, OIConneU, and Loho-Noya [15] aim to discover information security risk factors and provide safeguards for
+IT offshore outsourcing. Specifically, first, information security risks and safeguards are identified during IT offshore
+outsourcing on the basis of the literature review and interviews with subject matter experts. An IT offshore outsourcing
+process (ITOOP) model was developed to logically link these information security risks on the basis of a flow and task analysis
+in the client and vendor environments. This paper provides a brief but comprehensive outline of the flows involved in making
+offshoring decisions and identifies common risks applicable to the process—and when they occur. Moreover, the paper
+attempts to minimize information security issues by developing a table that shows all of the efficient and effective safeguards
+to data security threats. Their research describes 18 technical, data, and human safeguards that assist in strengthening
+information security in global IT outsourcing. This paper shows that human safeguards are the most appropriate response
+to all types of information security threats, identified security risk factors, and developed safeguards for IT offshoring in
+general.
+Peak, Windsor, and Conover [13] address outsourcing risk issues with a securities market assessment of outsourcing. The
+paper examines the effect of outsourcing announcements on firm value and firm risk using empirical data. The findings of
+this research are as follows. Large-company IS/IT outsourcing has a value-neutral but risk-changing effect on the firm, as
+measured by the initial reactions of company stocks and listed options. Market reactions observed in the stock-return series
+indicated few statistically significant abnormal effects on firm value on the day of the outsourcing announcement. This result
+is somewhat surprising because previous sale-and-leaseback studies show predominantly positive effects and because IS
+research also finds positive effects. In the stock-option risk portion of the event study, this research examines the market
+assessment of outsourcing on a principal indicator of firm risk: extracted ISDs from firm stock options. Many subsamples
+show significant increases in average ISDs and, more importantly, no samples show significant decreases in average ISDs.
+Karyda, Mitrou, and Quirchmayr [8] seek to provide an overview of the major technical, organizational, and legal issues
+pertaining to the outsourcing of IS/IT security services. They state that, because of its particular organizational, legal, and
+technical aspects, security outsourcing should be treated differently from traditional IS/IT outsourcing. Organizations’ management needs to consider a multitude of factors before engaging in a security outsourcing arrangement. Organizations
+need to account for not only technical but also organizational and legal issues when formulating their strategy with regard
+to IS/IT security outsourcing.
+
+70
+
+J. Moon et al. / Discrete Applied Mathematics 241 (2018) 67–77
+
+Fig. 1. Analysis of ICT outsourcing process specific activities.
+
+3. ICT outsourcing security level measurement model design
+3.1. ICT outsourcing process design
+To measure the security level of ICT outsourcing, a clear distinction of the implementation steps of ICT outsourcing is
+needed. Accordingly, previous studies were reviewed as references for reconfiguration on the basis of temporal–spatial
+cutoff points. The ICT outsourcing process was divided into four steps: 1. Internal Status Analysis and Bidding & Contract; 2.
+Task Preparation; 3. Service Development; and 4. System Operational Management. Fig. 1 illustrates the specific activities
+of each process.
+Step 1 is for analyzing internal status of organization, and giving public notice of a bid by establishing schedules before &
+after implementing ICT outsourcing project, and finalizing contract with final bid winner after evaluating proposals. In specific, ‘1.1 Internal analysis & scheduling’ is for analyzing organization’s status and assets needed to implement outsourcing
+project such as organization’s ICT resource status and internal structure, and scheduling specific schedules from outsourcing project contracting period and development start period to completion and system application periods. ‘1.2 Bid notice’
+is for preparing request for proposal as an indication of will to publicly notify the content of task, and preparing proposal
+guidelines including the proposal standard, table of contents, preparation instruction and evaluation criteria for fairness and
+convenience of evaluation to notify bid. ‘1.3 Proposal evaluation’ is for organizing proposal evaluation committee consisting
+of inside and outside experts of organization to classify outsourcing company’s proposal into technical, price and security
+evaluations to evaluate proposal based on objective criteria. ‘1.4 Contract’ is for preparing task order indicating the requirement of tasks in outsourcing project contract upon selecting priority negotiation partner based on proposal evaluation, and
+contracting contents determined during negotiation in documents.
+Step 2 is for selecting personnel that will participate in ICT outsourcing project, and configuration work environment by
+bringing in equipment needed for project, and establishing management plan needed when implementing ICT outsourcing
+task, and sharing specific contents of proposal with personnel participating in the project. In specific, ‘2.1 Confirmation
+of work environment’ is for composing internal task implementation team, and configuring suitable work environment
+by bringing in equipment (PC, network tools, etc.) that will be used by outsourcing company staff. ‘2.2 Management plan
+development and proposed content sharing’ is for establishing management plan (report system, performance index plan,
+risk response plan, etc.) needed to implement the project, and sharing the contents of proposal prepared based on the goal
+and scope of ICT outsourcing project with personnel participating in the project.
+Step 3 is for developing/establishing system, analyzing its performance, coordinating specifics, providing education
+for service and measuring performance through trial operation before implementing service. In specific, ‘3.1 System development’, as a step of developing ICT system by personnel participating in outsourcing project, is for periodically and
+non-periodically conducting inspection and audit of the implementation progress by outsourcing company during the system development, and preparing completion report after completing the system development. ‘3.2 System performance
+analysis & modification’ is for installing system according to the installation plan of developed system, and performing trial
+operation, and analyzing the system based on checklist, and deducing modification items to apply the modification and
+supplementation items discussed with outsourcing company to the system. ‘3.3 Service development’ is for providing user
+education regarding the system according to system education plan, and measuring education outcome through test/survey
+research, and implementing service.
+
+J. Moon et al. / Discrete Applied Mathematics 241 (2018) 67–77
+
+71
+
+Table 1
+Summary of ICT outsourcing security vulnerability.
+Classification Code Vulnerability item
+
+Managerial
+
+M1
+M2
+M3
+M4
+M5
+M6
+M7
+M8
+M9
+
+No security personnel or handling by outsourcing project personnel
+Security-related items are lacking or absent during outsourcing project contracting
+No background checking of personnel participating in ICT outsourcing
+Lack of security consciousness and awareness by personnel participating in ICT outsourcing
+Personnel participating in ICT outsourcing can access or view important information on the internal system without permission
+Lack of collection of information protection-related documents (for example, security oaths, nondisclosure agreements)
+Lack of management of internal data used for outsourcing projects
+Personnel participating in ICT outsourcing can access the internal system after contract expiration
+Personnel participating in ICT outsourcing can enter company facilities after contract expiration
+
+Technical
+
+T1
+T2
+T3
+T4
+T5
+T6
+T7
+T8
+T9
+T10
+T11
+
+Lack of network partitioning, server partitioning
+Lack of security inspection of equipment brought in and taken out
+Terminals such as a PC can be used by unauthorized personnel
+Terminals such as a PC are infected with viruses and malware
+Unauthorized personnel can access output storage folders
+Unauthorized portable storage and smart devices may be used inside company facilities
+Internet and terminals (M2M) may be accessed using wireless API inside company facilities
+Internal and development systems may be remotely accessed from outside
+System cannot be recovered when system failure occurs
+Lack of recognition of symptoms of system abnormality (unusual items and failures)
+Failure to perform corrective action for system errors and failures
+
+Physical
+
+P1
+P2
+
+Lack of establishment of restricted area and lack of controlling device for restricted area
+Personnel participating in ICT outsourcing can enter internal restricted area without permission
+
+Step 4 is for operating the system through system monitoring and management of update, and performing quick system
+failure response and management. In specific, ‘4.1 System operation & maintenance’ is for detecting external attack against
+system, system failure and leakage of important internal information through ongoing system monitoring, and periodically
+updating the system to respond to vulnerabilities such as malware and virus. ‘4.2 System failure response’ is for classifying
+system failure that occurred according to prepared manual, and deducing solution to quickly report and handle failure, and
+preparing detailed reports of cause and result of system failure occurrence to manage and store them, and reflecting them
+to system and manual.
+3.2. ICT outsourcing security vulnerability and countermeasure deduction
+The security vulnerabilities of ICT outsourcing deduced from previous studies were divided into ICT outsourcing process
+and control item units. First, the security vulnerabilities of ICT outsourcing deduced from previous studies were analyzed. In
+addition, these deduced security vulnerabilities were divided into managerial, technical, and physical elements on the basis
+of expert consultation for deductions, as shown in Table 1.
+In addition, 34 countermeasures were deduced to solve ICT outsourcing security vulnerabilities on the basis of the
+security control items of ISO 27001 and the information security management system (ISMS) utilized in a form suitable
+for inspecting security management status, and they were linked with vulnerabilities (see Fig. 2).
+3.3. ICT outsourcing security vulnerability and security countermeasure validity analysis
+To analyze ICT outsourcing security vulnerabilities and the validity of security countermeasures (see Table 2),
+survey research was conducted with 50 security experts working at public institutions, schools, and private companies.
+Conventionally, the probability of a security accident occurring multiplied by seriousness is displayed in numbers to measure
+the size of the risk [15,8]. To measure the size of the security vulnerability risk of ICT outsourcing, the probability of a
+security accident occurring because of a lack of security countermeasures against the corresponding security vulnerability
+and the degree of seriousness of the security accident that occurred were examined by security experts. For the research,
+Likert’s five-point scale was used, with 5 being the highest or most desirable and 1 being the lowest or most undesirable.
+Respective five-point scale values for each item researched were calculated by converting them as follows: [5, 4, 3, 2, 1 :
+1, 0.75, 0.5, 0.25, 0]. Table 3 shows the probability and seriousness of security vulnerability occurrences for quantification
+purposes. The degree of risk was calculated by multiplying the conventional measurement method occurrence probability
+by seriousness.
+The validity of the probability of occurrence, the seriousness of the security vulnerability of ICT outsourcing, and the
+connection between each security vulnerability and the accorded security countermeasure were examined. This study also
+analyzed the reliability of the probability of occurrence and the seriousness of the security vulnerability of ICT outsourcing,
+and the corresponding security countermeasures. The result of analyzing the reliability of the survey questions on security
+vulnerabilities showed that the Cronbach’s alpha coefficient was found to be higher than 0.6 for every item, indicating that
+all of the items are reliable. The result of analyzing the validity showed that no item had a response value lower than 3.0
+
+72
+
+J. Moon et al. / Discrete Applied Mathematics 241 (2018) 67–77
+
+Table 2
+Security countermeasures.
+Code
+
+Security countermeasures
+
+C1
+C2
+C3
+C4
+C5
+C6
+C7
+C8
+C9
+C10
+C11
+C12
+C13
+C14
+C15
+C16
+C17
+C18
+C19
+C20
+C21
+C22
+C23
+C24
+C25
+C26
+C27
+C28
+C29
+C30
+C31
+
+Separate security personnel and outsourcing personnel.
+Compose and operate information protection organization.
+Specify contract security items (for example, confidentiality and violation penalty).
+Every document related to outsourcing shall be signed by security personnel after checking.
+Perform background check (for example, career and security accident history) of personnel participating in outsourcing project.
+Periodically conduct information protection education for internal staff and personnel participating in outsourcing projects.
+Collect security oath and nondisclosure agreements from outsourcing personnel.
+Store and manage files that include important company information through encryption.
+Outsourcing personnel shall not be given excessive rights (for example, administrator and root account) to internal systems.
+Manage internal data used for outsourcing by creating a list.
+Security personnel manage equipment brought into and taken out of company facilities by creating a list after checking them.
+Internal system accounts of outsourcing personnel are managed by combining them into one group.
+Collect all data related to outsourcing after contract expiration.
+Perform physical protective actions (for example, CCTV and access logs) for restricted areas.
+Delete internal system access accounts for outsourcing personnel after contract expiration.
+Establish restricted areas to control access of unauthorized personnel.
+Collect or delete physical access rights (for example, pass and access accounts) to company facilities after contract expiration.
+Always wearing one’s pass inside company facilities is required.
+Collect security letters of commitment stating that ‘‘no data exist related to outsourcing’’ after contract expiration.
+Separate and operate internal servicer and development server used for ICT outsourcing (server partitioning).
+Establish operational procedures (manual) for internal system operation and infiltration accident response manual.
+Perform corrective actions (modification, supplementation) after identifying the cause of system errors and failures.
+Separate and operate Internet network and internal network (network partitioning).
+Perform security test (for example, vaccine test and complete deletion after takeout) for equipment brought in and taken out.
+Prevent unauthorized portable storage and smart devices from being brought into company facilities.
+Setup security (for example, vaccines and account and screen saver settings) for terminals such as PCs.
+Install locking device for terminals such as PCs to prevent unauthorized replacement and theft.
+Restrict establishment and use of wireless network inside company facilities.
+Manage output storage folder and server through encryption.
+Install portable storage device agents to only allow authorized portable storage devices to be used.
+Prohibit remote tasks from being implemented from outside (if needed, perform task after obtaining permission by security
+personnel).
+Periodically perform backups of the internal system.
+Create a list to manage passes issued to personnel participating in ICT outsourcing who are required to report the reason and
+details of any loss of a pass immediately after such loss.
+
+C32
+C33
+
+Table 3
+Security vulnerability analysis result.
+Vulnerability
+code
+
+Occurrence
+probability
+
+Seriousness
+
+Degree of
+risk
+
+Vulnerability
+code
+
+Occurrence
+probability
+
+Seriousness
+
+Degree of risk
+
+M1
+M2
+M3
+M4
+M5
+M6
+M7
+M8
+M9
+T1
+T2
+
+0.717
+0.743
+0.750
+0.796
+0.862
+0.526
+0.632
+0.862
+0.803
+0.691
+0.757
+
+0.750
+0.757
+0.750
+0.737
+0.842
+0.664
+0.638
+0.849
+0.750
+0.697
+0.776
+
+0.538
+0.562
+0.563
+0.587
+0.726
+0.350
+0.403
+0.731
+0.602
+0.482
+0.587
+
+T3
+T4
+T5
+T6
+T7
+T8
+T9
+T10
+T11
+P1
+P2
+
+0.737
+0.783
+0.803
+0.717
+0.717
+0.796
+0.671
+0.730
+0.757
+0.711
+0.757
+
+0.704
+0.743
+0.809
+0.717
+0.671
+0.816
+0.776
+0.763
+0.770
+0.776
+0.796
+
+0.519
+0.582
+0.649
+0.514
+0.481
+0.649
+0.521
+0.557
+0.582
+0.552
+0.602
+
+on the validity of security vulnerabilities and security countermeasures. Because the response value of validity is higher
+than 3.0, the connection between the corresponding security vulnerabilities and security countermeasures was found to be
+valid [15]. Table 4 shows the result of the analysis of the validity of security vulnerabilities and security countermeasures.
+3.4. Development of ICT outsourcing security level quantification model
+On the basis of the vulnerabilities deduced to measure the security level of ICT outsourcing, a checklist was used to inspect
+whether the security countermeasures have been implemented or will be designed.
+The central focus of this study is to deduce diagnostic indexes to quantify the security level of ICT outsourcing, followed
+by ensuring the reliability of scores (security level) calculated using the deduced diagnostic indexes. Accordingly, weighted
+values were used to discriminatively apply the security countermeasure scores depending on the degree of the risk of the
+security vulnerabilities in each security area. The current data make it difficult to deduce and reflect on quantitative data,
+such as statistical data, to determine the importance of security countermeasures for each security area. Accordingly, a
+
+J. Moon et al. / Discrete Applied Mathematics 241 (2018) 67–77
+
+73
+
+Fig. 2. ICT Outsourcing Security Vulnerability and Security Countermeasure Connection.
+
+Table 4
+Security vulnerability and security countermeasure reliability & validity analysis.
+Vulnerability
+code
+
+Cronbach’s
+Alpha
+
+M1
+
+0.794
+
+M2
+
+0.838
+
+M3
+
+0.880
+
+M4
+
+0.834
+
+M5
+
+0.852
+
+M6
+
+0.692
+
+M7
+
+0.799
+
+M8
+
+0.753
+
+M9
+
+0.845
+
+T1
+
+0.879
+
+T2
+
+0.820
+
+Security
+Countermeasures
+code
+
+Validity
+
+C1
+C2
+
+3.89
+4.26
+
+C3
+C4
+C5
+
+4.21
+3.92
+3.97
+
+C6
+C7
+C8
+C9
+C7
+C19
+
+3.95
+4.11
+4.37
+4.34
+4.03
+4.08
+
+C8
+C10
+C13
+C12
+C14
+C14
+C15
+C20
+C23
+
+3.92
+4.21
+3.74
+3.66
+4.58
+4.21
+3.97
+4.13
+4.08
+
+C11
+C24
+C25
+
+4.05
+3.71
+3.84
+
+Vulnerability
+code
+
+Cronbach’s
+Alpha
+
+T3
+
+0.857
+
+T4
+
+0.816
+
+T5
+
+0.874
+
+T6
+
+0.846
+
+T7
+
+0.847
+
+T8
+
+0.841
+
+T9
+
+0.774
+
+T10
+
+0.856
+
+T11
+
+0.816
+
+P1
+
+0.866
+
+P2
+
+0.870
+
+Security
+Countermeasures
+code
+
+Validity
+
+C26
+C27
+
+4.03
+3.82
+
+C26
+C8
+C29
+
+4.11
+4.13
+4.21
+
+C25
+C11
+C30
+C25
+C28
+C31
+
+3.95
+3.87
+3.79
+4.16
+4.00
+4.13
+
+C21
+C32
+C6
+C21
+C21
+C22
+C14
+C16
+C33
+
+4.11
+4.37
+4.05
+4.00
+4.21
+4.18
+4.11
+4.13
+3.74
+
+C14
+C16
+C18
+
+4.18
+4.11
+4.16
+
+simple additive weighting method was used in this study on the basis of the degree of risk of security vulnerabilities deduced
+through survey research to assign weighted values to security countermeasures according to each security area.
+
+74
+
+J. Moon et al. / Discrete Applied Mathematics 241 (2018) 67–77
+
+A simple additive weighting method is used to examine the relative weighted values of each rated score by aggregating
+the scores of evaluation standards and allowing the sum of the relative weighted values to become 1 for normalization. The
+term normalization refers to dividing into scales in math or physics to convert into a unit. For n number of elements, the set
+of weighted values is indicated in vector form, as follows [8].
+
+(W T W1 , . . . , Wj , . . . , Wn ),
+
+n
+
+
+Wj = 1.
+
+j=1
+
+In the simple additive weighting method, weighted values are calculated as follows. Xij is the estimation in a comparable
+scale in which alternative i is indicated as a notation in element j [8].
+n
+
+
+Wj Xij |
+
+j =1
+
+n
+
+
+Wj .
+
+j =1
+
+For example, statistical research was used to reveal that a particular database in a computer system of a computer
+network in a certain region is attacked by a hacker. The following is an example of an information technology expert’s
+evaluation of a particular database from the aspects of availability, integrity, and confidentiality as the information security
+requirements in this region. Because the weighted value is larger than 0 and smaller than 1, it can be quantified through the
+weighted mean of {M (0.5) + L(1.0) + M (0.5)}/3 = 0.67 [8].
+A simple additive weighting method was used in this study that applied a degree of risk measured through a survey to
+calculate the weighted values of security countermeasures according to security vulnerabilities. In addition, weighted values
+were multiplied by 100 to create a perfect score of 100 for the security level of the ICT outsourcing security level evaluation
+model. Weighted scores provided according to the degree of security vulnerability risk were divided by the number of
+security countermeasures corresponding to the security vulnerabilities to result in the same value according to the security
+countermeasures.
+When the set corresponding to the degree of risk of security vulnerabilities is {a, b, c . . . m} and the degree of risk of
+security vulnerability UA is a, the weighted score of UA considering the relative weights as follows.
+UA =
+
+  
+m
+
+a
+
+× 100.
+
+a
+
+Such a weighted score was divided by the number of security countermeasures of security vulnerability UA to allow each
+security countermeasure to have the same percentage of the weighted score.
+Accordingly, the design allowed users to aggregate the checked item scores from the security countermeasures checklist
+to ultimately calculate the ICT outsourcing security score using a perfect score of 100 for quantification purposes. However,
+the same security countermeasures for different security vulnerabilities were quantified as the aggregated score of each
+weighted score after considering them important security countermeasures to manage various security vulnerabilities.
+Accordingly, important security countermeasures were designed to have high weighted scores.
+The security level inspection item of ICT outsourcing was primarily linked with a response plan according to the
+characteristics of the inspection item to enable division into the ‘‘managerial area’’, the ‘‘technical area’’, and the ‘‘physical
+area’’.
+The security level evaluation indexes of ICT outsourcing are divided into inspection item, checklist form answer to verify
+the implementation status of the corresponding inspection item, and the score of the corresponding inspection item. The
+inspection items are composed into the form of a checklist because checklists composed of questions on the implementation
+status of security countermeasures can also allow for security countermeasures to be presented [8]. Accordingly, inspection
+items allow security personnel to understand the security countermeasures of ICT outsourcing, whereas companies can
+understand the currently lacking security countermeasures. Table 5 shows the quantification model of the ICT outsourcing
+security level designed in this study by applying the weighted scores of ICT outsourcing security countermeasures.
+4. Empirical analysis of ICT outsourcing security level quantification model
+For the purpose of examining the accuracy of the quantification model for the security level of ICT outsourcing designed
+in this study, it was decided to apply it to actual companies. Comparison target to be compared with corresponding model
+is needed to verify the validity of the model but there is currently no study on a model for quantifying the security level of
+ICT outsourcing. Accordingly, the model designed in this study was applied to actual companies to deduce results.
+4.1. Measurement of ICT outsourcing security level of Company A in tourism business
+Company A is a small business involved in the tourism business and performed ICT outsourcing earlier this year to manage
+internal company data and customer data. Its development was completed two months ago and the contract expired. The
+quantification model for the ICT outsourcing security level was applied to Company A. The result of the model applied
+
+J. Moon et al. / Discrete Applied Mathematics 241 (2018) 67–77
+
+75
+
+Table 5
+ICT outsourcing security level quantification model.
+Area
+
+Managerial area
+
+Security Countermeasures
+code
+
+Inspection
+item code
+
+Inspection item
+
+Score
+
+C1
+
+CM1
+
+2.2
+
+C2
+
+CM2
+
+C3
+
+CM3
+
+C4
+
+CM4
+
+C5
+
+CM5
+
+C6
+
+CM6
+
+C7
+
+CM7
+
+C10
+C11
+
+CM8
+CM9
+
+C13
+
+CM10
+
+C19
+
+CM11
+
+C21
+
+CM12
+
+C33
+
+CM13
+
+Are the targets being managed by separating security personnel and
+outsourcing personnel?
+Is there an organization currently operating that is in charge of
+information protection?
+Does the outsourcing contract specify contents in nondisclosure
+agreements and violation penalties?
+Is every document related to outsourcing signed by security
+personnel after its review?
+Is a background check of every outsourcing staff being performed,
+including professional career and security accident history?
+Is security education being periodically provided for outsourcing
+personnel?
+Are security oaths and nondisclosure agreements being collected
+from outsourcing personnel?
+Are internal data used for outsourcing being managed as a list?
+Are the equipment and instruments brought in and taken out being
+managed by security personnel through a list at checking?
+Are all data related to outsourcing being collected at contract
+expiration?
+Is the security letter of commitment stating, ‘‘no data related to
+outsourcing’’ being collected after contract expiration?
+Are operational procedures (manual) for internal system operation
+and an infiltration accident response manual being established?
+Are the passes issued to outsourcing personnel being managed as a
+list? If a pass has been lost, are outsourcing personnel required to
+immediately report the reason and details of the loss?
+
+C8
+
+CT1
+
+6.5
+
+C9
+
+CT2
+
+C12
+
+CT3
+
+C15
+
+CT4
+
+C20
+
+CT5
+
+C22
+
+CT6
+
+C23
+
+CT7
+
+C24
+
+CT8
+
+C25
+
+CT9
+
+C26
+
+CT10
+
+C28
+
+CT11
+
+C29
+
+CT12
+
+C30
+
+CT13
+
+C31
+C32
+
+CT14
+CT15
+
+Are files that include important internal information being stored and
+managed through encryption?
+Are outsourcing personnel given excessive rights to the internal
+system?
+Are internal system accounts of outsourcing personnel being
+managed by combining them into one group?
+Are the internal system access accounts of outsourcing personnel
+deleted on contract expiration?
+Are the internal server and the development server used for ICT
+outsourcing being operated by separating them?
+Are corrective actions for system errors and failures being performed
+after identifying their cause?
+Are the Internet network and the internal network being operated by
+separating them?
+Is a security inspection being performed for equipment and are tools
+being brought in and taken out?
+Are unauthorized portable storage devices and smart devices being
+prohibited from being brought into the company’s facilities?
+Is a security setting (vaccines, account, and screensaver settings)
+being performed for terminals such as PCs?
+Are wireless networks’ establishment and use being restricted inside
+company facilities?
+Are output storage folders and servers being managed through
+encryption?
+Are portable storage device agents being installed and managed to
+only allow authorized portable storage devices?
+Are remote tasks performed from outside being prohibited?
+Is an internal system backup being periodically performed?
+
+C14
+
+CP1
+
+5.5
+
+C16
+
+CP2
+
+C17
+
+CP3
+
+C18
+C27
+
+CP4
+CP5
+
+Are physical protective actions (for example, CCTV and access logs)
+being performed in restricted areas?
+Is the access of unauthorized personnel being restricted by
+establishing restricted areas?
+Is the right of physical access to company facilities withdrawn or
+deleted on contract expiration?
+Is wearing an access pass required at all times?
+Is a locking device being installed to prevent unauthorized
+replacement and theft of terminals such as PCs?
+
+Technical area
+
+Physical area
+
+2.2
+2.3
+2.3
+4.6
+4.7
+4.0
+1.2
+2.3
+1.2
+1.6
+6.8
+1.5
+
+2.8
+2.8
+2.8
+2.0
+2.3
+2.0
+2.3
+5.0
+6.8
+2.0
+2.5
+1.4
+5.0
+2.2
+
+3.1
+2.4
+1.6
+2.1
+
+showed that the contents of the inspection item were excluded. Table 6 shows the result of measuring Company A’s security
+level using the quantification model of ICT outsourcing security level designed in this study.
+
+76
+
+J. Moon et al. / Discrete Applied Mathematics 241 (2018) 67–77
+
+Table 6
+Result of ICT outsourcing security level measurement of Company A.
+Area
+
+Managerial area
+
+Technical area
+
+Inspection item code
+
+Score
+
+CM1
+CM2
+CM3
+CM4
+CM5
+CM6
+CM7
+CM8
+CM9
+CM10
+CM11
+CM12
+CM13
+CT1
+CT2
+CT3
+CT4
+
+0.0
+0.0
+2.3
+2.3
+0.0
+0.0
+4.0
+1.2
+2.3
+1.2
+1.6
+6.8
+1.5
+6.5
+2.8
+0.0
+0.0
+
+Area
+
+Technical area
+
+Physical area
+
+Inspection item code
+
+Score
+
+CT5
+CT6
+CT7
+CT8
+CT9
+CT10
+CT11
+CT12
+CT13
+CT14
+CT15
+CP1
+CP2
+CP3
+CP4
+
+2.0
+0.0
+0.0
+0.0
+5.0
+6.8
+2.0
+2.5
+0.0
+0.0
+2.2
+5.5
+3.1
+2.4
+1.6
+
+CP5
+
+2.1
+
+Inspection item code
+
+Score
+
+CT5
+CT6
+CT7
+CT8
+CT9
+CT10
+CT11
+CT12
+CT13
+CT14
+CT15
+CP1
+CP2
+CP3
+CP4
+
+2.0
+2.3
+2.0
+0.0
+5.0
+6.8
+2.0
+2.5
+1.4
+5.0
+2.2
+5.5
+3.1
+2.4
+1.6
+
+CP5
+
+2.1
+
+Total score = 67.7
+
+Table 7
+Result of ICT outsourcing security level measurement of Company B.
+Area
+
+Managerial area
+
+Technical area
+
+Inspection item code
+
+Score
+
+CM1
+CM2
+CM3
+CM4
+CM5
+CM6
+CM7
+CM8
+CM9
+CM10
+CM11
+CM12
+CM13
+CT1
+CT2
+CT3
+CT4
+
+2.2
+2.2
+2.3
+2.3
+0.0
+4.7
+4.0
+1.2
+2.3
+1.2
+1.6
+6.8
+1.5
+6.5
+2.8
+0.0
+2.8
+
+Area
+
+Technical area
+
+Physical area
+
+Total score = 90.3
+
+The result of applying the security level model showed that Company A with 67.7 points was found to be ‘‘vulnerable’’ in
+security. Because Company A is small, no security personnel and organization in charge of security existed. In addition, the
+company lacked system/network security and equipment/smart device security. In addition, it lacked security management
+of an access/restricted area given the lack of a restricted area inside the company’s facilities. The score section of the security
+level evaluation result showed that it was at ‘‘the level of partially responding to security risk but needing an overall
+improvement because it is responding randomly without a clear standard’’.
+4.2. Measurement of ICT outsourcing security level of Company B in wholesale mart & sales promotion business
+Company B is a company involved in the business of dispatching human resources for wholesale market and sales
+promotions. In 2013, the company implemented ICT outsourcing for its human resource management and wage payment
+program for effective management of human resources. The quantification model for ICT outsourcing security level was
+applied to Company B. In the result of model applied, contents on inspection item were excluded. The result of measuring
+the security level of Company B using the quantification model of ICT outsourcing security level designed in this study is as
+shown in Table 7.
+The result of applying the security level model showed that Company B with 90.3 points was found to be ‘satisfactory’ in
+security. Although it is a small size company but with more employees compared to Company A, it had security personnel
+and a small organization in charge of security. Its security was overall effective but lack security in the area of background
+check of personnel participating in ICT outsourcing and equipment being brought in & out. Based on the score section of
+security level evaluation result, it was found to be at ‘the level of measuring and managing security risk and being able to
+plan and continuously implement security countermeasures but requiring partial improvement’.
+
+J. Moon et al. / Discrete Applied Mathematics 241 (2018) 67–77
+
+77
+
+5. Conclusion
+The ICT outsourcing market is becoming larger every year as a result of the increasing number of companies that utilize
+ICT outsourcing as the industry’s scale increases and industrial specialization intensifies. However, the current circumstance
+is that security accidents related to ICT outsourcing are continuously occurring at an increasing scale. Studies are lacking on
+measuring the level of organizational ICT outsourcing security management, which is the first step in performing security
+management of ICT outsourcing. In addition, most studies are on general organizational security management. Accordingly,
+this paper designed a model to measure the level of the security management of companies utilizing ICT outsourcing and
+verified its applicability through empirical analysis. A summary of the results of this study is as follows.
+
+• The concept and process of ICT outsourcing were summarized. In addition, security vulnerabilities were deduced on the
+basis of the ICT outsourcing process for mapping with security countermeasures.
+
+• The validity of security countermeasures and the ICT outsourcing security vulnerabilities mapped were examined, and
+the degree of the risk of security vulnerability was measured. Based on the degree of risk of the security vulnerabilities
+deduced, a simple additive weighting method was used to calculate the weighted scores of security vulnerabilities.
+Therefore, a quantification model was designed to measure the ICT outsourcing security level consisting of 33 inspection
+items in six evaluation areas.
+• Using the designed model, empirical analysis was conducted through two companies, and the security vulnerabilities of
+two companies were deduced on the basis of the areas of improvement that were analyzed.
+The implication of this study is that a quantified model was designed to evaluate the security level of ICT outsourcing.
+Moreover, a method to evaluate the security level of ICT outsourcing was developed to allow companies to evaluate their
+own security levels. Using the model and evaluation method to evaluate the security level of ICT outsourcing, companies
+are expected to evaluate the security level of each inspection item and use them as a security countermeasure method.
+Therefore, for companies using or planning to use ICT outsourcing to prevent security accidents or that lack industrial
+confidentiality and important information to evaluate their security level, this study will assist them in using ICT outsourcing
+as a security management countermeasure to improve their security levels.
+As for future study, a model considering the business characteristics such as type of business and scale will be developed
+since ICT outsourcing is implemented in different ways according to the characteristics of industry. In addition, its
+applicability will be verified by applying it to multiple companies instead of a pilot type empirical analysis.
+Acknowledgments
+This work was supported by the Human Resources Development (No. 20154030200860) of the Korea Institute of Energy
+Technology Evaluation and Planning (KETEP) Grant funded by the Korea Government Ministry of Trade, Industry and Energy.
+This research was supported by the MSIP (Ministry of Science, ICT and Future Planning), Korea, under the CPRC
+(Communication Policy Research Center) Support Program (R0880-15-1007) supervised by the IITP (Institute for
+Information & Communication Technology Promotion).
+References
+[1] BS ISO/IEC 27001:2005. 2005. British Standard Institute.
+[2] Carl Endorf, Outsourcing security: The need, the risks, the providers, and the process, Inf. Syst. Secur. 12 (6) (2004) 17–23.
+[3] Kevin W. Hamlen, Bhavani Thuraisingham, Data security services, solutions and standards for outsourcing, Comput. Stand. Interfaces 35 (1) (2013)
+1–5.
+[4] Information security considerations in IS/IT outsourcing projects: a descriptive case study of two sectors, Int. J. Inf. Manage. 24 (1) (2004) 29–42.
+[5] ISO/IEC TR 13335-1. 1996. Guidelines for the management of IT security—Part 1: Concepts and models of IT security.
+[6] M. Kandias, A. Mylonas, M. Theoharidou, D. Gritzalis, Exploitation of auctions for outsourcing security-critical projects, in: Computers and
+Communications, ISCC, 2011, pp. 646–651.
+[7] Y. Karabulut, F. Kerschbaum, F. Massacci, P. Robinson, A. Yautsiukhin, Security and trust in IT business outsourcing: a manifesto, Electron. Notes Theor.
+Comput. Sci. 179 (2007) 47–58.
+[8] Maria Karyda, Evangelia Mitrou, Gerald Quirchmayr, A framework for outsourcing IS/IT security services, Inf. Manage. Comput. Secur. 14 (5) (1993)
+403–416.
+[9] Nik Zulkarnaen Khidzir, J. Ind. Intell. Inf. 1 (4) (2013).
+[10] N.Z. Khidzir, A. Mohamed, N.H.H. Arshad, Information security risk management: An empirical study on the difficulties and practices in ICT
+outsourcing, in: Network Applications Protocols and Services, NETAPPS, 2010, pp. 234–239.
+[11] N.Z. Khidzir, A. Mohamed, N.H. Arshad, Information security risk factors: Critical threats vulnerabilities in ICT outsourcing, in: Information Retrieval
+& Knowledge Management, CAMP, 2010, pp. 194–199.
+[12] S. Oladapo, P. Zavarsky, R. Ruhl, D. Lindskog, A. Igonor, Managing risk of IT security outsourcing in the decision-making stage, Comput. Sci. Eng. 3
+(2009) 456–461.
+[13] Daniel A. Peak, John C. Windsor, James Conover, Risks and effects of IS/IT outsourcing: A securities market assessment, J. Inf. Technol. Case Appl. Res.
+4 (1) (2002) 6–33.
+[14] John Sherwood, Managing security for outsourcing contracts, Comput. Secur. 16 (7) (1997).
+[15] June Wei, Jason OIConneU, Meiga Loho-Noya, Information technology offshore outsourcing security risks and safeguards, J. Inf. Priv. Secur. 6 (3) (2010)
+29–46.
+[16] Cheng Ying, Information security risk assessment model of IT outsourcing managed service, in: Management of e-Commerce and e-Government,
+ICMeCG, 2012, pp. 116–121.
+[17] Jianqing Zhang, N. Borisov, W. Yurcik, Outsourcing security analysis with anonymized logs, in: Securecomm and Workshops, 2006, pp. 1–9.
+
+
